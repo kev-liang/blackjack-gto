@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 console.log('process', process.env);
-let port = process.env.NODE_ENV === 'development' ? 3000 : process.env.PORT;
+
+let port = process.env.NODE_ENV === 'development' ? 5000 : process.env.PORT;
 
 const app = express();
 
