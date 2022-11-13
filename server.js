@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cardController = require('./controller/CardController');
 
 console.log('process', process.env);
 
@@ -16,6 +17,8 @@ app.use(cors());
 app.get('/', (req, res) => {
 	res.send('sup');
 });
+
+cardController(app);
 
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
