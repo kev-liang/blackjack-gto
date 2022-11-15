@@ -1,0 +1,15 @@
+.card-action-container {
+  position: absolute;
+  z-index: 100;
+  bottom: 0;
+  left: calc(50% - 21em);
+  width: 40em;
+  padding: 2%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+
+}

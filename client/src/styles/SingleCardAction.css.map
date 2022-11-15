@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,mBAAmB,CAAC;EAClB,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;EACX,gBAAgB,ECLR,OAAO;EDMf,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;EACvB,cAAc,EAAE,GAAG;CACpB",
+    "sources": [
+        "SingleCardAction.scss",
+        "_vars.scss"
+    ],
+    "names": [],
+    "file": "SingleCardAction.css"
+}
