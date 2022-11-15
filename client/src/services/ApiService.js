@@ -2,7 +2,7 @@ import axios from 'axios';
 import { updateTableAction } from '../actions/tableActions';
 import { store } from '../store';
 
-class TableService {
+class ApiService {
 	constructor() {
 		this.url =
 			process.env.NODE_ENV === 'development'
@@ -17,15 +17,21 @@ class TableService {
 
 	hit(playerId) {
 		let endpoint = `${this.url}/hit?playerId=${playerId}`;
-		this.simpleTableAction(endpoint);
+		let table = this.simpleTableAction(endpoint);
+		console.log('backend', table);
 	}
 
 	simpleTableAction(endpoint) {
 		axios
 			.get(endpoint)
 			.then(res => {
-				// handle success
-				store.dispatch(updateTableAction(res.data));
+				let table = res.data;
+				store.dispatch(updateTableAction(table));
+				if (table.playerState === 'lost') {
+					setTimeout(() => {
+						this.initTable(store.getState().table.numPlayers);
+					}, 2000);
+				}
 			})
 			.catch(e => {
 				// handle error
@@ -34,4 +40,4 @@ class TableService {
 	}
 }
 
-export default new TableService();
+export default new ApiService();

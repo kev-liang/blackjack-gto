@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React from 'react';
+import { useEffect } from 'react';
 import Card from './Card';
 import '../styles/DealerCard.scss';
 
@@ -18,7 +18,7 @@ const DealerCards = props => {
 
 const mapStateToProps = state => {
 	return {
-		shownCards: state.table?.dealer?.shownCards,
+		shownCards: state.table?.table?.dealer?.shownCards,
 	};
 };
 

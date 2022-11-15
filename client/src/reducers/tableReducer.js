@@ -1,7 +1,9 @@
 const tableReducer = (state = null, action) => {
 	switch (action.type) {
 		case 'UPDATE':
-			return action.data;
+			return { ...state, table: action.data };
+		case 'NUM_PLAYERS':
+			return { ...state, numPlayers: action.data };
 		default:
 			return state;
 	}

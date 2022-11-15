@@ -2,11 +2,11 @@ import './App.css';
 import Table from './components/Table';
 import CardActions from './components/CardActions';
 import React from 'react';
-import TableService from './services/TableService';
+import ApiService from './services/ApiService';
 
 function App() {
 	React.useEffect(() => {
-		TableService.initTable(1);
+		ApiService.initTable(1);
 	}, []);
 	return (
 		<div className='App'>
