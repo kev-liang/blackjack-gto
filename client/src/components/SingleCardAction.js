@@ -1,11 +1,12 @@
 import '../styles/SingleCardAction.scss';
-import TableService from '../services/TableService';
+import ApiService from '../services/ApiService';
 import { connect } from 'react-redux';
 import { updateTableAction } from '../actions/tableActions';
 import { bindActionCreators } from 'redux';
+import TableUtils from '../utils/TableUtils';
 
 function SingleCardAction(props) {
-	const { label, action, updateTable } = props;
+	const { label, action, playerState } = props;
 
 	const handleClick = action => {
 		// TODO handle switch case of action
@@ -42,11 +43,16 @@ function SingleCardAction(props) {
 
 	const handleHit = () => {
 		console.log('handle hit');
-		TableService.hit(0);
+		ApiService.hit(0);
 	};
 
 	return (
-		<div className='card-action-button' onClick={() => handleClick(action)}>
+		<div
+			className={`card-action-button ${
+				TableUtils.determineDisabled(playerState) ? 'card-action-disabled' : ''
+			}`}
+			onClick={() => handleClick(action)}
+		>
 			{label}
 		</div>
 	);
@@ -61,4 +67,10 @@ const mapDispatchToProps = dispatch => {
 	);
 };
 
-export default connect(null, mapDispatchToProps)(SingleCardAction);
+const mapStateToProps = state => {
+	return {
+		playerState: state.table?.table?.playerState,
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCardAction);

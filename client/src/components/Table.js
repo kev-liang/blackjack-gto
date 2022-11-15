@@ -2,12 +2,18 @@ import '../styles/Table.css';
 import DealerCards from './DealerCards';
 import PlayerCards from './PlayerCards';
 
+import { updateNumPlayersAction } from '../actions/tableActions';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 function Table(props) {
-	const { table } = props;
+	const { table, updateNumPlayers } = props;
 	const [players, setPlayers] = useState([]);
+
+	useEffect(() => {
+		updateNumPlayers(1);
+	}, []);
 
 	useEffect(() => {
 		console.log('table', table);
@@ -30,8 +36,16 @@ function Table(props) {
 
 const mapStateToProps = state => {
 	return {
-		table: state.table,
+		table: state.table?.table,
 	};
 };
 
-export default connect(mapStateToProps, null)(Table);
+const mapDispatchToProps = dispatch => {
+	return bindActionCreators(
+		{
+			updateNumPlayers: updateNumPlayersAction,
+		},
+		dispatch
+	);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

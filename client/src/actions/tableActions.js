@@ -5,4 +5,11 @@ const updateTableAction = table => {
 	};
 };
 
-export { updateTableAction };
+const updateNumPlayersAction = numPlayers => {
+	return {
+		type: 'NUM_PLAYERS',
+		data: numPlayers,
+	};
+};
+
+export { updateTableAction, updateNumPlayersAction };

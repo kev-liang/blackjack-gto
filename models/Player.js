@@ -4,6 +4,7 @@ class Player {
 		this.shownCards = [];
 		this.id = id;
 		this.isPlaying = true;
+		this.cardTotal = 0;
 	}
 
 	showCards() {
@@ -18,13 +19,28 @@ class Player {
 	addCards(cards) {
 		this.cards = this.cards.concat(cards);
 		this.showCards();
+		this.getCardTotal();
 	}
 
 	getCardTotal() {
-		return this.cards.reduce(
-			(sum, { value }) => (value > 10 ? sum + 10 : sum + value),
-			0
-		);
+		let sum = this.cards.reduce((sum, { value }) => {
+			if (value === 14) {
+				sum += 11;
+			} else if (value >= 10) {
+				sum += 10;
+			} else {
+				sum += value;
+			}
+			return sum;
+		}, 0);
+		// handling ace equaling 1 or 11
+		let cardsWithoutAce = this.cards.filter(card => card.value !== 14);
+		let numOfAce = this.cards.length - cardsWithoutAce.length;
+		while (numOfAce && sum > 21) {
+			sum -= 10;
+			numOfAce--;
+		}
+		this.cardTotal = sum;
 	}
 }
 
