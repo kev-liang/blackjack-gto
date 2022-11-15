@@ -1,5 +1,6 @@
 const Deck = require('../models/Deck');
 const Player = require('../models/Player');
+const Card = require('../models/Card');
 
 const _ = require('lodash');
 
