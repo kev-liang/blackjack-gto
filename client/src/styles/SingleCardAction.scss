@@ -1,0 +1,11 @@
+@import '_vars.scss';
+
+.card-action-button {
+  height: 50px;
+  width: 75px;
+  background-color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5px;
+}
