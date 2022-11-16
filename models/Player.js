@@ -1,47 +1,55 @@
 class Player {
-	constructor(id) {
-		this.cards = [];
-		this.shownCards = [];
-		this.id = id;
-		this.isPlaying = true;
-		this.cardTotal = 0;
-	}
+  constructor(id, deck) {
+    this.deck = deck;
+    this.cards = [];
+    this.shownCards = [];
+    this.id = id;
+    this.isPlaying = true;
+    this.cardTotal = 0;
+  }
 
-	showCards() {
-		this.shownCards = this.cards;
-	}
+  deal(numCards) {
+    console.log("before", this.cards);
 
-	setCards(cards) {
-		this.cards = cards;
-		this.showCards();
-	}
+    this.cards = this.cards.concat(this.deck.deal(numCards));
+    console.log("after", this.cards);
+  }
 
-	addCards(cards) {
-		this.cards = this.cards.concat(cards);
-		this.showCards();
-		this.getCardTotal();
-	}
+  showCards() {
+    this.shownCards = this.cards;
+  }
 
-	getCardTotal() {
-		let sum = this.cards.reduce((sum, { value }) => {
-			if (value === 14) {
-				sum += 11;
-			} else if (value >= 10) {
-				sum += 10;
-			} else {
-				sum += value;
-			}
-			return sum;
-		}, 0);
-		// handling ace equaling 1 or 11
-		let cardsWithoutAce = this.cards.filter(card => card.value !== 14);
-		let numOfAce = this.cards.length - cardsWithoutAce.length;
-		while (numOfAce && sum > 21) {
-			sum -= 10;
-			numOfAce--;
-		}
-		this.cardTotal = sum;
-	}
+  setCards(cards) {
+    this.cards = cards;
+    this.showCards();
+  }
+
+  addCards(cards) {
+    this.cards = this.cards.concat(cards);
+    this.showCards();
+    this.getCardTotal();
+  }
+
+  getCardTotal() {
+    let sum = this.cards.reduce((sum, { value }) => {
+      if (value === 14) {
+        sum += 11;
+      } else if (value >= 10) {
+        sum += 10;
+      } else {
+        sum += value;
+      }
+      return sum;
+    }, 0);
+    // handling ace equaling 1 or 11
+    let cardsWithoutAce = this.cards.filter((card) => card.value !== 14);
+    let numOfAce = this.cards.length - cardsWithoutAce.length;
+    while (numOfAce && sum > 21) {
+      sum -= 10;
+      numOfAce--;
+    }
+    this.cardTotal = sum;
+  }
 }
 
 module.exports = Player;
