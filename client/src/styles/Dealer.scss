@@ -1,0 +1,16 @@
+@import "_vars.scss";
+
+.dealer-container {
+  position: absolute;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: auto; 
+  margin-right: auto; 
+  width: $card-width;
+}
+
+.dealer-value {
+  margin-left: calc($card-width / 2);
+}
