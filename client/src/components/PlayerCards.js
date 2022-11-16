@@ -7,12 +7,12 @@ import "../styles/PlayerCards.scss";
 
 // TODO make player cards centered after hitting
 const PlayerCards = (props) => {
-  const { cards, playerState } = props;
+  const { cards, tableState } = props;
 
   return (
     <div
       className={`player-cards-container ${
-        TableUtils.determineDisabled(playerState) ? "player-cards-disabled" : ""
+        TableUtils.determineDisabled(tableState) ? "player-cards-disabled" : ""
       }`}
     >
       {cards.map((card) => (
@@ -22,7 +22,7 @@ const PlayerCards = (props) => {
         >
           <Card
             card={card}
-            lost={TableUtils.determineDisabled(playerState)}
+            lost={TableUtils.determineDisabled(tableState)}
           ></Card>
         </div>
       ))}
@@ -33,7 +33,7 @@ const PlayerCards = (props) => {
 const mapStateToProps = (state) => {
   return {
     shownCards: state.table?.table?.dealer?.shownCards,
-    playerState: state.table?.table?.playerState
+    tableState: state.table?.table?.tableState
   };
 };
 
