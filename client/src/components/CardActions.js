@@ -22,7 +22,7 @@ const actions = [
 ];
 
 function CardActions(props) {
-  const { playerState } = props;
+  const { tableState } = props;
 
   return (
     <div className="card-action-container">
@@ -43,7 +43,7 @@ function CardActions(props) {
 
 const mapStateToProps = (state) => {
   return {
-    playerState: state.table?.table?.playerState
+    tableState: state.table?.table?.tableState
   };
 };
 

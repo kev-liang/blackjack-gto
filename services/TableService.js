@@ -10,7 +10,7 @@ class TableService {
     this.dealer = new Player(-1, this.deck);
     this.shownDealer;
     this.players = [];
-    this.playerState = "playing";
+    this.tableState = "playing";
   }
 
   deal(numPlayers) {
@@ -18,7 +18,7 @@ class TableService {
     this.deck.shuffle();
     this.dealer.deal(2);
     console.log("fdsa", this.dealer);
-    this.playerState = "playing";
+    this.tableState = "playing";
     this.dealer.getCardTotal();
     for (let i = 0; i < numPlayers; i++) {
       let player = new Player(i, this.deck);
@@ -45,13 +45,14 @@ class TableService {
     let player = this.players.find((p) => {
       return p.id == playerId;
     });
+    stopIfHumanPlayer(player);
     player.deal(1);
     console.log("zz", player);
     console.log("ff", this.players);
     player.getCardTotal();
     if (player.cardTotal >= 21) {
       if (player.id === 0) {
-        this.playerState = "lost";
+        player.playerState = "lost";
       }
       player.isPlaying = false;
     }
@@ -72,7 +73,7 @@ class TableService {
     player.deal(1);
     if (player.cardTotal >= 21) {
       if (player.id === 0) {
-        this.playerState = "lost";
+        this.tableState = "lost";
       }
       player.isPlaying = false;
     }

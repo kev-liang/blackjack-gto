@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import TableUtils from "../utils/TableUtils";
 
 function SingleCardAction(props) {
-  const { label, action, playerState } = props;
+  const { label, action, tableState } = props;
 
   const handleClick = (action) => {
     // TODO handle switch case of action
@@ -49,7 +49,7 @@ function SingleCardAction(props) {
   return (
     <div
       className={`card-action-button ${
-        TableUtils.determineDisabled(playerState) ? "card-action-disabled" : ""
+        TableUtils.determineDisabled(tableState) ? "card-action-disabled" : ""
       }`}
       onClick={() => handleClick(action)}
     >
@@ -69,7 +69,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    playerState: state.table?.table?.playerState
+    tableState: state.table?.table?.tableState
   };
 };
 
