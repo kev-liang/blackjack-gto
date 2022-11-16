@@ -4,6 +4,9 @@ const Card = require("../models/Card");
 
 const _ = require("lodash");
 
+const dealerStopHit = 17;
+const hitSoftMax = true;
+
 class TableService {
   constructor() {
     this.deck = new Deck();
@@ -17,7 +20,6 @@ class TableService {
     this.players = [];
     this.deck.shuffle();
     this.dealer.deal(2);
-    console.log("fdsa", this.dealer);
     this.tableState = "playing";
     this.dealer.getCardTotal();
     for (let i = 0; i < numPlayers; i++) {
@@ -41,43 +43,10 @@ class TableService {
     return result;
   }
 
-  hit(playerId) {
-    let player = this.players.find((p) => {
-      return p.id == playerId;
-    });
-    stopIfHumanPlayer(player);
-    player.deal(1);
-    console.log("zz", player);
-    console.log("ff", this.players);
-    player.getCardTotal();
-    if (player.cardTotal >= 21) {
-      if (player.id === 0) {
-        player.playerState = "lost";
-      }
-      player.isPlaying = false;
+  determineTableState() {
+    if (this.players.every((player) => !player.isPlaying)) {
+      this.tableState = "lost";
     }
-  }
-
-  stand(playerId) {
-    let player = this.players.find((p) => {
-      return p.id == playerId;
-    });
-    player.isPlaying = false;
-  }
-
-  double(playerId) {
-    let player = this.players.find((p) => {
-      return p.id == playerId;
-    });
-    //double bet here
-    player.deal(1);
-    if (player.cardTotal >= 21) {
-      if (player.id === 0) {
-        this.tableState = "lost";
-      }
-      player.isPlaying = false;
-    }
-    player.isPlaying = false;
   }
 }
 
