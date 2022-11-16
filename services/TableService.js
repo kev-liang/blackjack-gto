@@ -1,8 +1,8 @@
-const Deck = require("../models/Deck");
-const Player = require("../models/Player");
-const Card = require("../models/Card");
+const Deck = require('../models/Deck');
+const Player = require('../models/Player');
+const Card = require('../models/Card');
 
-const _ = require("lodash");
+const _ = require('lodash');
 
 class TableService {
 	constructor() {
@@ -10,7 +10,7 @@ class TableService {
 		this.dealer = new Player();
 		this.shownDealer;
 		this.players = [];
-		this.playerState = "playing";
+		this.playerState = 'playing';
 	}
 
 	deal(numPlayers) {
@@ -18,7 +18,8 @@ class TableService {
 		this.deck.shuffle();
 		this.dealer.setCards(this.deck.deal(2));
 		this.dealer.showCards(this.dealer.cards[0]);
-		this.playerState = "playing";
+		this.playerState = 'playing';
+		this.dealer.getCardTotal();
 		for (let i = 0; i < numPlayers; i++) {
 			let player = new Player(i);
 			player.setCards(this.deck.deal(2));
@@ -42,7 +43,7 @@ class TableService {
 		player.addCards(this.deck.deal(1));
 		if (player.cardTotal >= 21) {
 			if (player.id === 0) {
-				this.playerState = "lost";
+				this.playerState = 'lost';
 			}
 			player.isPlaying = false;
 		}
@@ -63,7 +64,7 @@ class TableService {
 		player.addCards(this.deck.deal(1));
 		if (player.cardTotal >= 21) {
 			if (player.id === 0) {
-				this.playerState = "lost";
+				this.playerState = 'lost';
 			}
 			player.isPlaying = false;
 		}
