@@ -6,6 +6,7 @@ class Player {
     this.id = id;
     this.isPlaying = true;
     this.cardTotal = 0;
+    this.playerState = "playing";
   }
 
   deal(numCards) {

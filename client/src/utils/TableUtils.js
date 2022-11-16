@@ -1,12 +1,12 @@
 class TableUtils {
-	constructor() {
-		console.log('working');
-		console.log('fdsa', this.determineDisabled('fdsa'));
-	}
+  constructor() {
+    console.log("working");
+    console.log("fdsa", this.determineDisabled("fdsa"));
+  }
 
-	determineDisabled(playerState) {
-		return playerState === 'lost';
-	}
+  determineDisabled(tableState) {
+    return tableState === "lost";
+  }
 }
 
 export default new TableUtils();
