@@ -1,6 +1,6 @@
 import '../styles/Table.css';
-import DealerCards from './DealerCards';
-import PlayerCards from './PlayerCards';
+import Dealer from './Dealer';
+import Player from './Player';
 
 import { updateNumPlayersAction } from '../actions/tableActions';
 import { bindActionCreators } from 'redux';
@@ -23,13 +23,8 @@ function Table(props) {
 	return (
 		<div>
 			<div className='table'></div>
-			{players?.map(player => (
-				<PlayerCards
-					cards={player.shownCards}
-					key={`table-player-cards-${player.id}`}
-				></PlayerCards>
-			))}
-			<DealerCards></DealerCards>
+			<Player players={players}></Player>
+			<Dealer></Dealer>
 		</div>
 	);
 }

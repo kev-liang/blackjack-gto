@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import Card from './Card';
-import '../styles/DealerCard.scss';
+import '../styles/DealerCards.scss';
 
 const DealerCards = props => {
 	const { shownCards } = props;

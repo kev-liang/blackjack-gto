@@ -17,7 +17,7 @@ class TableService {
 		this.players = [];
 		this.deck.shuffle();
 		this.dealer.setCards(this.deck.deal(2));
-		this.dealer.showCards(this.dealer.cards[0]);
+		this.dealer.getCardTotal();
 		this.playerState = 'playing';
 		for (let i = 0; i < numPlayers; i++) {
 			let player = new Player(i);
