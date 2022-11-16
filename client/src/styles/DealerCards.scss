@@ -2,13 +2,7 @@
 
 .dealer-cards {
   opacity: 1;
-  position: absolute;
-  top: 10%;
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
-  width: $card-width;
+
   display: flex;
   z-index: 100;
   background-color: #fff;
