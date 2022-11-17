@@ -46,6 +46,43 @@ class TableService {
       this.tableState = Constants.T_STATE_DEALER;
     }
   }
+
+  hit(playerId) {
+    let player = this.players.find((p) => {
+      return p.id == playerId;
+    });
+    player.deal(1);
+    console.log("zz", player);
+    console.log("ff", this.players);
+    player.getCardTotal();
+    if (player.cardTotal >= 21) {
+      if (player.id === 0) {
+        player.playerState = Constants.P_STATE_LOST;
+      }
+      player.isPlaying = false;
+    }
+  }
+
+  stand(playerId) {
+    let player = this.players.find((p) => {
+      return p.id == playerId;
+    });
+    player.isPlaying = false;
+  }
+
+  double(playerId) {
+    let player = this.players.find((p) => {
+      return p.id == playerId;
+    });
+    //double bet here
+    player.deal(1);
+    if (player.cardTotal >= 21) {
+      if (player.id === 0) {
+        this.tableState = "lost";
+      }
+      player.isPlaying = false;
+    }
+  }
 }
 
 module.exports = TableService;
