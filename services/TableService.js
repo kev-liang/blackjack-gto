@@ -45,7 +45,6 @@ class TableService {
     let player = this.players.find((p) => {
       return p.id == playerId;
     });
-    stopIfHumanPlayer(player);
     player.deal(1);
     console.log("zz", player);
     console.log("ff", this.players);
