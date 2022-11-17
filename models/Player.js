@@ -1,3 +1,5 @@
+const Constants = require("../utils/Constants");
+
 class Player {
   constructor(id, deck) {
     this.deck = deck;
@@ -6,14 +8,12 @@ class Player {
     this.id = id;
     this.isPlaying = true;
     this.cardTotal = 0;
-    this.playerState = "playing";
+    this.playerState = Constants.P_STATE_PLAYING;
+    this.shouldHit = false;
   }
 
   deal(numCards) {
-    console.log("before", this.cards);
-
     this.cards = this.cards.concat(this.deck.deal(numCards));
-    console.log("after", this.cards);
   }
 
   showCards() {

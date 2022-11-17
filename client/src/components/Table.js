@@ -2,17 +2,21 @@ import "../styles/Table.css";
 import Dealer from "./Dealer";
 import Player from "./Player";
 
-import { updateNumPlayersAction } from "../actions/tableActions";
+import {
+  updateNumPlayersAction,
+  updateDealingDelayAction
+} from "../actions/tableActions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 
 function Table(props) {
-  const { table, updateNumPlayers } = props;
+  const { table, updateNumPlayers, updateDealingDelay } = props;
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     updateNumPlayers(1);
+    updateDealingDelay(1000);
   }, []);
 
   useEffect(() => {
@@ -38,7 +42,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      updateNumPlayers: updateNumPlayersAction
+      updateNumPlayers: updateNumPlayersAction,
+      updateDealingDelay: updateDealingDelayAction
     },
     dispatch
   );

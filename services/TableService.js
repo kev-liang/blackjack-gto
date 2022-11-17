@@ -1,26 +1,24 @@
 const Deck = require("../models/Deck");
 const Player = require("../models/Player");
 const Card = require("../models/Card");
-
+const Constants = require("../utils/Constants");
 const _ = require("lodash");
-
-const dealerStopHit = 17;
-const hitSoftMax = true;
 
 class TableService {
   constructor() {
     this.deck = new Deck();
-    this.dealer = new Player(-1, this.deck);
+    this.dealer = new Player(Constants.DEALER_ID, this.deck);
     this.shownDealer;
-    this.players = [];
-    this.tableState = "playing";
+    this.players = []; // human player id = 0
+    this.tableState = Constants.T_STATE_PLAYING;
   }
 
   deal(numPlayers) {
     this.players = [];
     this.deck.shuffle();
+    this.dealer.cards = [];
     this.dealer.deal(2);
-    this.tableState = "playing";
+    this.tableState = Constants.T_STATE_PLAYING;
     this.dealer.getCardTotal();
     for (let i = 0; i < numPlayers; i++) {
       let player = new Player(i, this.deck);
@@ -45,7 +43,7 @@ class TableService {
 
   determineTableState() {
     if (this.players.every((player) => !player.isPlaying)) {
-      this.tableState = "lost";
+      this.tableState = Constants.T_STATE_DEALER;
     }
   }
 }

@@ -12,4 +12,12 @@ const updateNumPlayersAction = (numPlayers) => {
   };
 };
 
-export { updateTableAction, updateNumPlayersAction };
+// delay in ms
+const updateDealingDelayAction = (delay) => {
+  return {
+    type: "UPDATE_DEALING_DELAY",
+    data: delay
+  };
+};
+
+export { updateTableAction, updateNumPlayersAction, updateDealingDelayAction };

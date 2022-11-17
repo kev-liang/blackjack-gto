@@ -49,7 +49,9 @@ function SingleCardAction(props) {
   return (
     <div
       className={`card-action-button ${
-        TableUtils.determineDisabled(tableState) ? "card-action-disabled" : ""
+        TableUtils.determineUserDisabled(tableState)
+          ? "card-action-disabled"
+          : ""
       }`}
       onClick={() => handleClick(action)}
     >

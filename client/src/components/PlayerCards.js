@@ -12,7 +12,9 @@ const PlayerCards = (props) => {
   return (
     <div
       className={`player-cards-container ${
-        TableUtils.determineDisabled(tableState) ? "player-cards-disabled" : ""
+        TableUtils.determineUserDisabled(tableState)
+          ? "player-cards-disabled"
+          : ""
       }`}
     >
       {cards.map((card) => (
@@ -22,7 +24,7 @@ const PlayerCards = (props) => {
         >
           <Card
             card={card}
-            lost={TableUtils.determineDisabled(tableState)}
+            lost={TableUtils.determineUserDisabled(tableState)}
           ></Card>
         </div>
       ))}

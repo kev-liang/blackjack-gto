@@ -1,11 +1,8 @@
-class TableUtils {
-  constructor() {
-    console.log("working");
-    console.log("fdsa", this.determineDisabled("fdsa"));
-  }
+import ConstantsFE from "./ConstantsFE";
 
-  determineDisabled(tableState) {
-    return tableState === "lost";
+class TableUtils {
+  determineUserDisabled(tableState) {
+    return tableState === ConstantsFE.T_STATE_DEALER;
   }
 }
 
