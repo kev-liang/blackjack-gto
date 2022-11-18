@@ -1,8 +1,12 @@
 import ConstantsFE from "./ConstantsFE";
 
 class TableUtils {
-  determineUserDisabled(tableState) {
-    return tableState === ConstantsFE.T_STATE_DEALER;
+  determineUserDisabled(table) {
+    if (!table) return;
+    let player = table.players.find(
+      (player) => player.id === ConstantsFE.USER_ID
+    );
+    return !player.isPlaying;
   }
 }
 

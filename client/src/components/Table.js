@@ -1,6 +1,7 @@
 import "../styles/Table.css";
 import Dealer from "./Dealer";
 import Player from "./Player";
+import Winner from "./Winner";
 
 import {
   updateNumPlayersAction,
@@ -28,6 +29,7 @@ function Table(props) {
     <div>
       <div className="table"></div>
       <Player players={players}></Player>
+      <Winner></Winner>
       <Dealer></Dealer>
     </div>
   );

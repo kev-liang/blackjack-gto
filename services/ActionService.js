@@ -9,32 +9,38 @@ class ActionService {
   }
 
   hit(playerId) {
-    let player;
-    if (playerId === Constants.DEALER_ID) {
-      player = this.tableService.dealer;
-    } else {
-      player = this.tableService.players.find((p) => {
-        return p.id == playerId;
-      });
-    }
-    this.hitHelper(player);
-  }
-
-  hitHelper(player) {
+    let player = this.tableService.findPlayerById(playerId);
     player.deal(1);
     player.getCardTotal();
-    if (player.cardTotal > 21) {
-      player.playerState = Constants.P_STATE_LOST;
-      player.isPlaying = false;
-    }
+    this.determinePlayerLost(player);
     this.tableService.determineTableState();
   }
 
-  determineShouldHit(player) {
+  dealDealer() {
+    const { dealer } = this.tableService;
+    if (this.determineHit(dealer)) {
+      dealer.deal(1);
+    } else {
+      dealer.isPlaying = false;
+      dealer.playerState = Constants.P_STATE_STAND;
+    }
+    dealer.getCardTotal();
+    this.determinePlayerLost(dealer);
+    this.tableService.determineTableState();
+  }
+
+  determineHit(player) {
     return (
       player.cardTotal < dealerStopHit ||
       (player.cardTotal === dealerStopHit && this.hasPlayerAce(player))
     );
+  }
+
+  determinePlayerLost(player) {
+    if (player.cardTotal > Constants.BLACKJACK) {
+      player.playerState = Constants.P_STATE_LOST;
+      player.isPlaying = false;
+    }
   }
 
   hasPlayerAce(player) {
@@ -42,20 +48,17 @@ class ActionService {
   }
 
   stand(playerId) {
-    let player = this.tableService.players.find((p) => {
-      return p.id == playerId;
-    });
+    let player = this.tableService.findPlayerById(playerId);
+    player.playerState = Constants.P_STATE_STAND;
     player.isPlaying = false;
     this.tableService.determineTableState();
   }
 
   double(playerId) {
-    let player = this.tableService.players.find((p) => {
-      return p.id == playerId;
-    });
+    let player = this.tableService.findPlayerById(playerId);
     //double bet here
     player.deal(1);
-    if (player.cardTotal > 21) {
+    if (player.cardTotal > Constants.BLACKJACK) {
       player.playerState = Constants.P_STATE_LOST;
     }
     player.isPlaying = false;

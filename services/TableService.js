@@ -1,36 +1,61 @@
 const Deck = require("../models/Deck");
 const Player = require("../models/Player");
-const Card = require("../models/Card");
 const Constants = require("../utils/Constants");
 const _ = require("lodash");
 
 class TableService {
   constructor() {
     this.deck = new Deck();
-    this.dealer = new Player(Constants.DEALER_ID, this.deck);
-    this.shownDealer;
     this.players = []; // human player id = 0
     this.tableState = Constants.T_STATE_PLAYING;
+    this.dealer;
+    this.winner = null;
   }
 
+  // TODO refactor and separate into init and deal
   deal(numPlayers) {
     this.players = [];
+    this.winner = null;
     this.deck.shuffle();
+    this.dealer = new Player(Constants.DEALER_ID, this.deck);
     this.dealer.cards = [];
-    this.dealer.deal(2);
-    this.tableState = Constants.T_STATE_PLAYING;
+    this.dealer.cards = [
+      { value: 10, suit: "h" },
+      { value: 14, suit: "s" }
+    ];
     this.dealer.getCardTotal();
+
     for (let i = 0; i < numPlayers; i++) {
       let player = new Player(i, this.deck);
       player.deal(2);
       player.getCardTotal();
       this.players.push(player);
     }
+
+    this.determineDealerBlackjack();
+    this.determineTableState();
+  }
+
+  determineDealerBlackjack() {
+    if (this.dealer.cardTotal === Constants.BLACKJACK) {
+      this.tableState = Constants.T_STATE_DEALER_BLACKJACK;
+      this.dealer.isPlaying = false;
+    } else {
+      this.tableState = Constants.T_STATE_PLAYING;
+    }
   }
 
   showTable() {
     let result = _.cloneDeep(this);
-    result.dealer.shownCards = result.dealer.cards[0];
+    if (this.tableState === Constants.T_STATE_END) {
+      result.dealer.shownCards = result.dealer.cards;
+      result.dealer.shouldShowAllCards = true;
+    } else {
+      result.dealer.shownCards = result.dealer.cards.slice(
+        0,
+        result.dealer.cards.length - 1
+      );
+    }
     delete result.dealer.cards;
     delete result.dealer.deck;
     delete result.deck;
@@ -42,25 +67,38 @@ class TableService {
   }
 
   determineTableState() {
-    if (this.players.every((player) => !player.isPlaying)) {
-      this.tableState = Constants.T_STATE_DEALER;
+    switch (this.tableState) {
+      case Constants.T_STATE_DEALER_BLACKJACK:
+        this.tableState = Constants.T_STATE_END;
+        this.winner = this.determineWinner();
+        break;
+      case Constants.T_STATE_PLAYING:
+        if (this.players.every((player) => !player.isPlaying)) {
+          this.tableState = Constants.T_STATE_DEALER;
+        }
+        break;
+      case Constants.T_STATE_DEALER:
+        if (!this.dealer.isPlaying) {
+          this.tableState = Constants.T_STATE_END;
+          this.winner = this.determineWinner();
+        }
     }
   }
 
-  hit(playerId) {
-    let player = this.players.find((p) => {
-      return p.id == playerId;
-    });
-    player.deal(1);
-    console.log("zz", player);
-    console.log("ff", this.players);
-    player.getCardTotal();
-    if (player.cardTotal >= 21) {
-      if (player.id === 0) {
-        player.playerState = Constants.P_STATE_LOST;
-      }
-      player.isPlaying = false;
+  determineWinner() {
+    let player = this.findPlayerById(Constants.USER_ID);
+    let dealerDiff = Constants.BLACKJACK - this.dealer.cardTotal;
+    let playerDiff = Constants.BLACKJACK - player.cardTotal;
+
+    if (
+      this.dealer.playerState === Constants.P_STATE_LOST ||
+      (playerDiff < dealerDiff && player.playerState !== Constants.P_STATE_LOST)
+    ) {
+      return { player, tie: false };
+    } else if (playerDiff === dealerDiff) {
+      return { player, tie: true };
     }
+    return { player: this.dealer, tie: false };
   }
 
   stand(playerId) {
@@ -76,12 +114,18 @@ class TableService {
     });
     //double bet here
     player.deal(1);
-    if (player.cardTotal >= 21) {
+    if (player.cardTotal >= Constants.BLACKJACK) {
       if (player.id === 0) {
         this.tableState = "lost";
       }
       player.isPlaying = false;
     }
+  }
+
+  findPlayerById(playerId) {
+    return this.players.find((p) => {
+      return p.id == playerId;
+    });
   }
 }
 

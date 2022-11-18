@@ -9,7 +9,7 @@ class Player {
     this.isPlaying = true;
     this.cardTotal = 0;
     this.playerState = Constants.P_STATE_PLAYING;
-    this.shouldHit = false;
+    this.shouldShowAllCards = false;
   }
 
   deal(numCards) {
@@ -45,7 +45,7 @@ class Player {
     // handling ace equaling 1 or 11
     let cardsWithoutAce = this.cards.filter((card) => card.value !== 14);
     let numOfAce = this.cards.length - cardsWithoutAce.length;
-    while (numOfAce && sum > 21) {
+    while (numOfAce && sum > Constants.BLACKJACK) {
       sum -= 10;
       numOfAce--;
     }

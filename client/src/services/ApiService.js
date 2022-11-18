@@ -15,11 +15,16 @@ class ApiService {
 
   initTable(numPlayers) {
     let endpoint = `${this.url}/deal?numPlayers=${numPlayers}`;
-    this.simpleTableGet(endpoint, () => {});
+    this.actionTableGet(endpoint);
   }
 
   hit(playerId) {
     let endpoint = `${this.url}/hit?playerId=${playerId}`;
+    this.actionTableGet(endpoint);
+  }
+
+  stand(playerId) {
+    let endpoint = `${this.url}/stand?playerId=${playerId}`;
     this.actionTableGet(endpoint);
   }
 
@@ -32,7 +37,6 @@ class ApiService {
     axios
       .get(endpoint)
       .then((res) => {
-        console.log("store", store);
         let table = res.data;
         store.dispatch(updateTableAction(table));
       })
@@ -46,7 +50,6 @@ class ApiService {
     axios
       .get(endpoint)
       .then((res) => {
-        console.log("store", store);
         let table = res.data;
         store.dispatch(updateTableAction(table));
         TableServiceFE.determineNextAction(table);

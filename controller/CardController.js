@@ -18,9 +18,14 @@ module.exports = (app) => {
     res.send(tableService.showTable());
   });
 
+  app.get("/stand", (req, res) => {
+    let playerId = req.query.playerId;
+    actionService.stand(playerId);
+    res.send(tableService.showTable());
+  });
+
   app.get("/deal-dealer", (req, res) => {
-    tableService.shouldDealerHit = true;
-    actionService.hit(Constants.DEALER_ID);
+    actionService.dealDealer();
     res.send(tableService.showTable());
   });
 };
