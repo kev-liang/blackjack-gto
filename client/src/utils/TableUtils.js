@@ -1,11 +1,12 @@
-class TableUtils {
-  constructor() {
-    console.log("working");
-    console.log("fdsa", this.determineDisabled("fdsa"));
-  }
+import ConstantsFE from "./ConstantsFE";
 
-  determineDisabled(tableState) {
-    return tableState === "lost";
+class TableUtils {
+  determineUserDisabled(table) {
+    if (!table) return;
+    let player = table.players.find(
+      (player) => player.id === ConstantsFE.USER_ID
+    );
+    return !player.isPlaying;
   }
 }
 

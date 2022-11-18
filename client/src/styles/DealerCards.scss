@@ -1,16 +1,21 @@
 @import "_vars.scss";
 
-.dealer-cards {
+.dealer-cards-container {
   opacity: 1;
-
   display: flex;
   z-index: 100;
-  background-color: #fff;
   border-radius: 20%;
 }
 
-.dealer-hidden-card {
-  right: -$card-width / 2;
-  position: absolute;
-  z-index: -1;
+.dealer-cards-container > div {
+  margin-left: calc($card-width / -2);
 }
+
+.player-cards:first-child {
+  margin: 0
+}
+// .dealer-hidden-card {
+//   right: -$card-width / 2;
+//   position: absolute;
+//   z-index: -1;
+// }

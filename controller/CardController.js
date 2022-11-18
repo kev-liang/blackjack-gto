@@ -1,7 +1,10 @@
 const TableService = require("../services/TableService");
+const ActionService = require("../services/ActionService");
+const Constants = require("../utils/Constants");
 
 module.exports = (app) => {
   const tableService = new TableService();
+  const actionService = new ActionService(tableService);
 
   app.get("/deal", (req, res) => {
     let numPlayers = req.query.numPlayers;
@@ -11,8 +14,18 @@ module.exports = (app) => {
 
   app.get("/hit", (req, res) => {
     let playerId = req.query.playerId;
-    tableService.hit(playerId);
-    console.log("after", tableService.players);
+    actionService.hit(playerId);
+    res.send(tableService.showTable());
+  });
+
+  app.get("/stand", (req, res) => {
+    let playerId = req.query.playerId;
+    actionService.stand(playerId);
+    res.send(tableService.showTable());
+  });
+
+  app.get("/deal-dealer", (req, res) => {
+    actionService.dealDealer();
     res.send(tableService.showTable());
   });
 };

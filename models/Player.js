@@ -1,3 +1,5 @@
+const Constants = require("../utils/Constants");
+
 class Player {
   constructor(id, deck) {
     this.deck = deck;
@@ -6,14 +8,12 @@ class Player {
     this.id = id;
     this.isPlaying = true;
     this.cardTotal = 0;
-    this.playerState = "playing";
+    this.playerState = Constants.P_STATE_PLAYING;
+    this.shouldShowAllCards = false;
   }
 
   deal(numCards) {
-    console.log("before", this.cards);
-
     this.cards = this.cards.concat(this.deck.deal(numCards));
-    console.log("after", this.cards);
   }
 
   showCards() {
@@ -45,7 +45,7 @@ class Player {
     // handling ace equaling 1 or 11
     let cardsWithoutAce = this.cards.filter((card) => card.value !== 14);
     let numOfAce = this.cards.length - cardsWithoutAce.length;
-    while (numOfAce && sum > 21) {
+    while (numOfAce && sum > Constants.BLACKJACK) {
       sum -= 10;
       numOfAce--;
     }
