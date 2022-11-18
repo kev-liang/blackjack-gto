@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { updateTableAction } from "../actions/tableActions";
 import { bindActionCreators } from "redux";
 import TableUtils from "../utils/TableUtils";
+import ConstantsFE from "../utils/ConstantsFE";
 
 function SingleCardAction(props) {
-  const { label, action, tableState } = props;
+  const { label, action, table } = props;
 
   const handleClick = (action) => {
     // TODO handle switch case of action
@@ -34,7 +35,7 @@ function SingleCardAction(props) {
   };
 
   const handleStand = () => {
-    console.log("handle stand");
+    ApiService.stand(ConstantsFE.USER_ID);
   };
 
   const handleDouble = () => {
@@ -42,14 +43,13 @@ function SingleCardAction(props) {
   };
 
   const handleHit = () => {
-    console.log("handle hit");
-    ApiService.hit(0);
+    ApiService.hit(ConstantsFE.USER_ID);
   };
 
   return (
     <div
       className={`card-action-button ${
-        TableUtils.determineDisabled(tableState) ? "card-action-disabled" : ""
+        TableUtils.determineUserDisabled(table) ? "card-action-disabled" : ""
       }`}
       onClick={() => handleClick(action)}
     >
@@ -69,7 +69,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    tableState: state.table?.table?.tableState
+    table: state.table?.table
   };
 };
 
