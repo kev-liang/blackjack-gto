@@ -15,6 +15,8 @@ const T_STATE_END = "end";
 const DEALER_ID = -1;
 const USER_ID = 0;
 
+const CARD_WIDTH = 75;
+
 export default {
   P_STATE_LOST,
   P_STATE_DOUBLE,
@@ -27,5 +29,6 @@ export default {
   T_STATE_PLAYING,
   T_STATE_END,
   DEALER_ID,
-  USER_ID
+  USER_ID,
+  CARD_WIDTH
 };
