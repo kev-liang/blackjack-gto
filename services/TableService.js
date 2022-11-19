@@ -18,10 +18,11 @@ class TableService {
     this.winner = null;
     this.deck.shuffle();
     this.dealer = new Player(Constants.DEALER_ID, this.deck);
-    this.dealer.cards = [];
+    // this.dealer.deal(4);
     this.dealer.cards = [
-      { value: 10, suit: "h" },
-      { value: 14, suit: "s" }
+      { value: 2, suit: "h" },
+      { value: 2, suit: "c" },
+      { value: 2, suit: "s" }
     ];
     this.dealer.getCardTotal();
 
