@@ -10,6 +10,7 @@ class Player {
     this.cardTotal = 0;
     this.playerState = Constants.P_STATE_PLAYING;
     this.shouldShowAllCards = false;
+    this.history = [];
   }
 
   deal(numCards) {
@@ -50,6 +51,18 @@ class Player {
       numOfAce--;
     }
     this.cardTotal = sum;
+  }
+
+  isSoft() {
+    return (
+      this.cards.length === 2 && this.cards.find((card) => card.value == 14)
+    );
+  }
+
+  hasPair() {
+    return (
+      this.cards.length === 2 && this.cards[0].value === this.cards[1].value
+    );
   }
 }
 

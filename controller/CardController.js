@@ -6,9 +6,14 @@ module.exports = (app) => {
   const tableService = new TableService();
   const actionService = new ActionService(tableService);
 
-  app.get("/deal", (req, res) => {
+  app.get("/init", (req, res) => {
     let numPlayers = req.query.numPlayers;
-    tableService.deal(numPlayers);
+    tableService.initTable(numPlayers);
+    res.send(tableService.showTable());
+  });
+
+  app.get("/deal", (req, res) => {
+    tableService.deal();
     res.send(tableService.showTable());
   });
 

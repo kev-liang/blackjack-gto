@@ -14,7 +14,7 @@ class TableService {
   resetTable(table) {
     if (table.tableState === ConstantsFE.T_STATE_END) {
       setTimeout(() => {
-        ApiService.initTable(store.getState().table.numPlayers);
+        ApiService.deal(store.getState().table.numPlayers);
       }, 2000);
     }
   }
