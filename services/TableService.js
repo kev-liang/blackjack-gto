@@ -12,27 +12,33 @@ class TableService {
     this.winner = null;
   }
 
-  // TODO refactor and separate into init and deal
-  deal(numPlayers) {
+  initTable(numPlayers) {
     this.players = [];
-    this.winner = null;
     this.deck.shuffle();
     this.dealer = new Player(Constants.DEALER_ID, this.deck);
-    // this.dealer.deal(4);
+    for (let i = 0; i < numPlayers; i++) {
+      let player = new Player(i, this.deck);
+      this.players.push(player);
+    }
+    this.deal();
+  }
+
+  deal() {
+    // this.dealer.deal(2);
+    this.winner = null;
     this.dealer.cards = [
       { value: 2, suit: "h" },
       { value: 2, suit: "c" },
       { value: 2, suit: "s" }
     ];
     this.dealer.getCardTotal();
-
-    for (let i = 0; i < numPlayers; i++) {
-      let player = new Player(i, this.deck);
+    this.players.forEach((player) => {
+      player.cards = [];
       player.deal(2);
       player.getCardTotal();
-      this.players.push(player);
-    }
-
+      player.playerState = Constants.P_STATE_PLAYING;
+      player.isPlaying = true;
+    });
     this.determineDealerBlackjack();
     this.determineTableState();
   }

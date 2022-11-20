@@ -14,10 +14,14 @@ class ApiService {
   }
 
   initTable(numPlayers) {
-    let endpoint = `${this.url}/deal?numPlayers=${numPlayers}`;
+    let endpoint = `${this.url}/init?numPlayers=${numPlayers}`;
     this.actionTableGet(endpoint);
   }
 
+  deal() {
+    let endpoint = `${this.url}/deal`;
+    this.actionTableGet(endpoint);
+  }
   hit(playerId) {
     let endpoint = `${this.url}/hit?playerId=${playerId}`;
     this.actionTableGet(endpoint);
