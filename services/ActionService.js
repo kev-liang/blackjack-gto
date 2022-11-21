@@ -13,7 +13,7 @@ class ActionService {
   hit(playerId) {
     let player = this.tableService.findPlayerById(playerId);
     player.history = BasicStrategyService.getHistory(
-      this.tableService.dealer.cardTotal,
+      this.tableService.dealer.shownCards[0].value,
       player,
       DecisionConstants.HIT
     );
@@ -51,13 +51,13 @@ class ActionService {
   }
 
   hasPlayerAce(player) {
-    return player.cards.includes((card) => card.value === 14);
+    return player.cards.find((card) => card.value === 14);
   }
 
   stand(playerId) {
     let player = this.tableService.findPlayerById(playerId);
     player.history = BasicStrategyService.getHistory(
-      this.tableService.dealer.cardTotal,
+      this.tableService.dealer.shownCards[0].value,
       player,
       DecisionConstants.STAND
     );
@@ -70,10 +70,17 @@ class ActionService {
     let player = this.tableService.findPlayerById(playerId);
     player.cards = [];
   }
+
   double(playerId) {
     let player = this.tableService.findPlayerById(playerId);
     //double bet here
+    player.history = BasicStrategyService.getHistory(
+      this.tableService.dealer.shownCards[0].value,
+      player,
+      DecisionConstants.DOUBLE
+    );
     player.deal(1);
+    player.getCardTotal();
     if (player.cardTotal > Constants.BLACKJACK) {
       player.playerState = Constants.P_STATE_LOST;
     }

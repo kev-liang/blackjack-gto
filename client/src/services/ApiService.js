@@ -18,6 +18,9 @@ class ApiService {
     this.actionTableGet(endpoint);
   }
 
+  // TODO refactor deal, hit stand etc with one function with
+  // endpoint as argument
+
   deal() {
     let endpoint = `${this.url}/deal`;
     this.actionTableGet(endpoint);
@@ -34,6 +37,11 @@ class ApiService {
 
   split(playerId) {
     let endpoint = `${this.url}/split?playerId=${playerId}`;
+    this.actionTableGet(endpoint);
+  }
+
+  double(playerId) {
+    let endpoint = `${this.url}/double?playerId=${playerId}`;
     this.actionTableGet(endpoint);
   }
 

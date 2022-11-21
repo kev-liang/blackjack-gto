@@ -27,14 +27,20 @@ class TableService {
     // this.dealer.deal(2);
     this.winner = null;
     this.dealer.cards = [
-      { value: 2, suit: "h" },
-      { value: 2, suit: "c" },
-      { value: 2, suit: "s" }
+      { value: 6, suit: "c" },
+      { value: 14, suit: "h" }
     ];
+    this.dealer.shownCards = this.dealer.cards.slice(
+      0,
+      this.dealer.cards.length - 1
+    );
     this.dealer.getCardTotal();
     this.players.forEach((player) => {
-      player.cards = [];
-      player.deal(2);
+      player.cards = [
+        { value: 5, suit: "h" },
+        { value: 6, suit: "c" }
+      ];
+      // player.deal(2);
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
@@ -54,15 +60,19 @@ class TableService {
 
   showTable() {
     let result = _.cloneDeep(this);
-    if (this.tableState === Constants.T_STATE_END) {
+    if (
+      this.tableState === Constants.T_STATE_END ||
+      this.tableState === Constants.T_STATE_DEALER
+    ) {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
-    } else {
-      result.dealer.shownCards = result.dealer.cards.slice(
-        0,
-        result.dealer.cards.length - 1
-      );
     }
+    // else {
+    //   result.dealer.shownCards = result.dealer.cards.slice(
+    //     0,
+    //     result.dealer.cards.length - 1
+    //   );
+    // }
     delete result.dealer.cards;
     delete result.dealer.deck;
     delete result.deck;

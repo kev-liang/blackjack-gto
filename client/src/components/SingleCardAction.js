@@ -39,7 +39,7 @@ function SingleCardAction(props) {
   };
 
   const handleDouble = () => {
-    console.log("handle double");
+    ApiService.double(ConstantsFE.USER_ID);
   };
 
   const handleHit = () => {

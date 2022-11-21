@@ -35,6 +35,12 @@ module.exports = (app) => {
     res.send(tableService.showTable());
   });
 
+  app.get("/double", (req, res) => {
+    let playerId = req.query.playerId;
+    actionService.double(playerId);
+    res.send(tableService.showTable());
+  });
+
   app.get("/deal-dealer", (req, res) => {
     actionService.dealDealer();
     res.send(tableService.showTable());
