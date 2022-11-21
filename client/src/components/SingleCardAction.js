@@ -31,7 +31,7 @@ function SingleCardAction(props) {
   };
 
   const handleSplit = () => {
-    console.log("handle split");
+    ApiService.split(ConstantsFE.USER_ID);
   };
 
   const handleStand = () => {
@@ -39,7 +39,7 @@ function SingleCardAction(props) {
   };
 
   const handleDouble = () => {
-    console.log("handle double");
+    ApiService.double(ConstantsFE.USER_ID);
   };
 
   const handleHit = () => {
