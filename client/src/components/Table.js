@@ -2,7 +2,7 @@ import "../styles/Table.css";
 import Dealer from "./Dealer";
 import Player from "./Player";
 import Winner from "./Winner";
-import CorrectDecision from "./CorrectDecision";
+import CorrectDecision from "./CorrectDecision.js";
 
 import {
   updateNumPlayersAction,

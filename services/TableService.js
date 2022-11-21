@@ -5,11 +5,12 @@ const _ = require("lodash");
 
 class TableService {
   constructor() {
-    this.deck = new Deck();
+    this.deck = new Deck(this);
     this.players = []; // human player id = 0
     this.tableState = Constants.T_STATE_PLAYING;
     this.dealer;
     this.winner = null;
+    this.count = 0;
   }
 
   initTable(numPlayers) {
@@ -27,14 +28,18 @@ class TableService {
     // this.dealer.deal(2);
     this.winner = null;
     this.dealer.cards = [
-      { value: 2, suit: "h" },
-      { value: 2, suit: "c" },
-      { value: 2, suit: "s" }
+      { value: 4, suit: "h" },
+      { value: 6, suit: "c" }
     ];
+    this.dealer.shownCards = [this.dealer.cards[0]];
     this.dealer.getCardTotal();
     this.players.forEach((player) => {
       player.cards = [];
-      player.deal(2);
+      // player.deal(2);
+      player.cards = [
+        { value: 2, suit: "s" },
+        { value: 2, suit: "h" }
+      ];
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
@@ -60,13 +65,12 @@ class TableService {
     ) {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
+    } else {
+      result.dealer.shownCards = result.dealer.cards.slice(
+        0,
+        result.dealer.cards.length - 1
+      );
     }
-    // else {
-    //   result.dealer.shownCards = result.dealer.cards.slice(
-    //     0,
-    //     result.dealer.cards.length - 1
-    //   );
-    // }
     delete result.dealer.cards;
     delete result.dealer.deck;
     delete result.deck;
