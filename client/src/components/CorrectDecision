@@ -1,0 +1,17 @@
+import "../styles/Winner.scss";
+import { connect } from "react-redux";
+import ConstantsFE from "../utils/ConstantsFE";
+
+function Winner(props) {
+  const { table } = props;
+
+  return <div className="winner-container">{getWinnerText(table)}</div>;
+}
+
+const mapStateToProps = (state) => {
+  return {
+    table: state.table?.table
+  };
+};
+
+export default connect(mapStateToProps, null)(Winner);
