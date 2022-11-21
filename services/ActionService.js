@@ -56,6 +56,7 @@ class ActionService {
 
   stand(playerId) {
     let player = this.tableService.findPlayerById(playerId);
+    console.log(this.tableService.dealer);
     player.history = BasicStrategyService.getHistory(
       this.tableService.dealer.shownCards[0].value,
       player,
