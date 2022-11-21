@@ -62,15 +62,21 @@ class BasicStrategyService {
         return this.canSurrender
           ? DecisionConstants.SURRENDER
           : DecisionConstants.STAND;
+      case DecisionConstants.SPLIT_HIT:
+        return this.canDoubleAfterSplit
+          ? DecisionConstants.SPLIT
+          : DecisionConstants.HIT;
+      default:
+        return decision;
     }
   }
 
   getHandStrategy(dealerValue, playerValue, isPair, isSoft) {
     if (!isPair && !isSoft) {
       if (playerValue <= 8) {
-        return Constants.BT_HIT;
+        return DecisionConstants.HIT;
       } else if (playerValue >= 18) {
-        return Constants.BT_STAND;
+        return DecisionConstants.STAND;
       } else {
         return this.strategy.hand[playerValue][dealerValue];
       }
@@ -87,7 +93,6 @@ class BasicStrategyService {
     if (isSoft) {
       return this.strategy.soft[playerValue][dealerValue];
     }
-    return null;
   }
 }
 

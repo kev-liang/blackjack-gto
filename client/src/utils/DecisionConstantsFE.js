@@ -1,23 +1,20 @@
 const HIT = "H";
 const STAND = "S";
 const SPLIT = "SP";
-const SPLIT_HIT = "SP_H";
 const DOUBLE = "D";
-const DOUBLE_STAND = "DS";
 const SURRENDER = "SR";
-const STRING_MAP = {
-  HIT: "Hit",
-  STAND: "Stand",
-  SPLIT: "Split",
-  DOUBLE: "Double"
-};
-module.exports = {
+const STRING_MAP = {};
+STRING_MAP[HIT] = "Hit";
+STRING_MAP[STAND] = "Stand";
+STRING_MAP[SPLIT] = "Split";
+STRING_MAP[DOUBLE] = "Double";
+STRING_MAP[SURRENDER] = "Surrender";
+
+export default {
   HIT,
   STAND,
   SPLIT,
-  SPLIT_HIT,
   DOUBLE,
-  DOUBLE_STAND,
   SURRENDER,
   STRING_MAP
 };

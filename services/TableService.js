@@ -81,7 +81,11 @@ class TableService {
         break;
       case Constants.T_STATE_PLAYING:
         if (this.players.every((player) => !player.isPlaying)) {
-          this.tableState = Constants.T_STATE_DEALER;
+          let player = this.findPlayerById(0);
+          this.tableState =
+            player.playerState === Constants.P_STATE_LOST
+              ? Constants.T_STATE_END
+              : Constants.T_STATE_DEALER;
         }
         break;
       case Constants.T_STATE_DEALER:
@@ -106,27 +110,6 @@ class TableService {
       return { player, tie: true };
     }
     return { player: this.dealer, tie: false };
-  }
-
-  stand(playerId) {
-    let player = this.players.find((p) => {
-      return p.id == playerId;
-    });
-    player.isPlaying = false;
-  }
-
-  double(playerId) {
-    let player = this.players.find((p) => {
-      return p.id == playerId;
-    });
-    //double bet here
-    player.deal(1);
-    if (player.cardTotal >= Constants.BLACKJACK) {
-      if (player.id === 0) {
-        this.tableState = "lost";
-      }
-      player.isPlaying = false;
-    }
   }
 
   findPlayerById(playerId) {

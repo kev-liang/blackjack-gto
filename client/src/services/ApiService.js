@@ -32,6 +32,11 @@ class ApiService {
     this.actionTableGet(endpoint);
   }
 
+  split(playerId) {
+    let endpoint = `${this.url}/split?playerId=${playerId}`;
+    this.actionTableGet(endpoint);
+  }
+
   dealDealer() {
     let endpoint = `${this.url}/deal-dealer`;
     this.actionTableGet(endpoint);

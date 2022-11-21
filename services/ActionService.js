@@ -66,6 +66,10 @@ class ActionService {
     this.tableService.determineTableState();
   }
 
+  split(playerId) {
+    let player = this.tableService.findPlayerById(playerId);
+    player.cards = [];
+  }
   double(playerId) {
     let player = this.tableService.findPlayerById(playerId);
     //double bet here
