@@ -2,7 +2,9 @@ import "../styles/Table.css";
 import Dealer from "./Dealer";
 import Player from "./Player";
 import Winner from "./Winner";
+import NavBar from "./NavBar";
 import CorrectDecision from "./CorrectDecision.js";
+import SettingsDrawer from "./SettingsDrawer";
 
 import {
   updateNumPlayersAction,
@@ -29,6 +31,8 @@ function Table(props) {
   return (
     <div>
       <div className="table"></div>
+      <SettingsDrawer></SettingsDrawer>
+      <NavBar></NavBar>
       <Player players={players}></Player>
       <Winner></Winner>
       <CorrectDecision></CorrectDecision>
