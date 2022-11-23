@@ -25,6 +25,7 @@ class ApiService {
     let endpoint = `${this.url}/deal`;
     this.actionTableGet(endpoint);
   }
+
   hit(playerId) {
     let endpoint = `${this.url}/hit?playerId=${playerId}`;
     this.actionTableGet(endpoint);

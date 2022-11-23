@@ -56,7 +56,6 @@ class ActionService {
 
   stand(playerId) {
     let player = this.tableService.findPlayerById(playerId);
-    console.log(this.tableService.dealer);
     player.history = BasicStrategyService.getHistory(
       this.tableService.dealer.shownCards[0].value,
       player,
@@ -69,7 +68,12 @@ class ActionService {
 
   split(playerId) {
     let player = this.tableService.findPlayerById(playerId);
-    player.cards = [];
+    this.tableService.addSplit(player);
+    player.history = BasicStrategyService.getHistory(
+      this.tableService.dealer.shownCards[0].value,
+      player,
+      DecisionConstants.SPLIT
+    );
   }
 
   double(playerId) {
