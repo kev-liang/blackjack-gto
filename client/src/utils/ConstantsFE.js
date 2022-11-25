@@ -16,6 +16,7 @@ const DEALER_ID = -1;
 const USER_ID = 0;
 
 const CARD_WIDTH = 75;
+const MAX_NUM_SPLITS = 3;
 
 export default {
   P_STATE_LOST,
@@ -30,5 +31,6 @@ export default {
   T_STATE_END,
   DEALER_ID,
   USER_ID,
-  CARD_WIDTH
+  CARD_WIDTH,
+  MAX_NUM_SPLITS
 };

@@ -13,6 +13,7 @@ class TableService {
     this.winner = null;
     this.count = 0;
     this.turnId = 0;
+    this.lastDecision = null;
   }
 
   initTable(numPlayers) {
@@ -47,8 +48,8 @@ class TableService {
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
     });
-    console.log("fdsa", this.players, this.players[0]);
     this.turnId = this.players[0].id;
+    this.lastDecision = null;
     this.determineDealerBlackjack();
   }
 
@@ -91,6 +92,7 @@ class TableService {
     delete result.dealer.cards;
     delete result.dealer.deck;
   }
+
   determineTableState() {
     switch (this.tableState) {
       case Constants.T_STATE_DEALER_BLACKJACK:
@@ -152,7 +154,7 @@ class TableService {
     let id = splitPlayers.length + 2;
     let splitPlayer = new Player(-id, this.deck);
     splitPlayer.cards = player.cards.splice(1);
-    player.deal(1);
+    player.cards.push({ value: 2, suit: "c" });
     player.getCardTotal();
     splitPlayer.deal(1);
     splitPlayer.getCardTotal();
@@ -163,8 +165,9 @@ class TableService {
   resetSplit() {
     let splitPlayers = this.players.filter((player) => player.id < 0);
     let player = this.findPlayerById(Constants.USER_ID);
-    splitPlayers.forEach((splitPlayer) =>
-      player.history.concat(splitPlayer.history)
+    splitPlayers.forEach(
+      (splitPlayer) =>
+        (player.history = player.history.concat(splitPlayer.history))
     );
     this.players = [player];
   }

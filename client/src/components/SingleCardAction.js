@@ -5,12 +5,27 @@ import { updateTableAction } from "../actions/tableActions";
 import { bindActionCreators } from "redux";
 import TableUtils from "../utils/TableUtils";
 import ConstantsFE from "../utils/ConstantsFE";
+import React from "react";
+
+import Tooltip from "@mui/material/Tooltip";
 
 function SingleCardAction(props) {
-  const { label, action, table, turnId } = props;
+  const { label, action, players, turnId, tableState } = props;
+  const [disabled, setDisabled] = React.useState(false);
+  const [tooltip, setTooltip] = React.useState("");
+
+  React.useEffect(() => {
+    determineDisabled(players, action);
+  }, [players]);
+
+  React.useEffect(() => {
+    if (tableState === ConstantsFE.T_STATE_END) {
+      setTooltip("");
+    }
+  }, [tableState]);
 
   const handleClick = (action) => {
-    // TODO handle switch case of action
+    if (disabled) return;
     switch (action) {
       case "handleSplit":
         handleSplit();
@@ -46,30 +61,52 @@ function SingleCardAction(props) {
     ApiService.hit(turnId);
   };
 
-  const determineDisabled = (table, action) => {
-    if (!table || !action) return;
-    let player = TableUtils.findPlayerById(table.players, ConstantsFE.USER_ID);
+  const determineMaxSplit = (players) => {
+    let splitPlayers = players.filter((player) => player.id < 0);
+    return splitPlayers.length === ConstantsFE.MAX_NUM_SPLITS;
+  };
+
+  const determineSplit = (player, players) => {
+    if (!player.isPlaying) {
+      setDisabled(true);
+      return;
+    }
+    let isMaxSplit = determineMaxSplit(players);
+    let splitDisabled =
+      (player.cards.length > 2 &&
+        player.cards[0].value !== player.cards[1].value) ||
+      isMaxSplit;
+    setDisabled(splitDisabled);
+    if (splitDisabled) {
+      setTooltip(`Cannot split more than ${ConstantsFE.MAX_NUM_SPLITS} times`);
+    }
+  };
+
+  const determineDisabled = (players, action) => {
+    if (!players || !action) return;
+    let player = TableUtils.findPlayerById(players, turnId);
     switch (action) {
       case "handleSplit":
-        return (
-          player.cards.length === 2 &&
-          player.cards[0].value === player.cards[1].value
-        );
+        return determineSplit(player, players);
       case "handleDouble":
-        return player.cards.length === 2;
+        setDisabled(player.cards.length > 2);
       default:
-        return !player.isPlaying;
+        setDisabled(!player.isPlaying);
     }
   };
 
   return (
-    <div
-      className={`card-action-button ${
-        determineDisabled(table) ? "card-action-disabled" : ""
-      }`}
-      onClick={() => handleClick(action)}
-    >
-      {label}
+    <div>
+      <Tooltip title={tooltip} placement="top">
+        <div
+          className={`card-action-button ${
+            disabled ? "card-action-disabled" : ""
+          }`}
+          onClick={() => handleClick(action)}
+        >
+          {label}
+        </div>
+      </Tooltip>
     </div>
   );
 }
@@ -85,8 +122,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    table: state.table?.table,
-    turnId: state.table?.table?.turnId
+    players: state.table?.table?.players,
+    turnId: state.table?.table?.turnId,
+    tableState: state.table?.table?.tableState
   };
 };
 
