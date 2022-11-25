@@ -30,16 +30,16 @@ class Deck {
     }
   }
 
-  deal(numCards) {
+  deal(numCards, shouldCount = true) {
     let cards = [];
     for (let i = 0; i < numCards; i++) {
       let card = this.deck[this.currCard];
-      this.count(card.value);
       this.currCard++;
       cards.push(card);
+      if (shouldCount) {
+        this.count(card.value);
+      }
     }
-    // const cards = this.deck.slice(this.currCard, this.currCard + numCards);
-    // this.currCard += numCards;
     return cards;
   }
 
