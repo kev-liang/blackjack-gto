@@ -12,9 +12,9 @@ class ActionService {
 
   hit(playerId) {
     let player = this.tableService.findPlayerById(playerId);
-    player.history = BasicStrategyService.getHistory(
-      this.tableService.dealer.shownCards[0].value,
+    this.getHistory(
       player,
+      this.tableService.dealer.shownCards[0].value,
       DecisionConstants.HIT
     );
     player.deal(1);
@@ -56,10 +56,9 @@ class ActionService {
 
   stand(playerId) {
     let player = this.tableService.findPlayerById(playerId);
-    console.log(this.tableService.dealer);
-    player.history = BasicStrategyService.getHistory(
-      this.tableService.dealer.shownCards[0].value,
+    this.getHistory(
       player,
+      this.tableService.dealer.shownCards[0].value,
       DecisionConstants.STAND
     );
     player.playerState = Constants.P_STATE_STAND;
@@ -69,15 +68,21 @@ class ActionService {
 
   split(playerId) {
     let player = this.tableService.findPlayerById(playerId);
-    player.cards = [];
+    this.tableService.addSplit(player);
+    this.getHistory(
+      player,
+      this.tableService.dealer.shownCards[0].value,
+      DecisionConstants.SPLIT
+    );
+    this.tableService.lastDecision = player.history[player.history.length - 1];
   }
 
   double(playerId) {
     let player = this.tableService.findPlayerById(playerId);
     //double bet here
-    player.history = BasicStrategyService.getHistory(
-      this.tableService.dealer.shownCards[0].value,
+    this.getHistory(
       player,
+      this.tableService.dealer.shownCards[0].value,
       DecisionConstants.DOUBLE
     );
     player.deal(1);
@@ -87,6 +92,15 @@ class ActionService {
     }
     player.isPlaying = false;
     this.tableService.determineTableState();
+  }
+
+  getHistory(player, dealerValue, decision) {
+    player.history = BasicStrategyService.getHistory(
+      dealerValue,
+      player,
+      decision
+    );
+    this.tableService.lastDecision = player.history[player.history.length - 1];
   }
 }
 

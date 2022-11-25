@@ -11,6 +11,7 @@ class Player {
     this.playerState = Constants.P_STATE_PLAYING;
     this.shouldShowAllCards = false;
     this.history = [];
+    this.splitPlayerId = null;
   }
 
   deal(numCards) {

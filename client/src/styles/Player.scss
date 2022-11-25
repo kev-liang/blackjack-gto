@@ -9,3 +9,26 @@
   margin-right: auto; 
   width: $card-width;
 }
+
+#player-container-even-1, #player-container-odd-1 {
+  left: 60%;
+  bottom: 45%;
+}
+
+#player-container-even-2, #player-container-odd-2 {
+  left: 30%;
+}
+
+#player-container-even-3, #player-container-odd-4 {
+  right: 30%;
+}
+
+#player-container-even-4, #player-container-odd-5 {
+  right: 60%;
+  bottom: 45%;
+}
+
+.player-turn {
+  background-color: #FFD800;
+  border-radius: 10px;
+}

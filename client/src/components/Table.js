@@ -16,7 +16,6 @@ import { useState, useEffect } from "react";
 
 function Table(props) {
   const { table, updateNumPlayers, updateDealingDelay } = props;
-  const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     updateNumPlayers(1);
@@ -25,7 +24,6 @@ function Table(props) {
 
   useEffect(() => {
     console.log("table", table);
-    setPlayers(table?.players);
   }, [table]);
 
   return (
@@ -33,7 +31,7 @@ function Table(props) {
       <div className="table"></div>
       <SettingsDrawer></SettingsDrawer>
       <NavBar></NavBar>
-      <Player players={players}></Player>
+      <Player></Player>
       <Winner></Winner>
       <CorrectDecision></CorrectDecision>
       <Dealer></Dealer>
