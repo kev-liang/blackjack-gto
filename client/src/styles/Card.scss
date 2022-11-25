@@ -10,10 +10,6 @@
   border-radius: 5px;
 }
 
-.card-lost {
-  opacity: 0.7;
-}
-
 .card-hidden {
   background-color: #f00;
 }
@@ -47,8 +43,4 @@
   bottom: $suit-distance;
   right: 5px;
   font-size: 25px;
-}
-
-.card-lost {
-  opacity: 0.6;
 }

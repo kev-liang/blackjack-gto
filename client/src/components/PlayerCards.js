@@ -5,25 +5,17 @@ import TableUtils from "../utils/TableUtils";
 
 import "../styles/PlayerCards.scss";
 
-// TODO make player cards centered after hitting
 const PlayerCards = (props) => {
   const { cards, table, id } = props;
-
-  const determineUserLost = (table) => {
-    let player = TableUtils.findPlayerById(table.players, id);
-    return !player.isPlaying;
-  };
 
   return (
     <div className="player-cards-container">
       {cards.map((card) => (
         <div
-          className={`player-cards ${
-            determineUserLost(table) ? "player-cards-disabled" : ""
-          }`}
+          className="player-cards"
           key={`player-card-${card.value}-${card.suit}`}
         >
-          <Card card={card} lost={determineUserLost(table)}></Card>
+          <Card card={card}></Card>
         </div>
       ))}
     </div>

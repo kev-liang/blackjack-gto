@@ -3,21 +3,42 @@ import ConstantsFE from "../utils/ConstantsFE";
 import DecisionConstantsFE from "../utils/DecisionConstantsFE";
 import "../styles/CorrectDecision.scss";
 
+const getCorrectDecisionText = (playerDecision, correctDecision) => {};
+
 const getDecisionText = (table) => {
-  if (!table || !table.players) return;
-  let player = table.players.find(
-    (player) => player.id === ConstantsFE.USER_ID
-  );
-  if (!player.history.length) return;
-  let currHistory = player.history[player.history.length - 1];
-  let { correctDecision } = currHistory;
+  if (!table || !table.lastDecision) return;
+  let { lastDecision } = table;
+  let { correctDecision } = lastDecision;
+  let playerDecision = lastDecision.playerValues.decision;
   let correctDecisionString = DecisionConstantsFE.STRING_MAP[correctDecision];
-  let playerDecision = currHistory.playerValues.decision;
   let playerDecisionString = DecisionConstantsFE.STRING_MAP[playerDecision];
+
+  let playerAndDealerValues = ` with a ${
+    lastDecision.isSoft ? "soft" : "hard"
+  } ${lastDecision.playerValues.playerValue} against the dealer's ${
+    lastDecision.dealerValue
+  }.`;
+
+  let result = "";
   if (playerDecision === correctDecision) {
-    return `Correct ${correctDecisionString}`;
+    return (
+      <p>
+        {"Correct "}
+        <span className="correct-decision">{correctDecisionString}</span>
+        {playerAndDealerValues}
+      </p>
+    );
+  } else {
+    return (
+      <p>
+        {"You chose "}
+        <span className="correct-decision">{playerDecisionString}</span>
+        {" instead of "}
+        <span className="incorrect-decision">{correctDecisionString}</span>
+        {playerAndDealerValues}
+      </p>
+    );
   }
-  return `You chose ${playerDecisionString} instead of ${correctDecisionString}`;
 };
 
 function CorrectDecision(props) {

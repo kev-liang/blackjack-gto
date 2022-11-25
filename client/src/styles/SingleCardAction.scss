@@ -1,7 +1,7 @@
 @import '_vars.scss';
 .card-action-disabled {
   opacity: 0.7;
-  pointer-events: none;
+  cursor: default !important;
 }
 
 .card-action-button {
@@ -12,4 +12,5 @@
   align-items: center;
   justify-content: center;
   padding-bottom: 5px;
+  cursor: pointer;
 }

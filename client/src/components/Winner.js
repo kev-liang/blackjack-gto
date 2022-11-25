@@ -12,7 +12,6 @@ const getWinnerText = (table) => {
   } else {
     result = "Player won";
   }
-  console.log("fdsa", result);
   return `${result} with ${table.winner.player.cardTotal}`;
 };
 

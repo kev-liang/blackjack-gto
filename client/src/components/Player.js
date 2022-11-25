@@ -4,8 +4,10 @@ import { connect } from "react-redux";
 import ConstantsFE from "../utils/ConstantsFE";
 import React from "react";
 
+import TableUtils from "../utils/TableUtils";
+
 function Dealer(props) {
-  const { table, cardTotal, players, turnId } = props;
+  const { table, players, turnId } = props;
 
   const getContainerWidth = (i) => {
     if (!players) return;
@@ -15,8 +17,21 @@ function Dealer(props) {
   };
 
   const getPlayerContainerNum = (i) => {
-    let startIndex = 3 - players.length / 2;
-    return startIndex + i;
+    let result = players.length % 2 === 0 ? "even" : "odd";
+
+    let startIndex = 3 - Math.floor(players.length / 2);
+    return `${result}-${startIndex + i}`;
+  };
+
+  const getPlayerTotal = (id) => {
+    if (!table) return;
+    let player = table.players.find((player) => player.id === id);
+    return player.cardTotal;
+  };
+
+  const determineUserLost = (table, id) => {
+    let player = TableUtils.findPlayerById(table.players, id);
+    return !player.isPlaying;
   };
 
   return (
@@ -24,7 +39,11 @@ function Dealer(props) {
       {players?.map((player, i) => (
         <div
           id={`player-container-${getPlayerContainerNum(i)}`}
-          className="player-container"
+          className={`player-container ${
+            determineUserLost(table, player.id)
+              ? "player-cards-container-disabled"
+              : ""
+          }`}
           style={getContainerWidth(i)}
         >
           <PlayerCards
@@ -37,7 +56,7 @@ function Dealer(props) {
               player.id === turnId ? "player-turn" : ""
             }`}
           >
-            {cardTotal}
+            {getPlayerTotal(player.id)}
           </p>
         </div>
       ))}
@@ -46,10 +65,8 @@ function Dealer(props) {
 }
 
 const mapStateToProps = (state) => {
-  let player = state.table?.table?.players.find((player) => player.id === 0);
-  let cardTotal = player?.cardTotal;
   return {
-    cardTotal,
+    table: state.table?.table,
     players: state.table?.table?.players,
     turnId: state.table?.table?.turnId
   };
