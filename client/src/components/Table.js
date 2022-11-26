@@ -1,9 +1,8 @@
 import "../styles/Table.css";
 import Dealer from "./Dealer";
 import Player from "./Player";
-import Winner from "./Winner";
 import NavBar from "./NavBar";
-import CorrectDecision from "./CorrectDecision.js";
+import MiddleInfo from "./MiddleInfo";
 import SettingsDrawer from "./SettingsDrawer";
 
 import {
@@ -31,10 +30,9 @@ function Table(props) {
       <div className="table"></div>
       <SettingsDrawer></SettingsDrawer>
       <NavBar></NavBar>
-      <Player></Player>
-      <Winner></Winner>
-      <CorrectDecision></CorrectDecision>
       <Dealer></Dealer>
+      <MiddleInfo></MiddleInfo>
+      <Player></Player>
     </div>
   );
 }

@@ -14,8 +14,8 @@ class Player {
     this.splitPlayerId = null;
   }
 
-  deal(numCards) {
-    this.cards = this.cards.concat(this.deck.deal(numCards));
+  deal(numCards, shouldCount = true) {
+    this.cards = this.cards.concat(this.deck.deal(numCards, shouldCount));
   }
 
   showCards() {

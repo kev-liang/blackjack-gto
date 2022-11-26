@@ -2,23 +2,30 @@ import "../styles/Winner.scss";
 import { connect } from "react-redux";
 import ConstantsFE from "../utils/ConstantsFE";
 
-const getWinnerText = (table) => {
-  if (!table?.winner) return;
-  let result = "";
-  if (table.winner.tie) {
-    result = "Dealer and player tied";
-  } else if (table.winner.player.id === ConstantsFE.DEALER_ID) {
-    result = "Dealer won";
-  } else {
-    result = "Player won";
-  }
-  return `${result} with ${table.winner.player.cardTotal}`;
-};
+import React from "react";
 
 function Winner(props) {
   const { table } = props;
+  const [winnerText, setWinnerText] = React.useState("");
 
-  return <div className="winner-container">{getWinnerText(table)}</div>;
+  React.useEffect(() => {
+    if (!table?.winner) return;
+    getWinnerText(table);
+  }, [table]);
+
+  const getWinnerText = (table) => {
+    let result = "";
+    if (table.winner.tie) {
+      result = "Dealer and player tied";
+    } else if (table.winner.player.id === ConstantsFE.DEALER_ID) {
+      result = "Dealer won";
+    } else {
+      result = "Player won";
+    }
+    setWinnerText(`${result} with ${table.winner.player.cardTotal}`);
+  };
+
+  return <div className="winner-container">{winnerText}</div>;
 }
 
 const mapStateToProps = (state) => {

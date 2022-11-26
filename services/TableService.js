@@ -28,29 +28,50 @@ class TableService {
   }
 
   deal() {
-    // this.dealer.deal(2);
     this.winner = null;
+    this.turnId = this.players[0].id;
+    this.lastDecision = null;
+
+    this.resetDealer();
+    this.resetPlayers();
+    this.resetSplit();
+    this.determineDealerBlackjack();
+  }
+
+  resetDealer() {
     this.dealer.cards = [
-      { value: 4, suit: "h" },
-      { value: 6, suit: "c" }
+      { value: 14, suit: "h" },
+      { value: 3, suit: "h" }
     ];
+    // this.dealer.deal(1);
+    // this.dealer.deal(1, false);
+    // show one card to determine correct basic strategy decision
     this.dealer.shownCards = [this.dealer.cards[0]];
     this.dealer.getCardTotal();
-    this.resetSplit();
+    this.dealer.isPlaying = true;
+  }
+
+  resetPlayers() {
     this.players.forEach((player) => {
-      player.cards = [];
-      // player.deal(2);
       player.cards = [
-        { value: 2, suit: "s" },
-        { value: 2, suit: "h" }
+        { value: 3, suit: "c" },
+        { value: 5, suit: "c" }
       ];
+      // player.deal(2);
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
     });
-    this.turnId = this.players[0].id;
-    this.lastDecision = null;
-    this.determineDealerBlackjack();
+  }
+
+  resetSplit() {
+    let splitPlayers = this.players.filter((player) => player.id < 0);
+    let player = this.findPlayerById(Constants.USER_ID);
+    splitPlayers.forEach(
+      (splitPlayer) =>
+        (player.history = player.history.concat(splitPlayer.history))
+    );
+    this.players = [player];
   }
 
   determineDealerBlackjack() {
@@ -160,16 +181,6 @@ class TableService {
     splitPlayer.getCardTotal();
     splitPlayer.splitPlayerId = player.id;
     this.players.push(splitPlayer);
-  }
-
-  resetSplit() {
-    let splitPlayers = this.players.filter((player) => player.id < 0);
-    let player = this.findPlayerById(Constants.USER_ID);
-    splitPlayers.forEach(
-      (splitPlayer) =>
-        (player.history = player.history.concat(splitPlayer.history))
-    );
-    this.players = [player];
   }
 
   // WIP: in case need histories in order
