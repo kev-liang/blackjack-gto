@@ -1,0 +1,164 @@
+{
+  "title": "Settings",
+  "icon": "SettingsIcon",
+  "settings": [
+    {
+      "subTitle": {
+        "text": "Display",
+        "variant": "h6"
+      },
+      "icon": "MonitorIcon",
+      "options": [
+        {
+          "components": [
+            {
+              "component": "Checkbox",
+              "onChange": "change"
+            },
+            {
+              "component": "p",
+              "text": "Display count"
+            }
+          ]
+        },
+        {
+          "components": [
+            {
+              "component": "Checkbox",
+              "onChange": "change"
+            },
+            {
+              "component": "p",
+              "text": "Display winner"
+            }
+          ]
+        },
+        {
+          "components": [
+            {
+              "component": "Checkbox",
+              "onChange": "change"
+            },
+            {
+              "component": "p",
+              "text": "Display correct decision"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subTitle": {
+        "text": "Gameplay",
+        "variant": "h6"
+      },
+      "icon": "VideogameAssetIcon",
+      "options": [
+        {
+          "components": [
+            {
+              "component": "Checkbox",
+              "onChange": "change"
+            },
+            {
+              "component": "p",
+              "text": "Enable dealer playing"
+            }
+          ]
+        },
+        {
+          "components": [
+            {
+              "component": "Checkbox",
+              "onChange": "change"
+            },
+            {
+              "component": "p",
+              "text": "Enable other players"
+            }
+          ]
+        },
+        {
+          "components": [
+            {
+              "component": "Checkbox",
+              "onChange": "change"
+            },
+            {
+              "component": "p",
+              "text": "Enable surrendering"
+            }
+          ]
+        },
+        {
+          "components": [
+            {
+              "component": "p",
+              "text": "Dealer decision on soft 17"
+            },
+            {
+              "component": "Select",
+              "onChange": "change",
+              "items": [
+                {
+                  "value": "HIT",
+                  "label": "Hit"
+                },
+                {
+                  "value": "STAND",
+                  "label": "Stand"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "components": [
+            {
+              "component": "p",
+              "text": "Number of decks"
+            },
+            {
+              "component": "Select",
+              "onChange": "change",
+              "items": [
+                {
+                  "value": "1",
+                  "label": "1"
+                },
+                {
+                  "value": "2",
+                  "label": "2"
+                },
+                {
+                  "value": "3",
+                  "label": "3"
+                },
+                {
+                  "value": "4",
+                  "label": "4"
+                },
+                {
+                  "value": "5",
+                  "label": "5"
+                },
+                {
+                  "value": "6",
+                  "label": "6"
+                },
+                {
+                  "value": "7",
+                  "label": "7"
+                },
+                {
+                  "value": "8",
+                  "label": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
