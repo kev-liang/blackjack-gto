@@ -13,7 +13,7 @@ class TableService {
     this.winner = null;
     this.count = 0;
     this.turnId = 0;
-    this.lastDecision = null;
+    this.lastDecision = null; // for determining correct basic strategy
   }
 
   initTable(numPlayers) {
@@ -39,12 +39,9 @@ class TableService {
   }
 
   resetDealer() {
-    this.dealer.cards = [
-      { value: 14, suit: "h" },
-      { value: 3, suit: "h" }
-    ];
-    // this.dealer.deal(1);
-    // this.dealer.deal(1, false);
+    this.dealer.cards = [];
+    this.dealer.deal(1);
+    this.dealer.deal(1, false);
     // show one card to determine correct basic strategy decision
     this.dealer.shownCards = [this.dealer.cards[0]];
     this.dealer.getCardTotal();
@@ -53,11 +50,8 @@ class TableService {
 
   resetPlayers() {
     this.players.forEach((player) => {
-      player.cards = [
-        { value: 3, suit: "c" },
-        { value: 5, suit: "c" }
-      ];
-      // player.deal(2);
+      player.cards = [];
+      player.deal(2);
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
@@ -122,11 +116,11 @@ class TableService {
         break;
       case Constants.T_STATE_PLAYING:
         if (this.players.every((player) => !player.isPlaying)) {
-          let player = this.findPlayerById(0);
-          this.tableState =
-            player.playerState === Constants.P_STATE_LOST
-              ? Constants.T_STATE_END
-              : Constants.T_STATE_DEALER;
+          this.tableState = this.players.every(
+            (player) => player.playerState === Constants.P_STATE_LOST
+          )
+            ? Constants.T_STATE_END
+            : Constants.T_STATE_DEALER;
         } else {
           // determining next player's turn
           let currPlayerIndex = this.players.findIndex(
@@ -175,7 +169,7 @@ class TableService {
     let id = splitPlayers.length + 2;
     let splitPlayer = new Player(-id, this.deck);
     splitPlayer.cards = player.cards.splice(1);
-    player.cards.push({ value: 2, suit: "c" });
+    player.deal(1);
     player.getCardTotal();
     splitPlayer.deal(1);
     splitPlayer.getCardTotal();

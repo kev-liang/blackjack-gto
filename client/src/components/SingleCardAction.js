@@ -73,11 +73,11 @@ function SingleCardAction(props) {
     }
     let isMaxSplit = determineMaxSplit(players);
     let splitDisabled =
-      (player.cards.length > 2 &&
-        player.cards[0].value !== player.cards[1].value) ||
+      player.cards.length > 2 ||
+      player.cards[0].value !== player.cards[1].value ||
       isMaxSplit;
     setDisabled(splitDisabled);
-    if (splitDisabled) {
+    if (isMaxSplit) {
       setTooltip(`Cannot split more than ${ConstantsFE.MAX_NUM_SPLITS} times`);
     }
   };

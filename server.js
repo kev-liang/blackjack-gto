@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cardController = require("./controller/CardController");
+const path = require("path");
 
 console.log("process", process.env);
 
@@ -14,9 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("sup");
-});
+// app.use(express.static("client/build"));
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+// });
 
 cardController(app);
 
