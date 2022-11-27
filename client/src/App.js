@@ -8,6 +8,7 @@ function App() {
   React.useEffect(() => {
     ApiService.initTable(1);
   }, []);
+
   return (
     <div className="App">
       <Table></Table>

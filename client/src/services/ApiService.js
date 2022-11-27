@@ -10,16 +10,13 @@ class ApiService {
     this.url =
       process.env.NODE_ENV === "development"
         ? "http://localhost:5000"
-        : "TODO add prod base url";
+        : process.env.BACK_END_URL;
   }
 
   initTable(numPlayers) {
     let endpoint = `${this.url}/init?numPlayers=${numPlayers}`;
     this.actionTableGet(endpoint);
   }
-
-  // TODO refactor deal, hit stand etc with one function with
-  // endpoint as argument
 
   deal() {
     let endpoint = `${this.url}/deal`;

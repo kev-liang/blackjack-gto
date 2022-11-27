@@ -87,9 +87,7 @@ class ActionService {
     );
     player.deal(1);
     player.getCardTotal();
-    if (player.cardTotal > Constants.BLACKJACK) {
-      player.playerState = Constants.P_STATE_LOST;
-    }
+    this.determinePlayerLost(player);
     player.isPlaying = false;
     this.tableService.determineTableState();
   }
