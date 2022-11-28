@@ -10,9 +10,13 @@ import React from "react";
 import Tooltip from "@mui/material/Tooltip";
 
 function SingleCardAction(props) {
-  const { label, action, players, turnId, tableState } = props;
-  const [disabled, setDisabled] = React.useState(false);
+  const { table, label, action, players, turnId, tableState } = props;
+  const [disabled, setDisabled] = React.useState(true);
   const [tooltip, setTooltip] = React.useState("");
+
+  React.useEffect(() => {
+    if (table) setDisabled(false);
+  }, [table]);
 
   React.useEffect(() => {
     determineDisabled(players, action);
@@ -131,7 +135,8 @@ const mapStateToProps = (state) => {
   return {
     players: state.table?.table?.players,
     turnId: state.table?.table?.turnId,
-    tableState: state.table?.table?.tableState
+    tableState: state.table?.table?.tableState,
+    table: state.table?.table
   };
 };
 
