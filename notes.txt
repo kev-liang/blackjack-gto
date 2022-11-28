@@ -1,9 +1,0 @@
-server.js: main file
-CardController: controls routes and facilitates calls to ActionService and TableService
-TableService: handles players and table state, etc
-
-hard 17 against 13
-
-disabled when 21 : IN TESTING
-bug: show A in correct decision
-bug: player ak, dealer a9 but count = 0
