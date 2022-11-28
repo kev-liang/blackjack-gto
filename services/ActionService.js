@@ -108,7 +108,14 @@ class ActionService {
 
   getHistory(player, dealerValue, decision) {
     // jack, queen, king, ace value = 10
-    let newDealerValue = dealerValue > 10 ? 10 : dealerValue;
+    let newDealerValue;
+    if (dealerValue === 14) {
+      newDealerValue = 14;
+    } else if (dealerValue >= 10) {
+      newDealerValue = 10;
+    } else {
+      newDealerValue = dealerValue;
+    }
     player.history = BasicStrategyService.getHistory(
       newDealerValue,
       player,
