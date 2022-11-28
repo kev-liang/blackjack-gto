@@ -2,24 +2,7 @@ import SingleCardAction from "./SingleCardAction";
 import "../styles/CardActions.css";
 import { connect } from "react-redux";
 
-const actions = [
-  {
-    label: "Hit",
-    action: "handleHit"
-  },
-  {
-    label: "Stand",
-    action: "handleStand"
-  },
-  {
-    label: "Split",
-    action: "handleSplit"
-  },
-  {
-    label: "Double",
-    action: "handleDouble"
-  }
-];
+const actionsConfig = require("../config/cardActionConfig.json");
 
 function CardActions(props) {
   const { tableState } = props;
@@ -27,7 +10,7 @@ function CardActions(props) {
   return (
     <div className="card-action-container">
       <div className="card-actions">
-        {actions.map((action) => {
+        {actionsConfig.actions.map((action) => {
           return (
             <SingleCardAction
               key={action.label}

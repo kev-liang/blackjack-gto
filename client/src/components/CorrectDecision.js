@@ -38,9 +38,9 @@ function CorrectDecision(props) {
       return (
         <p>
           {"You chose "}
-          <span className="correct-decision">{playerDecisionString}</span>
+          <span className="incorrect-decision">{playerDecisionString}</span>
           {" instead of "}
-          <span className="incorrect-decision">{correctDecisionString}</span>
+          <span className="correct-decision">{correctDecisionString}</span>
           {playerAndDealerValues}
         </p>
       );

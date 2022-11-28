@@ -9,8 +9,11 @@ function Winner(props) {
   const [winnerText, setWinnerText] = React.useState("");
 
   React.useEffect(() => {
-    if (!table?.winner) return;
-    getWinnerText(table);
+    if (!table?.winner) {
+      setWinnerText("");
+    } else {
+      getWinnerText(table);
+    }
   }, [table]);
 
   const getWinnerText = (table) => {

@@ -43,6 +43,11 @@ class ApiService {
     this.actionTableGet(endpoint);
   }
 
+  surrender(playerId) {
+    let endpoint = `${this.url}/surrender?playerId=${playerId}`;
+    this.actionTableGet(endpoint);
+  }
+
   dealDealer() {
     let endpoint = `${this.url}/deal-dealer`;
     this.actionTableGet(endpoint);

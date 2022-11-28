@@ -39,6 +39,9 @@ function SingleCardAction(props) {
       case "handleHit":
         handleHit();
         break;
+      case "handleSurrender":
+        handleSurrender();
+        break;
       default:
         console.error("Unknown action type");
         break;
@@ -59,6 +62,10 @@ function SingleCardAction(props) {
 
   const handleHit = () => {
     ApiService.hit(turnId);
+  };
+
+  const handleSurrender = () => {
+    ApiService.surrender(turnId);
   };
 
   const determineMaxSplit = (players) => {
