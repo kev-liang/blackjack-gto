@@ -1,9 +1,7 @@
-import ConstantsFE from "./ConstantsFE";
-
 class TableUtils {
   findPlayerById(players, playerId) {
     return players.find((p) => {
-      return p.id == playerId;
+      return p.id === playerId;
     });
   }
 }

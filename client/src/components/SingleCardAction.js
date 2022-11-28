@@ -13,6 +13,7 @@ function SingleCardAction(props) {
   const { table, label, action, players, turnId, tableState } = props;
   const [disabled, setDisabled] = React.useState(true);
   const [tooltip, setTooltip] = React.useState("");
+  let determineDisabled;
 
   React.useEffect(() => {
     if (table) setDisabled(false);
@@ -20,7 +21,7 @@ function SingleCardAction(props) {
 
   React.useEffect(() => {
     determineDisabled(players, action);
-  }, [players]);
+  }, [players, action, determineDisabled]);
 
   React.useEffect(() => {
     if (tableState === ConstantsFE.T_STATE_END) {
@@ -93,7 +94,7 @@ function SingleCardAction(props) {
     }
   };
 
-  const determineDisabled = (players, action) => {
+  determineDisabled = (players, action) => {
     if (!players || !action) return;
     let player = TableUtils.findPlayerById(players, turnId);
     switch (action) {
@@ -101,6 +102,7 @@ function SingleCardAction(props) {
         return determineSplit(player, players);
       case "handleDouble":
         setDisabled(player.cards.length > 2);
+        break;
       default:
         setDisabled(!player.isPlaying);
     }

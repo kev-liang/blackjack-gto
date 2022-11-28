@@ -1,5 +1,4 @@
 import axios from "axios";
-import ConstantsFE from "../utils/ConstantsFE";
 import TableServiceFE from "./TableServiceFE";
 import Url from "../utils/BackendUrlUtil";
 

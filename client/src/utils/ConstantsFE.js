@@ -18,7 +18,7 @@ const USER_ID = 0;
 const CARD_WIDTH = 75;
 const MAX_NUM_SPLITS = 3;
 
-export default {
+const ConstantsFE = {
   P_STATE_LOST,
   P_STATE_DOUBLE,
   P_STATE_STAND,
@@ -34,3 +34,5 @@ export default {
   CARD_WIDTH,
   MAX_NUM_SPLITS
 };
+
+export default ConstantsFE;
