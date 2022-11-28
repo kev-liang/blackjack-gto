@@ -1,16 +1,14 @@
 import axios from "axios";
 import ConstantsFE from "../utils/ConstantsFE";
 import TableServiceFE from "./TableServiceFE";
+import Url from "../utils/BackendUrlUtil";
 
 import { updateTableAction } from "../actions/tableActions";
 import { store } from "../store";
 
-class ApiService {
+class ActionServiceFE {
   constructor() {
-    this.url =
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:5000"
-        : process.env.BACK_END_URL;
+    this.url = Url;
   }
 
   initTable(numPlayers) {
@@ -81,4 +79,4 @@ class ApiService {
   }
 }
 
-export default new ApiService();
+export default new ActionServiceFE();

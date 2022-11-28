@@ -2,9 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cardController = require("./controller/CardController");
+const settingsController = require("./controller/SettingsController");
+
+const TableService = require("./services/TableService");
+const ActionService = require("./services/ActionService");
+
 const path = require("path");
 
-console.log("process", process.env);
+console.log("Starting with env: ", process.env);
 
 let port = process.env.NODE_ENV !== "production" ? 5000 : process.env.PORT;
 
@@ -21,7 +26,11 @@ app.use(cors());
 //   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 // });
 
-cardController(app);
+const tableService = new TableService();
+const actionService = new ActionService(tableService);
+
+cardController(app, tableService, actionService);
+settingsController(app, tableService);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
