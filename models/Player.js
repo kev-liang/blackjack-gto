@@ -18,6 +18,10 @@ class Player {
     this.cards = this.cards.concat(this.deck.deal(numCards, shouldCount));
   }
 
+  dealTest(numCards, shouldCount = true) {
+    this.cards = this.cards.concat(this.deck.dealTest(numCards, shouldCount));
+  }
+
   showCards() {
     this.shownCards = this.cards;
   }
