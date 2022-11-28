@@ -11,7 +11,7 @@ const path = require("path");
 
 console.log("Starting with env: ", process.env);
 
-let port = process.env.NODE_ENV !== "production" ? 5000 : process.env.PORT;
+let port = process.env.PORT || 5000;
 
 const app = express();
 
