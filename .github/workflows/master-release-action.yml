@@ -28,3 +28,5 @@ jobs:
         npm install
         npm run build --if-present
         npm run test --if-present
+        cp -r temp_build ../build
+        rm -rf temp_build
