@@ -8,6 +8,7 @@ import { store } from "../store";
 class ActionServiceFE {
   constructor() {
     this.url = Url;
+    console.log("fdsa", this.url, process.env);
   }
 
   initTable(numPlayers) {
