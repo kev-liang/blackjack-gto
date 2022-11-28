@@ -23,7 +23,7 @@ function CorrectDecision(props) {
     let playerAndDealerValues = ` with a ${
       lastDecision.isSoft ? "soft" : "hard"
     } ${lastDecision.playerValues.playerValue} against the dealer's ${
-      lastDecision.dealerValue
+      lastDecision.dealerValue === 14 ? "A" : lastDecision.dealerValue
     }.`;
 
     if (playerDecision === correctDecision) {
