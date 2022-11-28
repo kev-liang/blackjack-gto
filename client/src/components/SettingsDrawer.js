@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuItem from "@mui/material/MenuItem";
+import SettingsServiceFE from "../services/SettingsServiceFE";
 
 const settingsConfig = require("../config/settingsConfig.json");
 
@@ -36,8 +37,14 @@ function SettingsDrawer(props) {
     console.log("CHNAGED");
   };
 
+  const toggleDealerPlaying = () => {
+    console.log("dealer change");
+    SettingsServiceFE.toggleDealerPlaying();
+  };
+
   const propsMap = {
-    change
+    change,
+    toggleDealerPlaying
   };
 
   const closeDrawer = () => {
@@ -46,8 +53,8 @@ function SettingsDrawer(props) {
 
   const getSelectItems = (items) => {
     if (!items) return;
-    return items.map((item) => {
-      return <MenuItem value={item.value}>{item.label}</MenuItem>;
+    return items.map((item, i) => {
+      return <MenuItem value="">{item.label}</MenuItem>;
     });
   };
 

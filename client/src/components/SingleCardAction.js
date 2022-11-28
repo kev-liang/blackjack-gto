@@ -1,5 +1,5 @@
 import "../styles/SingleCardAction.scss";
-import ApiService from "../services/ApiService";
+import ActionServiceFE from "../services/ActionServiceFE";
 import { connect } from "react-redux";
 import { updateTableAction } from "../actions/tableActions";
 import { bindActionCreators } from "redux";
@@ -49,23 +49,23 @@ function SingleCardAction(props) {
   };
 
   const handleSplit = () => {
-    ApiService.split(turnId);
+    ActionServiceFE.split(turnId);
   };
 
   const handleStand = () => {
-    ApiService.stand(turnId);
+    ActionServiceFE.stand(turnId);
   };
 
   const handleDouble = () => {
-    ApiService.double(turnId);
+    ActionServiceFE.double(turnId);
   };
 
   const handleHit = () => {
-    ApiService.hit(turnId);
+    ActionServiceFE.hit(turnId);
   };
 
   const handleSurrender = () => {
-    ApiService.surrender(turnId);
+    ActionServiceFE.surrender(turnId);
   };
 
   const determineMaxSplit = (players) => {

@@ -58,7 +58,7 @@
           "components": [
             {
               "component": "Checkbox",
-              "onChange": "change"
+              "onChange": "toggleDealerPlaying"
             },
             {
               "component": "p",

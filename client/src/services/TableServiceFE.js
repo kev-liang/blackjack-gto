@@ -1,4 +1,4 @@
-import ApiService from "./ApiService";
+import ActionServiceFE from "./ActionServiceFE";
 import ConstantsFE from "../utils/ConstantsFE";
 import { store } from "../store";
 
@@ -6,7 +6,7 @@ class TableService {
   dealDealer(table) {
     if (table.tableState === ConstantsFE.T_STATE_DEALER) {
       setTimeout(() => {
-        ApiService.dealDealer();
+        ActionServiceFE.dealDealer();
       }, store.getState().table?.dealingDelay);
     }
   }
@@ -14,7 +14,7 @@ class TableService {
   resetTable(table) {
     if (table.tableState === ConstantsFE.T_STATE_END) {
       setTimeout(() => {
-        ApiService.deal(store.getState().table.numPlayers);
+        ActionServiceFE.deal(store.getState().table.numPlayers);
       }, 2000);
     }
   }

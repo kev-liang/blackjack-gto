@@ -37,9 +37,7 @@ class TableService {
     this.resetDealer();
     this.resetPlayers();
     this.resetSplit();
-    this.handlePlayerBlackjack(
-      this.players.findIndex((player) => player.id === this.turnId)
-    );
+    this.handlePlayerBlackjack();
     this.determineNextPlayer();
     this.handleDealerBlackjack();
     this.tableStateService.determineTableState(this.players, this.dealer);
@@ -75,14 +73,21 @@ class TableService {
     this.players = [player];
   }
 
-  handlePlayerBlackjack(playerIndex) {
+  handlePlayerBlackjack() {
+    let currPlayerIndex = this.players.findIndex(
+      (player) => player.id === this.turnId
+    );
+    this.handlePlayerBlackjackHelper(currPlayerIndex);
+  }
+
+  handlePlayerBlackjackHelper(playerIndex) {
     if (playerIndex === this.players.length) return;
     let player = this.players[playerIndex];
     if (player.cardTotal === Constants.BLACKJACK) {
       player.isPlaying = false;
     }
     playerIndex++;
-    this.handlePlayerBlackjack(playerIndex);
+    this.handlePlayerBlackjackHelper(playerIndex);
   }
 
   handleDealerBlackjack() {
@@ -109,7 +114,8 @@ class TableService {
 
   showDealer(result) {
     if (
-      this.tableStateService.tableState === Constants.T_STATE_END ||
+      (this.tableStateService.tableState === Constants.T_STATE_END &&
+        this.tableStateService.shouldDealDealer) ||
       this.tableStateService.tableState === Constants.T_STATE_DEALER
     ) {
       result.dealer.shownCards = result.dealer.cards;
@@ -125,6 +131,7 @@ class TableService {
   }
 
   afterAction() {
+    this.handlePlayerBlackjack();
     this.tableStateService.determineTableState(this.players, this.dealer);
     this.determineNextPlayer();
     this.determineWinner();
@@ -144,7 +151,11 @@ class TableService {
   }
 
   determineWinner() {
-    if (this.tableStateService.tableState !== Constants.T_STATE_END) return;
+    if (
+      this.tableStateService.tableState !== Constants.T_STATE_END ||
+      !this.tableStateService.shouldDealDealer
+    )
+      return;
     let player = this.findPlayerById(Constants.USER_ID);
     let dealerDiff = Constants.BLACKJACK - this.dealer.cardTotal;
     let playerDiff = Constants.BLACKJACK - player.cardTotal;
@@ -180,9 +191,7 @@ class TableService {
     splitPlayer.getCardTotal();
     splitPlayer.splitPlayerId = player.id;
     this.players.push(splitPlayer);
-    this.handlePlayerBlackjack(
-      this.players.findIndex((player) => player.id === this.turnId)
-    );
+    this.handlePlayerBlackjack();
   }
 
   // WIP: in case need histories in order

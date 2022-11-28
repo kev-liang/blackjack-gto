@@ -43,6 +43,26 @@ class Deck {
     return cards;
   }
 
+  dealTest(numCards, shouldCount = true) {
+    this.deck = [
+      { value: 14, suit: "h" },
+      { value: 14, suit: "c" },
+      { value: 5, suit: "h" },
+      { value: 5, suit: "c" },
+      { value: 14, suit: "s" }
+    ];
+    let cards = [];
+    for (let i = 0; i < numCards; i++) {
+      let card = this.deck[this.currCard];
+      this.currCard++;
+      cards.push(card);
+      if (shouldCount) {
+        this.count(card.value);
+      }
+    }
+    return cards;
+  }
+
   count(value) {
     if (value <= 6) {
       this.tableService.count++;

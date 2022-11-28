@@ -1,11 +1,6 @@
-const TableService = require("../services/TableService");
-const ActionService = require("../services/ActionService");
 const Constants = require("../utils/Constants");
 
-module.exports = (app) => {
-  const tableService = new TableService();
-  const actionService = new ActionService(tableService);
-
+module.exports = (app, tableService, actionService) => {
   app.get("/init", (req, res) => {
     let numPlayers = req.query.numPlayers;
     tableService.initTable(numPlayers);
