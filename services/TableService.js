@@ -32,6 +32,7 @@ class TableService {
     this.winner = null;
     this.turnId = this.players[0].id;
     this.lastDecision = null;
+    this.tableStateService.tableState = Constants.T_STATE_PLAYING;
 
     this.resetDealer();
     this.resetPlayers();
@@ -39,7 +40,9 @@ class TableService {
     this.handlePlayerBlackjack(
       this.players.findIndex((player) => player.id === this.turnId)
     );
+    this.determineNextPlayer();
     this.handleDealerBlackjack();
+    this.tableStateService.determineTableState(this.players, this.dealer);
   }
 
   resetDealer() {
@@ -54,8 +57,11 @@ class TableService {
 
   resetPlayers() {
     this.players.forEach((player) => {
-      player.cards = [];
-      player.deal(2);
+      player.cards = [
+        { value: 14, suit: "h" },
+        { value: 10, suit: "c" }
+      ];
+      // player.deal(2);
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
@@ -73,7 +79,13 @@ class TableService {
   }
 
   handlePlayerBlackjack(playerIndex) {
-    // if (playerIndex === this.player.length) return;
+    if (playerIndex === this.players.length) return;
+    let player = this.players[playerIndex];
+    if (player.cardTotal === Constants.BLACKJACK) {
+      player.isPlaying = false;
+    }
+    playerIndex++;
+    this.handlePlayerBlackjack(playerIndex);
   }
 
   handleDealerBlackjack() {
@@ -147,8 +159,9 @@ class TableService {
       this.winner = { player, tie: false };
     } else if (playerDiff === dealerDiff) {
       this.winner = { player, tie: true };
+    } else {
+      this.winner = { player: this.dealer, tie: false };
     }
-    this.winner = { player: this.dealer, tie: false };
   }
 
   findPlayerById(playerId) {
