@@ -1,0 +1,24 @@
+{
+  "actions": [
+    {
+      "label": "Hit",
+      "action": "handleHit"
+    },
+    {
+      "label": "Stand",
+      "action": "handleStand"
+    },
+    {
+      "label": "Split",
+      "action": "handleSplit"
+    },
+    {
+      "label": "Double",
+      "action": "handleDouble"
+    },
+    {
+      "label": "Surrender",
+      "action": "handleSurrender"
+    }
+  ]
+}
