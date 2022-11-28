@@ -19,7 +19,7 @@ function Table(props) {
   useEffect(() => {
     updateNumPlayers(1);
     updateDealingDelay(1000);
-  }, []);
+  }, [updateNumPlayers, updateDealingDelay]);
 
   useEffect(() => {
     console.log("table", table);
