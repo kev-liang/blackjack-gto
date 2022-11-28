@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.use(express.static("client/build"));
+app.use(express.static("./build"));
 
 const tableService = new TableService();
 const actionService = new ActionService(tableService);
