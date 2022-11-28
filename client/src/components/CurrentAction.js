@@ -21,6 +21,8 @@ const CurrentAction = (props) => {
       case ConstantsFE.T_STATE_END:
         setMsg("Resetting...");
         break;
+      default:
+        setMsg("Loading...");
     }
   };
 

@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { useEffect } from "react";
 import Card from "./Card";
 import "../styles/DealerCards.scss";
 

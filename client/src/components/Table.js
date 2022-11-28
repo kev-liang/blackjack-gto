@@ -11,7 +11,7 @@ import {
 } from "../actions/tableActions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function Table(props) {
   const { table, updateNumPlayers, updateDealingDelay } = props;

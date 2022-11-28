@@ -10,7 +10,7 @@ STRING_MAP[SPLIT] = "Split";
 STRING_MAP[DOUBLE] = "Double";
 STRING_MAP[SURRENDER] = "Surrender";
 
-export default {
+const DecisionConstantsFE = {
   HIT,
   STAND,
   SPLIT,
@@ -18,3 +18,4 @@ export default {
   SURRENDER,
   STRING_MAP
 };
+export default DecisionConstantsFE;
