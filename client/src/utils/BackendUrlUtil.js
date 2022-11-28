@@ -1,6 +1,6 @@
 const url =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5000"
-    : process.env.BACK_END_URL;
+    : process.env.REACT_APP_BACKEND_URL;
 
 module.exports = url;
