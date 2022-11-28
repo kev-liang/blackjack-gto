@@ -57,11 +57,8 @@ class TableService {
 
   resetPlayers() {
     this.players.forEach((player) => {
-      player.cards = [
-        { value: 14, suit: "h" },
-        { value: 10, suit: "c" }
-      ];
-      // player.deal(2);
+      player.cards = [];
+      player.deal(2);
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
@@ -137,13 +134,13 @@ class TableService {
     let currPlayerIndex = this.players.findIndex(
       (player) => player.id === this.turnId
     );
-    if (
+    while (
       !this.players[currPlayerIndex].isPlaying &&
       currPlayerIndex !== this.players.length - 1
     ) {
       currPlayerIndex++;
-      this.tableService.turnId = this.players[currPlayerIndex].id;
     }
+    this.turnId = this.players[currPlayerIndex].id;
   }
 
   determineWinner() {
@@ -183,6 +180,9 @@ class TableService {
     splitPlayer.getCardTotal();
     splitPlayer.splitPlayerId = player.id;
     this.players.push(splitPlayer);
+    this.handlePlayerBlackjack(
+      this.players.findIndex((player) => player.id === this.turnId)
+    );
   }
 
   // WIP: in case need histories in order

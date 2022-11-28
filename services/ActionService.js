@@ -75,6 +75,7 @@ class ActionService {
       DecisionConstants.SPLIT
     );
     this.tableService.lastDecision = player.history[player.history.length - 1];
+    this.tableService.afterAction();
   }
 
   double(playerId) {
