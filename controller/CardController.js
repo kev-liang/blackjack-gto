@@ -41,6 +41,12 @@ module.exports = (app) => {
     res.send(tableService.showTable());
   });
 
+  app.get("/surrender", (req, res) => {
+    let playerId = req.query.playerId;
+    actionService.surrender(playerId);
+    res.send(tableService.showTable());
+  });
+
   app.get("/deal-dealer", (req, res) => {
     actionService.dealDealer();
     res.send(tableService.showTable());

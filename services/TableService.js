@@ -1,5 +1,6 @@
 const Deck = require("../models/Deck");
 const Player = require("../models/Player");
+const TableStateService = require("./TableStateService");
 const Constants = require("../utils/Constants");
 const _ = require("lodash");
 const DecisionConstants = require("../utils/DecisionConstants");
@@ -8,12 +9,12 @@ class TableService {
   constructor() {
     this.deck = new Deck(this);
     this.players = []; // human player id = 0
-    this.tableState = Constants.T_STATE_PLAYING;
     this.dealer;
     this.winner = null;
     this.count = 0;
     this.turnId = 0;
     this.lastDecision = null; // for determining correct basic strategy
+    this.tableStateService = new TableStateService();
   }
 
   initTable(numPlayers) {
@@ -31,11 +32,17 @@ class TableService {
     this.winner = null;
     this.turnId = this.players[0].id;
     this.lastDecision = null;
+    this.tableStateService.tableState = Constants.T_STATE_PLAYING;
 
     this.resetDealer();
     this.resetPlayers();
     this.resetSplit();
-    this.determineDealerBlackjack();
+    this.handlePlayerBlackjack(
+      this.players.findIndex((player) => player.id === this.turnId)
+    );
+    this.determineNextPlayer();
+    this.handleDealerBlackjack();
+    this.tableStateService.determineTableState(this.players, this.dealer);
   }
 
   resetDealer() {
@@ -68,13 +75,21 @@ class TableService {
     this.players = [player];
   }
 
-  determineDealerBlackjack() {
+  handlePlayerBlackjack(playerIndex) {
+    if (playerIndex === this.players.length) return;
+    let player = this.players[playerIndex];
+    if (player.cardTotal === Constants.BLACKJACK) {
+      player.isPlaying = false;
+    }
+    playerIndex++;
+    this.handlePlayerBlackjack(playerIndex);
+  }
+
+  handleDealerBlackjack() {
     if (this.dealer.cardTotal === Constants.BLACKJACK) {
-      this.tableState = Constants.T_STATE_DEALER_BLACKJACK;
       this.dealer.isPlaying = false;
-      this.determineTableState();
-    } else {
-      this.tableState = Constants.T_STATE_PLAYING;
+      this.tableStateService.tableState = Constants.T_STATE_END;
+      this.determineWinner();
     }
   }
 
@@ -88,13 +103,14 @@ class TableService {
       delete player.deck;
       player.showCards();
     });
+    result.tableState = this.tableStateService.tableState;
     return result;
   }
 
   showDealer(result) {
     if (
-      this.tableState === Constants.T_STATE_END ||
-      this.tableState === Constants.T_STATE_DEALER
+      this.tableStateService.tableState === Constants.T_STATE_END ||
+      this.tableStateService.tableState === Constants.T_STATE_DEALER
     ) {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
@@ -108,39 +124,27 @@ class TableService {
     delete result.dealer.deck;
   }
 
-  determineTableState() {
-    switch (this.tableState) {
-      case Constants.T_STATE_DEALER_BLACKJACK:
-        this.tableState = Constants.T_STATE_END;
-        this.winner = this.determineWinner();
-        break;
-      case Constants.T_STATE_PLAYING:
-        if (this.players.every((player) => !player.isPlaying)) {
-          this.tableState = this.players.every(
-            (player) => player.playerState === Constants.P_STATE_LOST
-          )
-            ? Constants.T_STATE_END
-            : Constants.T_STATE_DEALER;
-        } else {
-          // determining next player's turn
-          let currPlayerIndex = this.players.findIndex(
-            (player) => player.id === this.turnId
-          );
-          if (!this.players[currPlayerIndex].isPlaying) {
-            currPlayerIndex++;
-            this.turnId = this.players[currPlayerIndex].id;
-          }
-        }
-        break;
-      case Constants.T_STATE_DEALER:
-        if (!this.dealer.isPlaying) {
-          this.tableState = Constants.T_STATE_END;
-          this.winner = this.determineWinner();
-        }
+  afterAction() {
+    this.tableStateService.determineTableState(this.players, this.dealer);
+    this.determineNextPlayer();
+    this.determineWinner();
+  }
+
+  determineNextPlayer() {
+    let currPlayerIndex = this.players.findIndex(
+      (player) => player.id === this.turnId
+    );
+    while (
+      !this.players[currPlayerIndex].isPlaying &&
+      currPlayerIndex !== this.players.length - 1
+    ) {
+      currPlayerIndex++;
     }
+    this.turnId = this.players[currPlayerIndex].id;
   }
 
   determineWinner() {
+    if (this.tableStateService.tableState !== Constants.T_STATE_END) return;
     let player = this.findPlayerById(Constants.USER_ID);
     let dealerDiff = Constants.BLACKJACK - this.dealer.cardTotal;
     let playerDiff = Constants.BLACKJACK - player.cardTotal;
@@ -149,11 +153,12 @@ class TableService {
       this.dealer.playerState === Constants.P_STATE_LOST ||
       (playerDiff < dealerDiff && player.playerState !== Constants.P_STATE_LOST)
     ) {
-      return { player, tie: false };
+      this.winner = { player, tie: false };
     } else if (playerDiff === dealerDiff) {
-      return { player, tie: true };
+      this.winner = { player, tie: true };
+    } else {
+      this.winner = { player: this.dealer, tie: false };
     }
-    return { player: this.dealer, tie: false };
   }
 
   findPlayerById(playerId) {
@@ -175,6 +180,9 @@ class TableService {
     splitPlayer.getCardTotal();
     splitPlayer.splitPlayerId = player.id;
     this.players.push(splitPlayer);
+    this.handlePlayerBlackjack(
+      this.players.findIndex((player) => player.id === this.turnId)
+    );
   }
 
   // WIP: in case need histories in order
