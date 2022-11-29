@@ -16,15 +16,15 @@ function SingleCardAction(props) {
   const [tooltip, setTooltip] = React.useState("");
   let determineDisabled;
 
-  const greaterThanTwoCardMessage = "Cannot {0} with more than 2 cards";
+  const greaterThanTwoCardMessage = "Cannot ACTION with more than 2 cards";
 
   React.useEffect(() => {
     if (table) setDisabled(false);
   }, [table]);
 
   React.useEffect(() => {
-    determineDisabled(players, handleFn);
-  }, [players, handleFn, determineDisabled]);
+    determineDisabled();
+  }, [players, determineDisabled]);
 
   React.useEffect(() => {
     if (tableState === ConstantsFE.T_STATE_END) {
@@ -92,7 +92,7 @@ function SingleCardAction(props) {
     if (isMaxSplit) {
       setTooltip(`Cannot split more than ${ConstantsFE.MAX_NUM_SPLITS} times`);
     } else if (hasMoreThanTwoCards) {
-      setTooltip(greaterThanTwoCardMessage.format(msgReplacement));
+      setTooltip(greaterThanTwoCardMessage.replace("ACTION", msgReplacement));
     } else if (hasDifferentCardValues) {
       setTooltip("Cannot split when dealt cards have different values");
     }
@@ -102,18 +102,17 @@ function SingleCardAction(props) {
     let hasMoreThanTwoCards = player.cards.length > 2;
     setDisabled(hasMoreThanTwoCards);
     if (hasMoreThanTwoCards) {
-      setTooltip(greaterThanTwoCardMessage.format(msgReplacement));
+      setTooltip(greaterThanTwoCardMessage.replace("ACTION", msgReplacement));
     }
   };
 
-  determineDisabled = (players, handleFn) => {
+  determineDisabled = () => {
     if (!players || !handleFn) return;
     let player = TableUtils.findPlayerById(players, turnId);
     if (!player.isPlaying) {
       setDisabled(true);
       return;
     }
-    console.log("HANDLING", handleFn, msgReplacement);
     switch (handleFn) {
       case "handleSplit":
         determineSplit(player, players);
@@ -131,8 +130,8 @@ function SingleCardAction(props) {
     <div>
       <Tooltip title={tooltip} placement="top">
         <div
-          className={`card-handleFn-button ${
-            disabled ? "card-handleFn-disabled" : ""
+          className={`card-action-button ${
+            disabled ? "card-action-disabled" : ""
           }`}
           onClick={() => handleClick(handleFn)}
         >
