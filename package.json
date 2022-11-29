@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_ENV=development&& npx nodemon@latest server.js"
+    "start": "set NODE_ENV=development && npx nodemon@latest server.js",
+    "dev_build": "rm -rf build && cd client && npm run build && mv temp_build ../build"
   },
   "author": "",
   "license": "ISC",

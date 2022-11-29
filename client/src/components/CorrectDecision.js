@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import ConstantsFE from "../utils/ConstantsFE";
 import DecisionConstantsFE from "../utils/DecisionConstantsFE";
 import "../styles/CorrectDecision.scss";
 import React from "react";

@@ -1,12 +1,11 @@
 import { connect } from "react-redux";
 import React from "react";
 import Card from "./Card";
-import TableUtils from "../utils/TableUtils";
 
 import "../styles/PlayerCards.scss";
 
 const PlayerCards = (props) => {
-  const { cards, table, id } = props;
+  const { cards } = props;
 
   return (
     <div className="player-cards-container">
@@ -24,8 +23,7 @@ const PlayerCards = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    shownCards: state.table?.table?.dealer?.shownCards,
-    table: state.table?.table
+    shownCards: state.table?.table?.dealer?.shownCards
   };
 };
 

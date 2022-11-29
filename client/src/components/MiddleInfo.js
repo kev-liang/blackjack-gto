@@ -8,9 +8,7 @@ import "../styles/MiddleInfo.scss";
 
 import React from "react";
 
-function MiddleInfo(props) {
-  const { table } = props;
-
+function MiddleInfo() {
   return (
     <div className="middle-info-container">
       <CorrectDecision></CorrectDecision>

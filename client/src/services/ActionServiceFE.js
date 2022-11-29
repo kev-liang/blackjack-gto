@@ -1,5 +1,4 @@
 import axios from "axios";
-import ConstantsFE from "../utils/ConstantsFE";
 import TableServiceFE from "./TableServiceFE";
 import Url from "../utils/BackendUrlUtil";
 
@@ -9,6 +8,7 @@ import { store } from "../store";
 class ActionServiceFE {
   constructor() {
     this.url = Url;
+    console.log("fdsa", this.url, process.env);
   }
 
   initTable(numPlayers) {

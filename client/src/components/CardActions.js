@@ -1,12 +1,9 @@
 import SingleCardAction from "./SingleCardAction";
 import "../styles/CardActions.css";
-import { connect } from "react-redux";
 
 const actionsConfig = require("../config/cardActionConfig.json");
 
-function CardActions(props) {
-  const { tableState } = props;
-
+function CardActions() {
   return (
     <div className="card-action-container">
       <div className="card-actions">
@@ -24,10 +21,4 @@ function CardActions(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    tableState: state.table?.table?.tableState
-  };
-};
-
-export default connect(mapStateToProps, null)(CardActions);
+export default CardActions;
