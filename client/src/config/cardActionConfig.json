@@ -2,23 +2,26 @@
   "actions": [
     {
       "label": "Hit",
-      "action": "handleHit"
+      "handleFn": "handleHit"
     },
     {
       "label": "Stand",
-      "action": "handleStand"
+      "handleFn": "handleStand"
     },
     {
       "label": "Split",
-      "action": "handleSplit"
+      "handleFn": "handleSplit",
+      "msgReplacement": "split"
     },
     {
       "label": "Double",
-      "action": "handleDouble"
+      "handleFn": "handleDouble",
+      "msgReplacement": "surrender"
     },
     {
       "label": "Surrender",
-      "action": "handleSurrender"
+      "handleFn": "handleSurrender",
+      "msgReplacement": "surrender"
     }
   ]
 }
