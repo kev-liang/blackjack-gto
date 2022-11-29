@@ -20,4 +20,16 @@ const updateDealingDelayAction = (delay) => {
   };
 };
 
-export { updateTableAction, updateNumPlayersAction, updateDealingDelayAction };
+const setIdAction = (id) => {
+  return {
+    type: "SET_ID",
+    data: id
+  };
+};
+
+export {
+  updateTableAction,
+  updateNumPlayersAction,
+  updateDealingDelayAction,
+  setIdAction
+};

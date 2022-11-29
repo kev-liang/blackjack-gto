@@ -78,6 +78,7 @@ function SettingsDrawer(props) {
           <hr />
 
           {settingsConfig.settings.map((settings) => {
+            if (!settings.show) return;
             return (
               <Box>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
@@ -94,6 +95,7 @@ function SettingsDrawer(props) {
                   </Typography>
                 </Box>
                 {settings.options.map((options) => {
+                  if (!options.show) return;
                   return (
                     <Box
                       sx={{
@@ -119,6 +121,9 @@ function SettingsDrawer(props) {
               </Box>
             );
           })}
+          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+            More Coming Soon!
+          </Typography>
         </Container>
       </Drawer>
     </div>

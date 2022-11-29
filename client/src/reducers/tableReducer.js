@@ -6,6 +6,8 @@ const tableReducer = (state = null, action) => {
       return { ...state, numPlayers: action.data };
     case "UPDATE_DEALING_DELAY":
       return { ...state, dealingDelay: action.data };
+    case "SET_ID":
+      return { ...state, id: action.data };
     default:
       return state;
   }

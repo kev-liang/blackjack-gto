@@ -8,46 +8,53 @@ import { store } from "../store";
 class ActionServiceFE {
   constructor() {
     this.url = Url;
-    console.log("fdsa", this.url, process.env);
   }
 
   initTable(numPlayers) {
-    let endpoint = `${this.url}/init?numPlayers=${numPlayers}`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/init?numPlayers=${numPlayers}&id=${id}`;
     this.actionTableGet(endpoint);
   }
 
   deal() {
-    let endpoint = `${this.url}/deal`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/deal?id=${id}`;
     this.actionTableGet(endpoint);
   }
 
   hit(playerId) {
-    let endpoint = `${this.url}/hit?playerId=${playerId}`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/hit?playerId=${playerId}&id=${id}`;
     this.actionTableGet(endpoint);
   }
 
   stand(playerId) {
-    let endpoint = `${this.url}/stand?playerId=${playerId}`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/stand?playerId=${playerId}&id=${id}`;
     this.actionTableGet(endpoint);
   }
 
   split(playerId) {
-    let endpoint = `${this.url}/split?playerId=${playerId}`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/split?playerId=${playerId}&id=${id}`;
     this.actionTableGet(endpoint);
   }
 
   double(playerId) {
-    let endpoint = `${this.url}/double?playerId=${playerId}`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/double?playerId=${playerId}&id=${id}`;
     this.actionTableGet(endpoint);
   }
 
   surrender(playerId) {
-    let endpoint = `${this.url}/surrender?playerId=${playerId}`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/surrender?playerId=${playerId}&id=${id}`;
     this.actionTableGet(endpoint);
   }
 
   dealDealer() {
-    let endpoint = `${this.url}/deal-dealer`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/deal-dealer?id=${id}`;
     this.actionTableGet(endpoint);
   }
 

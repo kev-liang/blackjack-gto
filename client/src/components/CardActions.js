@@ -11,8 +11,7 @@ function CardActions() {
           return (
             <SingleCardAction
               key={action.label}
-              label={action.label}
-              action={action.action}
+              action={action}
             ></SingleCardAction>
           );
         })}

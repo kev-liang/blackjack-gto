@@ -6,7 +6,7 @@ const _ = require("lodash");
 const DecisionConstants = require("../utils/DecisionConstants");
 
 class TableService {
-  constructor() {
+  constructor(numPlayers) {
     this.deck = new Deck(this);
     this.players = []; // human player id = 0
     this.dealer;
@@ -15,6 +15,7 @@ class TableService {
     this.turnId = 0;
     this.lastDecision = null; // for determining correct basic strategy
     this.tableStateService = new TableStateService();
+    this.initTable(numPlayers);
   }
 
   initTable(numPlayers) {
