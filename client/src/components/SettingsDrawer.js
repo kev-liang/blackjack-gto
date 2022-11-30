@@ -15,12 +15,9 @@ import React from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuItem from "@mui/material/MenuItem";
 import SettingsServiceFE from "../services/SettingsServiceFE";
+import ConstantsFE from "../utils/ConstantsFE";
 
 const settingsConfig = require("../config/settingsConfig.json");
-
-// const PRenderer = (props) => {
-//   return <p>{props.value}</p>;
-// };
 
 const components = {
   MonitorIcon,
@@ -33,8 +30,8 @@ const components = {
 
 function SettingsDrawer(props) {
   const { showDrawer, setShowDrawer } = props;
-  const [numDecks, setNumDecks] = React.useState("6");
-  const [propsMap, setPropsMap] = React.useState({ numDecks: "6" });
+  const [numDecks, setNumDecks] = React.useState(ConstantsFE.DEFAULT_NUM_DECK);
+  const [propsMap, setPropsMap] = React.useState({});
 
   React.useEffect(() => {
     let localPropsMap = {
@@ -89,13 +86,16 @@ function SettingsDrawer(props) {
           </Box>
           <hr />
 
-          {settingsConfig.settings.map((settings) => {
+          {settingsConfig.settings.map((settings, i) => {
             if (!settings.show) return;
             return (
-              <Box>
+              <Box key={`settings-container-box-1-${i}`}>
                 {/* Begin creating subtitle, e.g. Gameplay */}
-                <Box sx={{ my: 2 }}>
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                <Box sx={{ my: 2 }} key={`settings-container-box-2-${i}`}>
+                  <Box
+                    sx={{ display: "flex", alignItems: "center", mb: 1 }}
+                    key={`settings-container-box-3-${i}`}
+                  >
                     {React.createElement(components[settings.icon])}
                     <Typography
                       sx={{

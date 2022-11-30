@@ -13,9 +13,15 @@ function Dealer(props) {
   };
 
   return (
-    <div className="dealer-container" style={dealerContainerStyle()}>
+    <div
+      className="dealer-container"
+      style={dealerContainerStyle()}
+      key={`dealer-container`}
+    >
       <DealerCards></DealerCards>
-      <p className="dealer-value">{cardTotal}</p>
+      <p className="dealer-value" key="dealer-value">
+        {cardTotal}
+      </p>
     </div>
   );
 }

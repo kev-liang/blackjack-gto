@@ -17,6 +17,7 @@ const USER_ID = 0;
 
 const CARD_WIDTH = 75;
 const MAX_NUM_SPLITS = 3;
+const DEFAULT_NUM_DECK = 6;
 
 const ConstantsFE = {
   P_STATE_LOST,
@@ -32,7 +33,8 @@ const ConstantsFE = {
   DEALER_ID,
   USER_ID,
   CARD_WIDTH,
-  MAX_NUM_SPLITS
+  MAX_NUM_SPLITS,
+  DEFAULT_NUM_DECK
 };
 
 export default ConstantsFE;

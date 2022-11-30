@@ -195,6 +195,10 @@ class TableService {
     this.handlePlayerBlackjack();
   }
 
+  setNumDeck(numDeck) {
+    this.deck.initDeck(numDeck);
+  }
+
   // WIP: in case need histories in order
   // mergeHistories(originalPlayer, splitPlayers) {
   //   let player = this.findPlayerById(originalPlayer.id);

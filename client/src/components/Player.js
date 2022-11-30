@@ -44,6 +44,7 @@ function Dealer(props) {
               ? "player-cards-container-disabled"
               : ""
           }`}
+          key={`player-container-${i}`}
           style={getContainerWidth(i)}
         >
           <PlayerCards
