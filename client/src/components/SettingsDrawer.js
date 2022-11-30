@@ -33,18 +33,26 @@ const components = {
 
 function SettingsDrawer(props) {
   const { showDrawer, setShowDrawer } = props;
-  const change = () => {
-    console.log("CHNAGED");
-  };
+  const [numDecks, setNumDecks] = React.useState("6");
+  const [propsMap, setPropsMap] = React.useState({ numDecks: "6" });
+
+  React.useEffect(() => {
+    let localPropsMap = {
+      toggleDealerPlaying,
+      numDecks,
+      changeNumDecks
+    };
+    setPropsMap(localPropsMap);
+  }, []);
 
   const toggleDealerPlaying = () => {
-    console.log("dealer change");
     SettingsServiceFE.toggleDealerPlaying();
   };
 
-  const propsMap = {
-    change,
-    toggleDealerPlaying
+  const changeNumDecks = (e) => {
+    let numDecks = e.target.value;
+    setNumDecks(numDecks);
+    SettingsServiceFE.changeNumDecks(numDecks);
   };
 
   const closeDrawer = () => {
@@ -54,7 +62,11 @@ function SettingsDrawer(props) {
   const getSelectItems = (items) => {
     if (!items) return;
     return items.map((item, i) => {
-      return <MenuItem value="">{item.label}</MenuItem>;
+      return (
+        <MenuItem value={item.value} key={`menu-item-${item.label}`}>
+          {item.label}
+        </MenuItem>
+      );
     });
   };
 
@@ -69,7 +81,7 @@ function SettingsDrawer(props) {
         onClose={closeDrawer}
       >
         <Container>
-          <Box sx={{ display: "flex", alignItems: "center", mt: 2, mb: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
             {React.createElement(components[settingsConfig.icon])}
             <Typography variant="h4" sx={{ ml: 1, fontWeight: "bold" }}>
               {settingsConfig.title}
@@ -81,48 +93,66 @@ function SettingsDrawer(props) {
             if (!settings.show) return;
             return (
               <Box>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                  {React.createElement(components[settings.icon])}
-                  <Typography
-                    sx={{
-                      display: "inline",
-                      pl: 1,
-                      fontWeight: "bold"
-                    }}
-                    variant={settings.subTitle.variant}
-                  >
-                    {settings.subTitle.text}
-                  </Typography>
-                </Box>
-                {settings.options.map((options) => {
-                  if (!options.show) return;
-                  return (
-                    <Box
+                {/* Begin creating subtitle, e.g. Gameplay */}
+                <Box sx={{ my: 2 }}>
+                  <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                    {React.createElement(components[settings.icon])}
+                    <Typography
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        height: 40,
-                        color: "#393939"
+                        display: "inline",
+                        pl: 1,
+                        fontWeight: "bold"
                       }}
+                      variant={settings.subTitle.variant}
                     >
-                      {options.components.map((component) => {
-                        return React.createElement(
-                          components[component.component],
-                          {
-                            onChange: propsMap[component.onChange]
-                          },
-                          component.text || getSelectItems(component.items)
-                        );
-                      })}
-                    </Box>
-                  );
-                })}
+                      {settings.subTitle.text}
+                    </Typography>
+                  </Box>
+                  {/* Begin creating a row for settings, e.g. Enable dealing dealer w checkbox */}
+                  {settings.options.map((options, i) => {
+                    if (!options.show) return;
+                    return (
+                      <Box
+                        key={`options-${i}`}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          height: 40,
+                          color: "#393939"
+                        }}
+                      >
+                        {options.components.map((component, i) => {
+                          return (
+                            <Box
+                              sx={{ mr: 1 }}
+                              key={`outer-box-${component.text}-${component.compoennt}-${i}`}
+                            >
+                              {React.createElement(
+                                components[component.component],
+                                {
+                                  onChange: propsMap[component.onChange],
+                                  value: propsMap[component.value],
+                                  key: `${component.component}-${i}`,
+                                  ...component.props
+                                },
+                                component.text ||
+                                  getSelectItems(component.items)
+                              )}
+                            </Box>
+                          );
+                        })}
+                      </Box>
+                    );
+                  })}
+                  {/* End creating row */}
+                </Box>
                 <hr />
               </Box>
             );
+            // End creating subtitle
           })}
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            More Coming Soon!
+          <Typography variant="h4" sx={{ fontWeight: "bold", my: 2 }}>
+            More Coming Soon...
           </Typography>
         </Container>
       </Drawer>

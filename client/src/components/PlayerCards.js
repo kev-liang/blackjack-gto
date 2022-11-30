@@ -9,10 +9,10 @@ const PlayerCards = (props) => {
 
   return (
     <div className="player-cards-container">
-      {cards.map((card) => (
+      {cards.map((card, i) => (
         <div
           className="player-cards"
-          key={`player-card-${card.value}-${card.suit}`}
+          key={`player-card-${card.value}-${card.suit}-${i}`}
         >
           <Card card={card}></Card>
         </div>
