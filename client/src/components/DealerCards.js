@@ -7,11 +7,11 @@ const DealerCards = (props) => {
 
   return (
     <div className="dealer-cards-container">
-      {shownCards.map((card) => {
+      {shownCards.map((card, i) => {
         return (
           <div
             className="dealer-cards"
-            key={`dealer-cards-${card.value}-${card.suit}`}
+            key={`dealer-cards-${card.value}-${card.suit}-${i}`}
           >
             <Card card={card}></Card>
           </div>
