@@ -14,6 +14,7 @@ function SingleCardAction(props) {
   const { table, players, turnId, tableState, action } = props;
   const { label, handleFn, msgReplacement } = action;
   const [disabled, setDisabled] = React.useState(true);
+  const [buttonStyles, setButtonStyles] = React.useState();
   const [tooltip, setTooltip] = React.useState("");
   let determineDisabled;
 
@@ -21,17 +22,31 @@ function SingleCardAction(props) {
 
   React.useEffect(() => {
     if (table) setDisabled(false);
-  }, [table]);
 
-  React.useEffect(() => {
     determineDisabled();
-  }, [players, determineDisabled]);
+  }, [table, players, determineDisabled]);
 
   React.useEffect(() => {
     if (tableState === ConstantsFE.T_STATE_END) {
       setTooltip("");
     }
   }, [tableState]);
+
+  React.useEffect(() => {
+    const defaultStyles = {
+      height: 50,
+      width: 110
+    };
+    if (!disabled) {
+      setButtonStyles(defaultStyles);
+    } else {
+      setButtonStyles({
+        ...defaultStyles,
+        backgroundColor: "#aaa",
+        pointerEvents: "none"
+      });
+    }
+  }, [disabled]);
 
   const handleClick = (handleFn) => {
     if (disabled) return;
@@ -130,14 +145,15 @@ function SingleCardAction(props) {
   return (
     <div>
       <Tooltip title={tooltip} placement="top">
-        <Button
-          onClick={() => handleClick(handleFn)}
-          variant="contained"
-          disabled={disabled}
-          sx={{ height: 50, width: 110 }}
-        >
-          {label}
-        </Button>
+        <span>
+          <Button
+            onClick={() => handleClick(handleFn)}
+            variant="contained"
+            sx={buttonStyles}
+          >
+            {label}
+          </Button>
+        </span>
       </Tooltip>
     </div>
   );
