@@ -21,9 +21,12 @@ function SingleCardAction(props) {
   const greaterThanTwoCardMessage = "Cannot ACTION with more than 2 cards";
 
   React.useEffect(() => {
-    if (table) setDisabled(false);
+    if (!table) return;
 
-    determineDisabled();
+    setDisabled(
+      ActionServiceFE.determineDisabled(table.players, table.turnId, handleFn)
+    );
+    handleTooltip();
   }, [table, players, determineDisabled]);
 
   React.useEffect(() => {
@@ -92,19 +95,23 @@ function SingleCardAction(props) {
     ActionServiceFE.surrender(turnId);
   };
 
-  const determineMaxSplit = (players) => {
-    let splitPlayers = players.filter((player) => player.id < 0);
-    return splitPlayers.length === ConstantsFE.MAX_NUM_SPLITS;
+  const handleTooltip = () => {
+    switch (handleFn) {
+      case "handleSplit":
+        splitTooltip();
+        break;
+      case "handleDouble":
+      case "handleSurrender":
+        handleGreaterThanTwoCards();
+        break;
+    }
   };
-
-  const determineSplit = (player, players) => {
-    let isMaxSplit = determineMaxSplit(players);
+  const splitTooltip = () => {
+    let player = TableUtils.findPlayerById(players, turnId);
+    let isMaxSplit = ActionServiceFE.determineMaxSplit(players);
     let hasMoreThanTwoCards = player.cards.length > 2;
     let hasDifferentCardValues =
       player.cards[0].value !== player.cards[1].value;
-    let splitDisabled =
-      isMaxSplit || hasMoreThanTwoCards || hasDifferentCardValues;
-    setDisabled(splitDisabled);
     if (isMaxSplit) {
       setTooltip(`Cannot split more than ${ConstantsFE.MAX_NUM_SPLITS} times`);
     } else if (hasMoreThanTwoCards) {
@@ -114,31 +121,10 @@ function SingleCardAction(props) {
     }
   };
 
-  const handleGreaterThanTwoCards = (player) => {
-    let hasMoreThanTwoCards = player.cards.length > 2;
-    setDisabled(hasMoreThanTwoCards);
-    if (hasMoreThanTwoCards) {
-      setTooltip(greaterThanTwoCardMessage.replace("ACTION", msgReplacement));
-    }
-  };
-
-  determineDisabled = () => {
-    if (!players || !handleFn) return;
+  const handleGreaterThanTwoCards = () => {
     let player = TableUtils.findPlayerById(players, turnId);
-    if (!player.isPlaying) {
-      setDisabled(true);
-      return;
-    }
-    switch (handleFn) {
-      case "handleSplit":
-        determineSplit(player, players);
-        break;
-      case "handleDouble":
-      case "handleSurrender":
-        handleGreaterThanTwoCards(player);
-        break;
-      default:
-        setDisabled(!player.isPlaying);
+    if (player.cards.length > 2) {
+      setTooltip(greaterThanTwoCardMessage.replace("ACTION", msgReplacement));
     }
   };
 

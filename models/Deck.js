@@ -7,7 +7,6 @@ class Deck {
     this.tableService = tableService;
 
     this.initDeck(Constants.DEFAULT_NUM_DECK);
-    this.deck = this.deck.slice(0, 6);
   }
 
   initDeck(numDeck) {
