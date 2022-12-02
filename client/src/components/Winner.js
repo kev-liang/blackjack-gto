@@ -10,12 +10,10 @@ function Winner(props) {
 
   React.useEffect(() => {
     if (!table?.winner) {
-      // set to non-breaking space to keep space for winner text
-      // without shifting other elements
-      setWinnerText("\u00A0");
-    } else {
-      getWinnerText(table);
+      setWinnerText("");
+      return;
     }
+    getWinnerText(table);
   }, [table]);
 
   const getWinnerText = (table) => {

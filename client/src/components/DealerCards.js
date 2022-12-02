@@ -1,9 +1,13 @@
 import { connect } from "react-redux";
 import Card from "./Card";
 import "../styles/DealerCards.scss";
+import NumberBanner from "./NumberBanner";
+import ConstantsFE from "../utils/ConstantsFE";
 
 const DealerCards = (props) => {
-  const { shownCards = [], shouldShowAllCards = false } = props;
+  const { dealer } = props;
+  const shownCards = dealer ? dealer.shownCards : [];
+  const shouldShowAllCards = dealer ? dealer.shouldShowAllCards : true;
 
   return (
     <div className="dealer-cards-container">
@@ -22,14 +26,14 @@ const DealerCards = (props) => {
           <Card isPlaying={false}></Card>
         </div>
       )}
+      <NumberBanner player={dealer} id={ConstantsFE.DEALER_ID}></NumberBanner>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    shownCards: state.table?.table?.dealer?.shownCards,
-    shouldShowAllCards: state.table?.table?.dealer?.shouldShowAllCards
+    dealer: state.table?.table?.dealer
   };
 };
 

@@ -1,11 +1,11 @@
 import SingleCardAction from "./SingleCardAction";
-import "../styles/CardActions.css";
+import "../styles/CardActions.scss";
 
 const actionsConfig = require("../config/cardActionConfig.json");
 
 function CardActions() {
   return (
-    <div className="card-action-container">
+    <div className="card-action-container center-absolute">
       <div className="card-actions">
         {actionsConfig.actions.map((action) => {
           return (

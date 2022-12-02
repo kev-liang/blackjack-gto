@@ -1,10 +1,11 @@
-import "../styles/Table.css";
+import "../styles/Table.scss";
 import Dealer from "./Dealer";
 import Player from "./Player";
 import NavBar from "./NavBar";
 import MiddleInfo from "./MiddleInfo";
 import SettingsDrawer from "./SettingsDrawer";
 import ActionServiceFE from "../services/ActionServiceFE";
+import TableLogo from "./TableLogo";
 
 import {
   updateNumPlayersAction,
@@ -35,7 +36,10 @@ function Table(props) {
 
   return (
     <div>
-      <div className="table"></div>
+      <div className="table">
+        <TableLogo></TableLogo>
+        <div className="inner-table">&nbsp;</div>
+      </div>
       <SettingsDrawer></SettingsDrawer>
       <NavBar></NavBar>
       <Dealer></Dealer>

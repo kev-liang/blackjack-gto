@@ -8,6 +8,7 @@ import ConstantsFE from "../utils/ConstantsFE";
 import React from "react";
 
 import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
 
 function SingleCardAction(props) {
   const { table, players, turnId, tableState, action } = props;
@@ -129,14 +130,14 @@ function SingleCardAction(props) {
   return (
     <div>
       <Tooltip title={tooltip} placement="top">
-        <div
-          className={`card-action-button ${
-            disabled ? "card-action-disabled" : ""
-          }`}
+        <Button
           onClick={() => handleClick(handleFn)}
+          variant="contained"
+          disabled={disabled}
+          sx={{ height: 50, width: 110 }}
         >
           {label}
-        </div>
+        </Button>
       </Tooltip>
     </div>
   );
