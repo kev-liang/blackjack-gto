@@ -31,7 +31,9 @@ const components = {
 function SettingsDrawer(props) {
   const { showDrawer, setShowDrawer } = props;
   const [numDecks, setNumDecks] = React.useState(ConstantsFE.DEFAULT_NUM_DECK);
-  const [propsMap, setPropsMap] = React.useState({});
+  const [propsMap, setPropsMap] = React.useState({
+    numDecks: ConstantsFE.DEFAULT_NUM_DECK
+  });
 
   React.useEffect(() => {
     let localPropsMap = {
