@@ -15,7 +15,7 @@ const T_STATE_END = "end";
 const DEALER_ID = -1;
 const USER_ID = 0;
 
-const CARD_WIDTH = 75;
+const CARD_WIDTH = 70;
 const MAX_NUM_SPLITS = 3;
 const DEFAULT_NUM_DECK = 6;
 

@@ -23,7 +23,7 @@ const NumberBanner = (props) => {
         isTurn ? "number-banner-active" : ""
       }`}
       style={{
-        ...TableUtils.getCardWidthStyle(cards, id),
+        ...TableUtils.getCardWidthStyle(cards, id, table?.dealer),
         margin: "45px 0 0 2px"
       }}
     >
