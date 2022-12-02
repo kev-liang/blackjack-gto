@@ -2,20 +2,15 @@ import DealerCards from "./DealerCards";
 import "../styles/Dealer.scss";
 import { connect } from "react-redux";
 import ConstantsFE from "../utils/ConstantsFE";
+import TableUtils from "../utils/TableUtils";
+import NumberBanner from "./NumberBanner";
 
 function Dealer(props) {
   const { cardTotal, cards } = props;
 
-  const dealerContainerStyle = () => {
-    if (!cards) return;
-    let width = ConstantsFE.CARD_WIDTH * (1 + 0.5 * cards.length);
-    return { width: `${width}px` };
-  };
-
   return (
-    <div className="dealer-container" style={dealerContainerStyle()}>
+    <div className="dealer-container" key={`dealer-container`}>
       <DealerCards></DealerCards>
-      <p className="dealer-value">{cardTotal}</p>
     </div>
   );
 }

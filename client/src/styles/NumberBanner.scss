@@ -1,0 +1,12 @@
+@import "_common.scss";
+
+.number-banner-container {
+  color: #fff;
+  background-color: #000;
+  position: absolute;
+}
+
+.number-banner-active {
+  background-color: #FFD800;
+  color: #000 !important;
+}

@@ -10,12 +10,15 @@ class SettingsServiceFE {
   }
 
   toggleDealerPlaying() {
-    let endpoint = this.url + "/toggle-dealer-playing";
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/toggle-dealer-playing?id=${id}`;
     ApiServiceFE.patchAndUpdateTable(endpoint);
   }
 
   changeNumDecks(numDecks) {
-    let endpoint = `${this.url}/change-num-decks?num=${numDecks}`;
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/change-num-decks?num=${numDecks}&id=${id}`;
+    ApiServiceFE.patchAndUpdateTable(endpoint);
   }
 }
 
