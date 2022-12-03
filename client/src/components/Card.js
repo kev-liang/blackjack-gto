@@ -1,15 +1,63 @@
 import { useEffect, useState } from "react";
 import "../styles/Card.scss";
 
+import { connect } from "react-redux";
+import ConstantsFE from "../utils/ConstantsFE";
+import {
+  addDealerAnimationCompletedAction,
+  addPlayerAnimationCompletedAction
+} from "../actions/animationActions";
+import { bindActionCreators } from "redux";
+
 const Card = (props) => {
-  const { card, isPlaying = true } = props;
+  const {
+    card,
+    isPlaying = true,
+    id,
+    dealerAnimations,
+    playerAnimations,
+    cardIndex,
+    addDealerAnimationCompleted,
+    addPlayerAnimationCompleted,
+    dealerAnimationCount,
+    playerAnimationCount
+  } = props;
   const [value, setValue] = useState();
   const [suit, setSuit] = useState();
+  const [rotate, setRotate] = useState(false);
+  const [display, setDisplay] = useState(false);
 
   useEffect(() => {
     setValue(card?.value);
     setSuit(card?.suit);
   }, [card]);
+
+  // handle animations
+  useEffect(() => {
+    if (id === ConstantsFE.DEALER_ID) {
+      if (!dealerAnimations) return;
+      let delay = dealerAnimations[cardIndex + 1];
+      setDisplayRotateAndCount(delay, true);
+    } else {
+      if (!playerAnimations) return;
+      let delay = playerAnimations[id][cardIndex];
+      setDisplayRotateAndCount(delay, false);
+    }
+  }, [dealerAnimations, playerAnimations]);
+
+  const setDisplayRotateAndCount = (delay, isDealer) => {
+    setTimeout(() => {
+      setDisplay(true);
+    }, delay - 200);
+    setTimeout(() => {
+      if (isDealer) {
+        addDealerAnimationCompleted();
+      } else {
+        addPlayerAnimationCompleted(id);
+      }
+      setRotate(true);
+    }, delay);
+  };
 
   const suitSymbol = {
     c: { symbol: "♣", color: "black" },
@@ -39,13 +87,42 @@ const Card = (props) => {
   };
 
   return isPlaying ? (
-    <div className="card">
-      <div className="top-left">{getValueAndSuit()}</div>
-      <div className="suit-bottom-right">{getValueAndSuit()}</div>
+    <div
+      className={`card card-animation main-container fade-in ${
+        rotate ? "begin-rotation" : ""
+      } ${!display ? "display-none" : ""}`}
+      style={{ transition: "all 0.5s ease" }}
+    >
+      <div className="card-animation-container">
+        <div className="card-front card-hidden"></div>
+
+        <div className="card-back">
+          <div className="top-left">{getValueAndSuit()}</div>
+          <div className="suit-bottom-right">{getValueAndSuit()}</div>
+        </div>
+      </div>
     </div>
   ) : (
-    <div className="card card-hidden"></div>
+    <div className={`card card-hidden ${!display ? "display-none" : ""}`}></div>
   );
 };
 
-export default Card;
+const mapStateToProps = (state) => {
+  return {
+    dealerAnimations: state.animations?.dealerAnimations,
+    playerAnimations: state.animations?.playerAnimations,
+    dealerAnimationCount: state.animations?.dealerAnimationCount,
+    playerAnimationCount: state.animations?.playerAnimationCount
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      addDealerAnimationCompleted: addDealerAnimationCompletedAction,
+      addPlayerAnimationCompleted: addPlayerAnimationCompletedAction
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

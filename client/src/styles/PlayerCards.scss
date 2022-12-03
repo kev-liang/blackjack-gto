@@ -2,6 +2,12 @@
 
 .player-cards-container {
   display: flex;
+  position: absolute;
+bottom:30%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .player-cards-flex-container > div {
@@ -10,4 +16,8 @@
 
 .player-cards:first-child{
   margin: 0;
+}
+
+.display-none {
+  display: none;
 }

@@ -9,7 +9,6 @@ class TableUtils {
 
   getCardWidthStyle(cards, id, dealer) {
     if (!cards) return;
-    console.log("ff", cards, id);
     let isDealer = id === ConstantsFE.DEALER_ID;
     let numCards =
       !isDealer || (dealer && dealer.shouldShowAllCards)

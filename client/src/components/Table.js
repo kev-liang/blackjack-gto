@@ -7,6 +7,12 @@ import SettingsDrawer from "./SettingsDrawer";
 import ActionServiceFE from "../services/ActionServiceFE";
 import TableLogo from "./TableLogo";
 import KeydownService from "../services/KeyDownService";
+import AnimationServiceFE from "../services/AnimationServiceFE";
+
+import {
+  resetDealerAnimationCompletedAction,
+  resetPlayerAnimationCompletedAction
+} from "../actions/animationActions";
 
 import {
   updateNumPlayersAction,
@@ -20,7 +26,14 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 function Table(props) {
-  const { table, updateNumPlayers, updateDealingDelay, setId } = props;
+  const {
+    table,
+    updateNumPlayers,
+    updateDealingDelay,
+    setId,
+    resetDealerAnimationCompleted,
+    resetPlayerAnimationCompleted
+  } = props;
 
   useEffect(() => {
     let numPlayers = 1;
@@ -28,11 +41,19 @@ function Table(props) {
     setId(id);
     updateNumPlayers(numPlayers);
     updateDealingDelay(1000);
+    console.log("RESETTING");
+
     ActionServiceFE.initTable(numPlayers);
   }, [updateNumPlayers, updateDealingDelay]);
 
   useEffect(() => {
     console.log("table", table);
+    if (!table) return;
+    AnimationServiceFE.setAnimations(table);
+    resetDealerAnimationCompleted();
+    table.players.forEach((player) => {
+      resetPlayerAnimationCompleted(player.id);
+    });
   }, [table]);
 
   useEffect(() => {
@@ -46,7 +67,7 @@ function Table(props) {
 
   return (
     <div>
-      <div className="table">
+      <div className="table table-felt">
         <TableLogo></TableLogo>
         <div className="inner-table">&nbsp;</div>
       </div>
@@ -70,7 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     {
       updateNumPlayers: updateNumPlayersAction,
       updateDealingDelay: updateDealingDelayAction,
-      setId: setIdAction
+      setId: setIdAction,
+      resetDealerAnimationCompleted: resetDealerAnimationCompletedAction,
+      resetPlayerAnimationCompleted: resetPlayerAnimationCompletedAction
     },
     dispatch
   );

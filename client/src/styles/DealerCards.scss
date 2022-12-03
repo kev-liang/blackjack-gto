@@ -8,14 +8,9 @@
 }
 
 .dealer-cards-container > div {
-  margin-right: calc($card-width / -2);
+  margin-left: calc($card-width / -2);
 }
-
-.player-cards:first-child {
-  margin: 0
+ 
+.dealer-hidden-card {
+  margin: 0 !important;
 }
-// .dealer-hidden-card {
-//   right: -$card-width / 2;
-//   position: absolute;
-//   z-index: -1;
-// }
