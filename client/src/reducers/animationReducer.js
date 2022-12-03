@@ -22,11 +22,11 @@ const animationReducer = (state = { playerAnimationCompleted: {} }, action) => {
     // array used to determine when animations done
     case "ADD_DEALER_ANIMATION_COMPLETED":
       state.dealerAnimationCompleted++;
-      return state;
+      return { ...state };
     // array used to determine when animations done
     case "ADD_PLAYER_ANIMATION_COMPLETED":
       state.playerAnimationCompleted[action.data]++;
-      return state;
+      return { ...state };
     default:
       return state;
   }

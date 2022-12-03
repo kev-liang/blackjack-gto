@@ -36,14 +36,17 @@ const NumberBanner = (props) => {
 
   React.useEffect(() => {
     if (table) {
-      let player =
-        table.id === ConstantsFE.DEALER_ID
-          ? table.dealer
-          : TableUtils.findPlayerById(table.players, table.turnId);
-      let animationCompleted =
-        id === ConstantsFE.DEALER_ID
+      let player;
+      let animationCompleted;
+      if (id === ConstantsFE.DEALER_ID) {
+        player = table.dealer;
+        animationCompleted = player.shouldShowAllCards
           ? animations.dealerAnimationCompleted
-          : animations.playerAnimationCompleted[id];
+          : animations.dealerAnimationCompleted - 1;
+      } else {
+        player = TableUtils.findPlayerById(table.players, table.turnId);
+        animationCompleted = animations.playerAnimationCompleted[id];
+      }
       debugger;
       setDisplay(player.shownCards.length === animationCompleted);
     }
