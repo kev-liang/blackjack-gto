@@ -6,6 +6,7 @@ const animationReducer = (
 ) => {
   switch (action.type) {
     case "SET_DEALER_ANIMATIONS":
+      console.log("SETTING DEALER ANIMATIONS", action.data);
       return { ...state, dealerAnimations: action.data };
     case "SET_PLAYER_ID_ANIMATION":
       let id = action.data.id;

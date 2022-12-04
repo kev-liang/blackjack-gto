@@ -50,7 +50,7 @@ function Table(props) {
   useEffect(() => {
     console.log("table", table);
     if (!table) return;
-    if (table.tableState === ConstantsFE.T_STATE_END || shouldAnimateOnInit) {
+    if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
       AnimationServiceFE.resetAnimations(table);
       setShouldAnimateOnInit(false);
     }

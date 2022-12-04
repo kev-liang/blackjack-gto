@@ -58,6 +58,10 @@
   transform: rotateY(180deg);
 }
 
+.reset-rotation {
+  transform: none !important;
+}
+
 /* THE MAINCONTAINER HOLDS EVERYTHING */
 
 /* THE CARD HOLDS THE FRONT AND BACK FACES */

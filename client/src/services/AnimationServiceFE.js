@@ -16,6 +16,7 @@ class AnimationServiceFE {
   }
 
   resetAnimations(table) {
+    // debugger;
     store.dispatch(resetDealerAnimationCompletedAction());
     store.dispatch(setDealerAnimationsAction([]));
     table.players.forEach((player) => {
