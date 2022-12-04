@@ -1,6 +1,8 @@
 import {
   setDealerAnimationsAction,
-  setPlayerIdAnimationAction
+  setPlayerIdAnimationAction,
+  resetDealerAnimationCompletedAction,
+  resetPlayerAnimationCompletedAction
 } from "../actions/animationActions";
 
 import { store } from "../store";
@@ -11,6 +13,17 @@ class AnimationServiceFE {
     this.count = 0;
     this.doneDealingDealer = true;
     this.doneDealingPlayers = true;
+  }
+
+  resetAnimations(table) {
+    store.dispatch(resetDealerAnimationCompletedAction());
+    store.dispatch(setDealerAnimationsAction([]));
+    table.players.forEach((player) => {
+      store.dispatch(resetPlayerAnimationCompletedAction(player.id));
+      store.dispatch(setPlayerIdAnimationAction(player.id, []));
+    });
+    this.setAnimations(table);
+    this.count = 0;
   }
 
   setAnimations(table) {

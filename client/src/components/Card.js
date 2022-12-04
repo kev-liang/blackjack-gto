@@ -11,6 +11,7 @@ import { bindActionCreators } from "redux";
 
 const Card = (props) => {
   const {
+    table,
     card,
     isPlaying = true,
     id,
@@ -18,9 +19,7 @@ const Card = (props) => {
     playerAnimations,
     cardIndex,
     addDealerAnimationCompleted,
-    addPlayerAnimationCompleted,
-    dealerAnimationCount,
-    playerAnimationCount
+    addPlayerAnimationCompleted
   } = props;
   const [value, setValue] = useState();
   const [suit, setSuit] = useState();
@@ -31,6 +30,13 @@ const Card = (props) => {
     setValue(card?.value);
     setSuit(card?.suit);
   }, [card]);
+
+  useEffect(() => {
+    if (!table) return;
+    if (table.tableState === ConstantsFE.T_STATE_END) {
+      setDisplay(false);
+    }
+  }, [table]);
 
   // handle animations
   useEffect(() => {
@@ -46,6 +52,7 @@ const Card = (props) => {
   }, [dealerAnimations, playerAnimations]);
 
   const setDisplayRotateAndCount = (delay, isDealer) => {
+    debugger;
     setTimeout(() => {
       setDisplay(true);
     }, delay - 200);
@@ -109,6 +116,7 @@ const Card = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    table: state.table?.table,
     dealerAnimations: state.animations?.dealerAnimations,
     playerAnimations: state.animations?.playerAnimations,
     dealerAnimationCount: state.animations?.dealerAnimationCount,

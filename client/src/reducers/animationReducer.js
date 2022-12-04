@@ -1,6 +1,9 @@
 import TableUtils from "../utils/TableUtils";
 
-const animationReducer = (state = { playerAnimationCompleted: {} }, action) => {
+const animationReducer = (
+  state = { playerAnimationCompleted: { 0: 0 }, dealerAnimationCompleted: 0 },
+  action
+) => {
   switch (action.type) {
     case "SET_DEALER_ANIMATIONS":
       return { ...state, dealerAnimations: action.data };

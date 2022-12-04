@@ -37,8 +37,9 @@ class Player {
     this.getCardTotal();
   }
 
-  getCardTotal() {
-    let sum = this.cards.reduce((sum, { value }) => {
+  getCardTotal(cardsArg = []) {
+    let cards = cardsArg.length ? cardsArg : this.cards;
+    let sum = cards.reduce((sum, { value }) => {
       if (value === 14) {
         sum += 11;
       } else if (value >= 10) {
@@ -49,8 +50,8 @@ class Player {
       return sum;
     }, 0);
     // handling ace equaling 1 or 11
-    let cardsWithoutAce = this.cards.filter((card) => card.value !== 14);
-    let numOfAce = this.cards.length - cardsWithoutAce.length;
+    let cardsWithoutAce = cards.filter((card) => card.value !== 14);
+    let numOfAce = cards.length - cardsWithoutAce.length;
     while (numOfAce && sum > Constants.BLACKJACK) {
       sum -= 10;
       numOfAce--;

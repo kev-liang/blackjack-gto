@@ -8,6 +8,7 @@ import ActionServiceFE from "../services/ActionServiceFE";
 import TableLogo from "./TableLogo";
 import KeydownService from "../services/KeyDownService";
 import AnimationServiceFE from "../services/AnimationServiceFE";
+import React from "react";
 
 import {
   resetDealerAnimationCompletedAction,
@@ -24,6 +25,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import ConstantsFE from "../utils/ConstantsFE";
 
 function Table(props) {
   const {
@@ -34,6 +36,7 @@ function Table(props) {
     resetDealerAnimationCompleted,
     resetPlayerAnimationCompleted
   } = props;
+  const [shouldAnimateOnInit, setShouldAnimateOnInit] = React.useState(true);
 
   useEffect(() => {
     let numPlayers = 1;
@@ -41,19 +44,16 @@ function Table(props) {
     setId(id);
     updateNumPlayers(numPlayers);
     updateDealingDelay(1000);
-    console.log("RESETTING");
-
     ActionServiceFE.initTable(numPlayers);
   }, [updateNumPlayers, updateDealingDelay]);
 
   useEffect(() => {
     console.log("table", table);
     if (!table) return;
-    AnimationServiceFE.setAnimations(table);
-    resetDealerAnimationCompleted();
-    table.players.forEach((player) => {
-      resetPlayerAnimationCompleted(player.id);
-    });
+    if (table.tableState === ConstantsFE.T_STATE_END || shouldAnimateOnInit) {
+      AnimationServiceFE.resetAnimations(table);
+      setShouldAnimateOnInit(false);
+    }
   }, [table]);
 
   useEffect(() => {

@@ -47,7 +47,6 @@ const NumberBanner = (props) => {
         player = TableUtils.findPlayerById(table.players, table.turnId);
         animationCompleted = animations.playerAnimationCompleted[id];
       }
-      debugger;
       setDisplay(player.shownCards.length === animationCompleted);
     }
   }, [

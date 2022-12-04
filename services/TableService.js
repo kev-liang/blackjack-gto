@@ -56,8 +56,11 @@ class TableService {
 
   resetPlayers() {
     this.players.forEach((player) => {
-      player.cards = [];
-      player.deal(2);
+      player.cards = [
+        { value: 6, suit: "h" },
+        { value: 6, suit: "c" }
+      ];
+      // player.deal(2);
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
@@ -126,6 +129,7 @@ class TableService {
         0,
         result.dealer.cards.length - 1
       );
+      result.dealer.getCardTotal([...result.dealer.shownCards]);
     }
     delete result.dealer.cards;
     delete result.dealer.deck;
