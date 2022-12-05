@@ -1,10 +1,10 @@
 import Url from "../utils/BackendUrlUtil";
-import ApiServiceFE from "./ApiServiceFE";
+import ApiService from "./ApiService";
 
 import { store } from "../store";
 import { updateTableAction } from "../actions/tableActions";
 
-class SettingsServiceFE {
+class SettingsService {
   constructor() {
     this.url = Url;
   }
@@ -12,14 +12,14 @@ class SettingsServiceFE {
   toggleDealerPlaying() {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/toggle-dealer-playing?id=${id}`;
-    ApiServiceFE.patchAndUpdateTable(endpoint);
+    ApiService.patchAndUpdateTable(endpoint);
   }
 
   changeNumDecks(numDecks) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/change-num-decks?num=${numDecks}&id=${id}`;
-    ApiServiceFE.patchAndUpdateTable(endpoint);
+    ApiService.patchAndUpdateTable(endpoint);
   }
 }
 
-export default new SettingsServiceFE();
+export default new SettingsService();

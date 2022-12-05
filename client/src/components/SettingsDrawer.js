@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuItem from "@mui/material/MenuItem";
-import SettingsServiceFE from "../services/SettingsServiceFE";
+import SettingsService from "../services/SettingsService";
 import ConstantsFE from "../utils/ConstantsFE";
 
 const settingsConfig = require("../config/settingsConfig.json");
@@ -45,13 +45,13 @@ function SettingsDrawer(props) {
   }, []);
 
   const toggleDealerPlaying = () => {
-    SettingsServiceFE.toggleDealerPlaying();
+    SettingsService.toggleDealerPlaying();
   };
 
   const changeNumDecks = (e) => {
     let numDecks = e.target.value;
     setNumDecks(numDecks);
-    SettingsServiceFE.changeNumDecks(numDecks);
+    SettingsService.changeNumDecks(numDecks);
   };
 
   const closeDrawer = () => {

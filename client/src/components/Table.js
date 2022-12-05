@@ -7,9 +7,9 @@ import SettingsDrawer from "./SettingsDrawer";
 import ActionServiceFE from "../services/ActionServiceFE";
 import TableLogo from "./TableLogo";
 import KeydownService from "../services/KeyDownService";
-import AnimationServiceFE from "../services/AnimationServiceFE";
+import AnimationService from "../services/AnimationService";
 import React from "react";
-import TableServiceFE from "../services/TableServiceFE";
+import TableStateServiceFE from "../services/TableStateServiceFE";
 
 import {
   resetDealerAnimationCompletedAction,
@@ -52,8 +52,16 @@ function Table(props) {
     console.log("table", table);
     if (!table) return;
     if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
-      AnimationServiceFE.resetAnimations(table);
+      AnimationService.resetAnimations(table);
+      AnimationService.setAnimations(table);
       setShouldAnimateOnInit(false);
+    } else if (
+      table.tableState === ConstantsFE.T_STATE_DEALER &&
+      table.tableStateService.resetDealerAnimation
+    ) {
+      console.log("RESETTING DEALER ANIM");
+      AnimationService.resetDealerAnimations();
+      AnimationService.setDealerAnimations(table);
     }
   }, [table]);
 
@@ -66,10 +74,10 @@ function Table(props) {
         : dealerAnimationCompleted - 1;
       if (table.dealer.shownCards.length === animationCompleted) {
         console.log("DEALER NEXT");
-        TableServiceFE.determineNextAction(table);
+        TableStateServiceFE.determineNextAction(table);
       }
     } else {
-      TableServiceFE.determineNextAction(table);
+      TableStateServiceFE.determineNextAction(table);
     }
   }, [table, dealerAnimationCompleted]);
 

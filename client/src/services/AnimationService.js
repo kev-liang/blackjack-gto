@@ -7,7 +7,7 @@ import {
 
 import { store } from "../store";
 
-class AnimationServiceFE {
+class AnimationService {
   constructor() {
     this.animationDelay = 700;
     this.count = 0;
@@ -16,14 +16,16 @@ class AnimationServiceFE {
   }
 
   resetAnimations(table) {
-    // debugger;
-    store.dispatch(resetDealerAnimationCompletedAction());
-    store.dispatch(setDealerAnimationsAction([]));
     table.players.forEach((player) => {
       store.dispatch(resetPlayerAnimationCompletedAction(player.id));
       store.dispatch(setPlayerIdAnimationAction(player.id, []));
     });
-    this.setAnimations(table);
+    this.count = 0;
+  }
+
+  resetDealerAnimations() {
+    store.dispatch(resetDealerAnimationCompletedAction());
+    store.dispatch(setDealerAnimationsAction([]));
     this.count = 0;
   }
 
@@ -57,9 +59,17 @@ class AnimationServiceFE {
     }
   }
 
-  handleDealerAnimation(table, dealerAnimations) {
+  handleDealerAnimation(
+    table,
+    dealerAnimations,
+    includeDealerInitialCard = true
+  ) {
     let animations = dealerAnimations ? dealerAnimations : [];
-    let numToDeal = table.dealer.shownCards.length + 1 - animations.length;
+    let { shownCards } = table.dealer;
+    let numShownCards = includeDealerInitialCard
+      ? shownCards.length + 1
+      : shownCards.length;
+    let numToDeal = numShownCards - animations.length;
     if (numToDeal > 0) {
       this.count += this.animationDelay;
       animations.push(this.count);
@@ -68,6 +78,14 @@ class AnimationServiceFE {
       this.doneDealingDealer = true;
     }
   }
+
+  setDealerAnimations(table) {
+    this.doneDealingDealer = false;
+    let animations = store.getState().animations || {};
+    while (!this.doneDealingDealer) {
+      this.handleDealerAnimation(table, animations.dealerAnimations, false);
+    }
+  }
 }
 
-export default new AnimationServiceFE();
+export default new AnimationService();

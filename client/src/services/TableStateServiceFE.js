@@ -2,7 +2,11 @@ import ActionServiceFE from "./ActionServiceFE";
 import ConstantsFE from "../utils/ConstantsFE";
 import { store } from "../store";
 
-class TableService {
+class TableStateServiceFE {
+  constructor() {
+    this.prevState = null;
+  }
+
   dealDealer(table) {
     if (table.tableState === ConstantsFE.T_STATE_DEALER) {
       setTimeout(() => {
@@ -25,4 +29,4 @@ class TableService {
   }
 }
 
-export default new TableService();
+export default new TableStateServiceFE();

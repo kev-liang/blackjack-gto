@@ -1,11 +1,11 @@
 import axios from "axios";
 import Url from "../utils/BackendUrlUtil";
-import TableServiceFE from "./TableServiceFE";
+import TableStateServiceFE from "./TableStateServiceFE";
 
 import { updateTableAction } from "../actions/tableActions";
 import { store } from "../store";
 
-class ApiServiceFE {
+class ApiService {
   constructor() {
     this.url = Url;
   }
@@ -37,4 +37,4 @@ class ApiServiceFE {
   }
 }
 
-export default new ApiServiceFE();
+export default new ApiService();

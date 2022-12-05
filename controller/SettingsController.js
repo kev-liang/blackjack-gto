@@ -3,8 +3,8 @@ const Constants = require("../utils/Constants");
 
 module.exports = (app, allTableService) => {
   app.patch("/toggle-dealer-playing", (req, res) => {
-    let shouldDealDealer = tableService.tableStateService.shouldDealDealer;
-    tableService.tableStateService.shouldDealDealer = !shouldDealDealer;
+    let shouldDealDealer = tableService.TableStateServiceFE.shouldDealDealer;
+    tableService.TableStateServiceFE.shouldDealDealer = !shouldDealDealer;
     res.send(tableService.showTable());
   });
 

@@ -4,6 +4,7 @@ class TableStateService {
   constructor() {
     this.tableState = Constants.T_STATE_PLAYING;
     this.shouldDealDealer = true;
+    this.resetDealerAnimation = false;
   }
 
   initTableState() {
@@ -11,15 +12,21 @@ class TableStateService {
   }
 
   determineTableState(players, dealer) {
+    this.resetDealerAnimation = false;
     switch (this.tableState) {
       case Constants.T_STATE_PLAYING:
         if (players.every((player) => !player.isPlaying)) {
           // if all players lost then don't deal dealer
-          this.tableState = players.every(
-            (player) => player.playerState === Constants.P_STATE_LOST
-          )
-            ? Constants.T_STATE_END
-            : Constants.T_STATE_DEALER;
+          if (
+            players.every(
+              (player) => player.playerState === Constants.P_STATE_LOST
+            )
+          ) {
+            this.tableState = Constants.T_STATE_END;
+          } else {
+            this.tableState = Constants.T_STATE_DEALER;
+            this.resetDealerAnimation = true;
+          }
         }
         break;
       case Constants.T_STATE_DEALER:

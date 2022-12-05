@@ -8,7 +8,7 @@ import {
   addPlayerAnimationCompletedAction
 } from "../actions/animationActions";
 import { bindActionCreators } from "redux";
-import AnimationServiceFE from "../services/AnimationServiceFE";
+import AnimationService from "../services/AnimationService";
 
 const Card = (props) => {
   const {
@@ -39,7 +39,7 @@ const Card = (props) => {
     if (table.tableState === ConstantsFE.T_STATE_END) {
       setDisplay(false);
     } else if (table.tableState === ConstantsFE.T_STATE_DEALER) {
-      AnimationServiceFE.setAnimations(table);
+      AnimationService.setAnimations(table);
     }
   }, [table]);
 
@@ -64,9 +64,10 @@ const Card = (props) => {
       id !== ConstantsFE.DEALER_ID
     )
       return;
-    if (cardIndex !== 1) {
-    }
-  }, [dealerAnimations, playerAnimations]);
+    // debugger;
+    let delay = dealerAnimations[cardIndex];
+    setDisplayRotateAndCount(delay, true);
+  }, [dealerAnimations]);
 
   const setDisplayRotateAndCount = (delay, isDealer) => {
     setTimeout(() => {

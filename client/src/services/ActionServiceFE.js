@@ -1,5 +1,5 @@
 import Url from "../utils/BackendUrlUtil";
-import ApiServiceFE from "./ApiServiceFE";
+import ApiService from "./ApiService";
 import TableUtils from "../utils/TableUtils";
 import ConstantsFE from "../utils/ConstantsFE";
 
@@ -13,49 +13,49 @@ class ActionServiceFE {
   initTable(numPlayers) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/init?numPlayers=${numPlayers}&id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   deal() {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/deal?id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   hit(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/hit?playerId=${playerId}&id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   stand(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/stand?playerId=${playerId}&id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   split(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/split?playerId=${playerId}&id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   double(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/double?playerId=${playerId}&id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   surrender(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/surrender?playerId=${playerId}&id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   dealDealer() {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/deal-dealer?id=${id}`;
-    ApiServiceFE.getAndUpdateTable(endpoint);
+    ApiService.getAndUpdateTable(endpoint);
   }
 
   determineDisabled = (players, turnId, handleFn) => {

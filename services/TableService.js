@@ -15,6 +15,7 @@ class TableService {
     this.turnId = 0;
     this.lastDecision = null; // for determining correct basic strategy
     this.tableStateService = new TableStateService();
+    this.resetDealerAnimations = false;
     this.initTable(numPlayers);
   }
 

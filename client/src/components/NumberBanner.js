@@ -61,34 +61,8 @@ const NumberBanner = (props) => {
   }
 };
 
-const mapStateToProps = (state, ownProps) => {
-  let table = state.table?.table;
-  // let animations = state.animations;
-  // let id = ownProps.id;
-  // let display;
-  // if (table && animations.playerAnimationCompleted) {
-  //   // let player;
-  //   // let animationCompleted;
-  //   // if (id === ConstantsFE.DEALER_ID) {
-  //   //   player = table.dealer;
-  //   //   animationCompleted = animations.dealerAnimationCompleted
-  //   // } else {
-  //   //   player = TableUtils.findPlayerById(table.players, table.turnId);
-  //   //   if (animations)
-  //   // }
-  //   let player =
-  //     table.id === ConstantsFE.DEALER_ID
-  //       ? table.dealer
-  //       : TableUtils.findPlayerById(table.players, table.turnId);
-  //   let animationsCompleted =
-  //     id === ConstantsFE.DEALER_ID
-  //       ? animations.dealerAnimationCompleted
-  //       : animations.playerAnimationCompleted[player.id];
-  //   debugger;
-  //   display = player.shownCards.length === animationsCompleted;
-  //   console.log("mstp", player, animationsCompleted);
-  // }
-  return { table, animations: state.animations };
+const mapStateToProps = (state) => {
+  return { table: state.table?.table, animations: state.animations };
 };
 
 export default connect(mapStateToProps, null)(NumberBanner);
