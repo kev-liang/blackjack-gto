@@ -30,6 +30,11 @@ const DealerCards = (props) => {
           </div>
         );
       })}
+      {!shouldShowAllCards && (
+        <div className="dealer-hidden-card">
+          <Card isPlaying={false}></Card>
+        </div>
+      )}
       <NumberBanner player={dealer} id={ConstantsFE.DEALER_ID}></NumberBanner>
     </div>
   );
