@@ -27,7 +27,6 @@ const Card = (props) => {
   const [value, setValue] = useState();
   const [suit, setSuit] = useState();
   const [rotate, setRotate] = useState(false);
-  const [resetRotate, setResetRotate] = useState(true);
   const [display, setDisplay] = useState(false);
 
   useEffect(() => {
@@ -81,7 +80,6 @@ const Card = (props) => {
       setDisplay(true);
     }, delay - 200);
     setTimeout(() => {
-      setResetRotate(false);
       if (isDealer) {
         addDealerAnimationCompleted();
       } else {

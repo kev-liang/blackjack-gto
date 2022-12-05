@@ -13,11 +13,17 @@ const NumberBanner = (props) => {
   const [usedAnimationCompleted, setUsedAnimationCompleted] = React.useState(
     {}
   );
+  const [positionStyles, setPositionStyles] = React.useState({});
   React.useEffect(() => {
     if (!table || !player) return;
     setValue(player.cardTotal);
     setCards(player.shownCards);
     setIsTurn(id === table.turnId);
+    if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
+      setPositionStyles({ margin: "45px 0 0 2px" });
+    } else {
+      setPositionStyles({ top: "45px", left: "2px" });
+    }
   }, [table, player]);
 
   React.useEffect(() => {
@@ -55,7 +61,7 @@ const NumberBanner = (props) => {
         }`}
         style={{
           ...TableUtils.getCardWidthStyle(cards, id, table?.dealer),
-          margin: "45px 0 0 2px"
+          ...positionStyles
         }}
       >
         {value}

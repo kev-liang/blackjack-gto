@@ -35,9 +35,9 @@ function Table(props) {
     updateNumPlayers,
     updateDealingDelay,
     setId,
-    dealerAnimationCompleted
+    dealerAnimationCompleted,
+    animationsEnabled
   } = props;
-  const [shouldAnimateOnInit, setShouldAnimateOnInit] = React.useState(true);
 
   useEffect(() => {
     let numPlayers = 1;
@@ -54,12 +54,10 @@ function Table(props) {
     if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
       AnimationService.resetAnimations(table);
       AnimationService.setAnimations(table);
-      setShouldAnimateOnInit(false);
     } else if (
       table.tableState === ConstantsFE.T_STATE_DEALER &&
       table.tableStateService.resetDealerAnimation
     ) {
-      console.log("RESETTING DEALER ANIM");
       AnimationService.resetDealerAnimations();
       AnimationService.setDealerAnimations(table);
     }
@@ -67,8 +65,11 @@ function Table(props) {
 
   useEffect(() => {
     if (!table) return;
+    if (!animationsEnabled || table.tableState !== ConstantsFE.T_STATE_DEALER) {
+      TableStateServiceFE.determineNextAction(table);
+    }
     // wait until all animations compelte before making next dealer req
-    if (table.tableState === ConstantsFE.T_STATE_DEALER) {
+    else {
       let animationCompleted = table.dealer.shouldShowAllCards
         ? dealerAnimationCompleted
         : dealerAnimationCompleted - 1;
@@ -76,8 +77,6 @@ function Table(props) {
         console.log("DEALER NEXT");
         TableStateServiceFE.determineNextAction(table);
       }
-    } else {
-      TableStateServiceFE.determineNextAction(table);
     }
   }, [table, dealerAnimationCompleted]);
 
@@ -108,7 +107,8 @@ function Table(props) {
 const mapStateToProps = (state) => {
   return {
     table: state.table?.table,
-    dealerAnimationCompleted: state.animations?.dealerAnimationCompleted
+    dealerAnimationCompleted: state.animations?.dealerAnimationCompleted,
+    animationsEnabled: state.animations?.animationsEnabled
   };
 };
 

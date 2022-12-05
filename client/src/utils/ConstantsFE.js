@@ -9,7 +9,6 @@ const P_STATE_SPLIT = "split";
 // Constants for table
 const T_STATE_PLAYING = "playing";
 const T_STATE_DEALER = "dealer";
-const T_STATE_DEALER_STAND = "dealerStand";
 const T_STATE_END = "end";
 
 const DEALER_ID = -1;
@@ -27,7 +26,6 @@ const ConstantsFE = {
   P_STATE_SPLIT,
   P_STATE_PLAYING,
   T_STATE_DEALER,
-  T_STATE_DEALER_STAND,
   T_STATE_PLAYING,
   T_STATE_END,
   DEALER_ID,
