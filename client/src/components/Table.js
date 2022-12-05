@@ -9,6 +9,7 @@ import TableLogo from "./TableLogo";
 import KeydownService from "../services/KeyDownService";
 import AnimationServiceFE from "../services/AnimationServiceFE";
 import React from "react";
+import TableServiceFE from "../services/TableServiceFE";
 
 import {
   resetDealerAnimationCompletedAction,
@@ -26,6 +27,7 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ConstantsFE from "../utils/ConstantsFE";
+import TableUtils from "../utils/TableUtils";
 
 function Table(props) {
   const {
@@ -33,8 +35,7 @@ function Table(props) {
     updateNumPlayers,
     updateDealingDelay,
     setId,
-    resetDealerAnimationCompleted,
-    resetPlayerAnimationCompleted
+    dealerAnimationCompleted
   } = props;
   const [shouldAnimateOnInit, setShouldAnimateOnInit] = React.useState(true);
 
@@ -55,6 +56,22 @@ function Table(props) {
       setShouldAnimateOnInit(false);
     }
   }, [table]);
+
+  useEffect(() => {
+    if (!table) return;
+    // wait until all animations compelte before making next dealer req
+    if (table.tableState === ConstantsFE.T_STATE_DEALER) {
+      let animationCompleted = table.dealer.shouldShowAllCards
+        ? dealerAnimationCompleted
+        : dealerAnimationCompleted - 1;
+      if (table.dealer.shownCards.length === animationCompleted) {
+        console.log("DEALER NEXT");
+        TableServiceFE.determineNextAction(table);
+      }
+    } else {
+      TableServiceFE.determineNextAction(table);
+    }
+  }, [table, dealerAnimationCompleted]);
 
   useEffect(() => {
     document.addEventListener("keydown", KeydownService.handleKeyDown);
@@ -82,7 +99,8 @@ function Table(props) {
 
 const mapStateToProps = (state) => {
   return {
-    table: state.table?.table
+    table: state.table?.table,
+    dealerAnimationCompleted: state.animations?.dealerAnimationCompleted
   };
 };
 

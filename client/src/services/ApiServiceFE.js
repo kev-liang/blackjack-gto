@@ -16,7 +16,6 @@ class ApiServiceFE {
       .then((res) => {
         let table = res.data;
         store.dispatch(updateTableAction(table));
-        TableServiceFE.determineNextAction(table);
       })
       .catch((e) => {
         // handle error

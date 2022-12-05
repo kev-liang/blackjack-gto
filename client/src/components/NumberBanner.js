@@ -20,20 +20,6 @@ const NumberBanner = (props) => {
     setIsTurn(id === table.turnId);
   }, [table, player]);
 
-  // React.useEffect(() => {
-  //   if (!id) return;
-  //   let animationCompleted =
-  //     id === ConstantsFE.DEALER_ID
-  //       ? animations.dealerAnimationCompleted
-  //       : animations.playerAnimationCompleted[id];
-  //   debugger;
-  //   setUsedAnimationCompleted(animationCompleted);
-  // }, [
-  //   id,
-  //   animations.dealerAnimationCompleted,
-  //   animations.playerAnimationCompleted[id]
-  // ]);
-
   React.useEffect(() => {
     if (table) {
       let player;
@@ -47,7 +33,10 @@ const NumberBanner = (props) => {
         player = TableUtils.findPlayerById(table.players, table.turnId);
         animationCompleted = animations.playerAnimationCompleted[id];
       }
-      setDisplay(player.shownCards.length === animationCompleted);
+      setDisplay(
+        player.shownCards.length === animationCompleted &&
+          table.tableState !== ConstantsFE.T_STATE_END
+      );
     }
   }, [
     table,

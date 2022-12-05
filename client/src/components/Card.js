@@ -8,6 +8,7 @@ import {
   addPlayerAnimationCompletedAction
 } from "../actions/animationActions";
 import { bindActionCreators } from "redux";
+import AnimationServiceFE from "../services/AnimationServiceFE";
 
 const Card = (props) => {
   const {
@@ -17,7 +18,8 @@ const Card = (props) => {
     id,
     dealerAnimations,
     playerAnimations,
-    cardIndex,
+    cardIndex, // when initially dealing,
+    //dealer hidden card = -1, regular dealer card = index - 1
     addDealerAnimationCompleted,
     addPlayerAnimationCompleted
   } = props;
@@ -36,17 +38,14 @@ const Card = (props) => {
     if (!table) return;
     if (table.tableState === ConstantsFE.T_STATE_END) {
       setDisplay(false);
-      // debugger;
+    } else if (table.tableState === ConstantsFE.T_STATE_DEALER) {
+      AnimationServiceFE.setAnimations(table);
     }
   }, [table]);
 
-  // handle animations
+  // handle animations for initial deal of two cards to player(s)/dealer
   useEffect(() => {
-    if (
-      table.tableState !== ConstantsFE.T_STATE_PLAYING &&
-      table.tableState !== ConstantsFE.T_STATE_DEALER
-    )
-      return;
+    if (table.tableState !== ConstantsFE.T_STATE_PLAYING) return;
     if (id === ConstantsFE.DEALER_ID) {
       if (!dealerAnimations) return;
       let delay = dealerAnimations[cardIndex + 1];
@@ -58,10 +57,18 @@ const Card = (props) => {
     }
   }, [dealerAnimations, playerAnimations]);
 
+  // handle animations for dealing dealer
+  useEffect(() => {
+    if (
+      table.tableState !== ConstantsFE.T_STATE_DEALER ||
+      id !== ConstantsFE.DEALER_ID
+    )
+      return;
+    if (cardIndex !== 1) {
+    }
+  }, [dealerAnimations, playerAnimations]);
+
   const setDisplayRotateAndCount = (delay, isDealer) => {
-    // if (table.tableState !== ConstantsFE.T_STATE_DEALER) {
-    //   debugger;
-    // }
     setTimeout(() => {
       setDisplay(true);
     }, delay - 200);
@@ -128,9 +135,7 @@ const mapStateToProps = (state) => {
   return {
     table: state.table?.table,
     dealerAnimations: state.animations?.dealerAnimations,
-    playerAnimations: state.animations?.playerAnimations,
-    dealerAnimationCount: state.animations?.dealerAnimationCount,
-    playerAnimationCount: state.animations?.playerAnimationCount
+    playerAnimations: state.animations?.playerAnimations
   };
 };
 

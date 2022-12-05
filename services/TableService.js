@@ -125,10 +125,7 @@ class TableService {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
     } else {
-      result.dealer.shownCards = result.dealer.cards.slice(
-        0,
-        result.dealer.cards.length - 1
-      );
+      result.dealer.shownCards = [result.dealer.cards[1]];
       result.dealer.getCardTotal([...result.dealer.shownCards]);
     }
     delete result.dealer.cards;
