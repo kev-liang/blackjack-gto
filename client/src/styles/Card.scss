@@ -58,10 +58,6 @@
   transform: rotateY(180deg);
 }
 
-.reset-rotation {
-  transform: none !important;
-}
-
 /* THE MAINCONTAINER HOLDS EVERYTHING */
 
 /* THE CARD HOLDS THE FRONT AND BACK FACES */
@@ -87,7 +83,7 @@
 }
 
 /* THE BACK FACE OF THE CARD, WHICH SHOWS ON MOUSEOVER */
-.card-back{
+.card-front{
   transform: rotateY(180deg);
 }
 

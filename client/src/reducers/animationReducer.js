@@ -1,7 +1,11 @@
 import TableUtils from "../utils/TableUtils";
 
 const animationReducer = (
-  state = { playerAnimationCompleted: { 0: 0 }, dealerAnimationCompleted: 0 },
+  state = {
+    playerAnimationCompleted: { 0: 0 },
+    dealerAnimationCompleted: 0,
+    animationsEnabled: false
+  },
   action
 ) => {
   switch (action.type) {

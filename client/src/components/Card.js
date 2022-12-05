@@ -18,6 +18,7 @@ const Card = (props) => {
     id,
     dealerAnimations,
     playerAnimations,
+    animationsEnabled,
     cardIndex, // when initially dealing,
     //dealer hidden card = -1, regular dealer card = index - 1
     addDealerAnimationCompleted,
@@ -36,6 +37,10 @@ const Card = (props) => {
 
   useEffect(() => {
     if (!table) return;
+    if (!animationsEnabled) {
+      setDisplay(true);
+      return;
+    }
     if (table.tableState === ConstantsFE.T_STATE_END) {
       setDisplay(false);
     } else if (table.tableState === ConstantsFE.T_STATE_DEALER) {
@@ -45,6 +50,7 @@ const Card = (props) => {
 
   // handle animations for initial deal of two cards to player(s)/dealer
   useEffect(() => {
+    if (!animationsEnabled) return;
     if (table.tableState !== ConstantsFE.T_STATE_PLAYING) return;
     if (id === ConstantsFE.DEALER_ID) {
       if (!dealerAnimations) return;
@@ -61,7 +67,8 @@ const Card = (props) => {
   useEffect(() => {
     if (
       table.tableState !== ConstantsFE.T_STATE_DEALER ||
-      id !== ConstantsFE.DEALER_ID
+      id !== ConstantsFE.DEALER_ID ||
+      !animationsEnabled
     )
       return;
     // debugger;
@@ -113,15 +120,15 @@ const Card = (props) => {
 
   return isPlaying ? (
     <div
-      className={`card card-animation main-container fade-in ${
-        rotate ? "begin-rotation" : ""
-      } ${!display ? "display-none" : ""}`}
+      className={`card card-animation ${rotate ? "begin-rotation" : ""} ${
+        !display ? "display-none" : ""
+      }`}
       style={{ transition: "all 0.5s ease" }}
     >
       <div className="card-animation-container">
-        <div className="card-front card-hidden"></div>
+        {animationsEnabled && <div className="card-back card-hidden"></div>}
 
-        <div className="card-back">
+        <div className={animationsEnabled ? "card-front" : "card-back"}>
           <div className="top-left">{getValueAndSuit()}</div>
           <div className="suit-bottom-right">{getValueAndSuit()}</div>
         </div>
@@ -136,7 +143,8 @@ const mapStateToProps = (state) => {
   return {
     table: state.table?.table,
     dealerAnimations: state.animations?.dealerAnimations,
-    playerAnimations: state.animations?.playerAnimations
+    playerAnimations: state.animations?.playerAnimations,
+    animationsEnabled: state.animations?.animationsEnabled
   };
 };
 
