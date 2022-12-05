@@ -16,7 +16,7 @@
     {
       "label": "Double",
       "handleFn": "handleDouble",
-      "msgReplacement": "surrender"
+      "msgReplacement": "double"
     },
     {
       "label": "Surrender",

@@ -15,6 +15,7 @@ class TableService {
     this.turnId = 0;
     this.lastDecision = null; // for determining correct basic strategy
     this.tableStateService = new TableStateService();
+    this.resetDealerAnimations = false;
     this.initTable(numPlayers);
   }
 
@@ -56,7 +57,10 @@ class TableService {
 
   resetPlayers() {
     this.players.forEach((player) => {
-      player.cards = [];
+      player.cards = [
+        // { value: 6, suit: "h" },
+        // { value: 6, suit: "c" }
+      ];
       player.deal(2);
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
@@ -122,10 +126,8 @@ class TableService {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
     } else {
-      result.dealer.shownCards = result.dealer.cards.slice(
-        0,
-        result.dealer.cards.length - 1
-      );
+      result.dealer.shownCards = [result.dealer.cards[1]];
+      result.dealer.getCardTotal([...result.dealer.shownCards]);
     }
     delete result.dealer.cards;
     delete result.dealer.deck;

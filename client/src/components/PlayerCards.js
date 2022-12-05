@@ -24,7 +24,7 @@ const PlayerCards = (props) => {
               className="player-cards"
               key={`player-card-${card.value}-${card.suit}-${i}`}
             >
-              <Card card={card}></Card>
+              <Card card={card} id={id} cardIndex={i}></Card>
             </div>
           ))}
         </div>

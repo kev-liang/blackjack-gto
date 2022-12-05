@@ -7,12 +7,14 @@ class TableUtils {
     });
   }
 
-  getCardWidthStyle(cards, id) {
+  getCardWidthStyle(cards, id, dealer) {
     if (!cards) return;
-    console.log("ff", cards, id);
     let isDealer = id === ConstantsFE.DEALER_ID;
-    let numCards = isDealer ? cards.length : cards.length - 1;
-    let width = ConstantsFE.CARD_WIDTH * (1 + 0.5 * numCards) - 4; // 4 for border
+    let numCards =
+      !isDealer || (dealer && dealer.shouldShowAllCards)
+        ? cards.length - 1
+        : cards.length;
+    let width = ConstantsFE.CARD_WIDTH * (1 + 0.5 * numCards) + numCards * 4; // 4 for border
     return { width: `${width}px` };
   }
 }

@@ -1,11 +1,11 @@
 import axios from "axios";
 import Url from "../utils/BackendUrlUtil";
-import TableServiceFE from "./TableServiceFE";
+import TableStateServiceFE from "./TableStateServiceFE";
 
 import { updateTableAction } from "../actions/tableActions";
 import { store } from "../store";
 
-class ApiServiceFE {
+class ApiService {
   constructor() {
     this.url = Url;
   }
@@ -16,7 +16,6 @@ class ApiServiceFE {
       .then((res) => {
         let table = res.data;
         store.dispatch(updateTableAction(table));
-        TableServiceFE.determineNextAction(table);
       })
       .catch((e) => {
         // handle error
@@ -38,4 +37,4 @@ class ApiServiceFE {
   }
 }
 
-export default new ApiServiceFE();
+export default new ApiService();

@@ -2,9 +2,14 @@ import ActionServiceFE from "./ActionServiceFE";
 import ConstantsFE from "../utils/ConstantsFE";
 import { store } from "../store";
 
-class TableService {
+class TableStateServiceFE {
+  constructor() {
+    this.prevState = null;
+  }
+
   dealDealer(table) {
     if (table.tableState === ConstantsFE.T_STATE_DEALER) {
+      console.log("DOING NEXT DEALER");
       setTimeout(() => {
         ActionServiceFE.dealDealer();
       }, store.getState().table?.dealingDelay);
@@ -25,4 +30,4 @@ class TableService {
   }
 }
 
-export default new TableService();
+export default new TableStateServiceFE();

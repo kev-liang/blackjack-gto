@@ -35,13 +35,7 @@ function NavBar(props) {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, textAlign: "left" }}
-          >
-            Optimal Blackjack
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}></Box>
           <Button color="inherit" onClick={showDrawer}>
             <Settings></Settings>
           </Button>
