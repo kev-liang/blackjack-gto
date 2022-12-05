@@ -92,7 +92,7 @@ function Table(props) {
 
   return (
     <div>
-      <div className="table table-felt">
+      <div className="table">
         <TableLogo></TableLogo>
         <div className="inner-table">&nbsp;</div>
       </div>

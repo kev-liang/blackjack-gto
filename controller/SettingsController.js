@@ -14,4 +14,11 @@ module.exports = (app, allTableService) => {
     tableService.setNumDeck(numDecks);
     res.send(tableService.showTable());
   });
+
+  app.patch("/change-num-decks", (req, res) => {
+    let { tableService } = allTableService.tables[req.query.id];
+    let numDecks = req.query.num;
+    tableService.setNumDeck(numDecks);
+    res.send(tableService.showTable());
+  });
 };
