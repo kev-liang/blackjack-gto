@@ -7,7 +7,6 @@ import { store } from "../store";
 class KeyDownService {
   handleKeyDown = (e) => {
     let letter = String.fromCharCode(e.keyCode);
-    console.log("aa", store.getState());
     let turnId = store.getState().table.table.turnId;
     switch (letter) {
       case KeyboardUtil.hit:

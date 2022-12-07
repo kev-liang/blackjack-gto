@@ -50,7 +50,9 @@ function Table(props) {
   }, [updateNumPlayers, updateDealingDelay]);
 
   useEffect(() => {
-    console.log("table", table);
+    if (process.env.NODE_ENV === "development") {
+      console.log("table", table);
+    }
     if (!table) return;
     if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
       AnimationService.resetAnimations(table);
@@ -75,7 +77,6 @@ function Table(props) {
         ? dealerAnimationCompleted
         : dealerAnimationCompleted - 1;
       if (table.dealer.shownCards.length === animationCompleted) {
-        console.log("DEALER NEXT");
         TableStateServiceFE.determineNextAction(table);
       }
     }
