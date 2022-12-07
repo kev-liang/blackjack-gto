@@ -1,6 +1,6 @@
-import "../styles/Winner.scss";
+import "styles/Winner.scss";
 import { connect } from "react-redux";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "utils/constants/ConstantsFE";
 
 import React from "react";
 

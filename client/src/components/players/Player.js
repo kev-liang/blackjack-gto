@@ -1,9 +1,9 @@
 import PlayerCards from "./PlayerCards";
-import "../styles/Player.scss";
+import "styles/Player.scss";
 import { connect } from "react-redux";
 import React from "react";
 
-import TableUtils from "../utils/TableUtils";
+import TableUtils from "utils/TableUtils";
 
 function Dealer(props) {
   const { table, players } = props;

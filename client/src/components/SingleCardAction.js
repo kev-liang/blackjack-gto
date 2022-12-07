@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { updateTableAction } from "../actions/tableActions";
 import { bindActionCreators } from "redux";
 import TableUtils from "../utils/TableUtils";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "../utils/constants/ConstantsFE";
 import React from "react";
 
 import Tooltip from "@mui/material/Tooltip";

@@ -1,16 +1,17 @@
+import React from "react";
 import "../styles/Table.scss";
-import Dealer from "./Dealer";
-import Player from "./Player";
+import Dealer from "components/players/Dealer";
+import Player from "components/players/Player";
 import NavBar from "./NavBar";
-import MiddleInfo from "./MiddleInfo";
+import MiddleInfo from "./middleInfo/MiddleInfo";
 import SettingsDrawer from "./SettingsDrawer";
-import ActionServiceFE from "../services/ActionServiceFE";
 import TableLogo from "./TableLogo";
+import BasicStrategy from "./basicStrategy/BasicStrategy";
+
+import ActionServiceFE from "../services/ActionServiceFE";
+import TableStateServiceFE from "../services/TableStateServiceFE";
 import KeydownService from "../services/KeyDownService";
 import AnimationService from "../services/AnimationService";
-import React from "react";
-import TableStateServiceFE from "../services/TableStateServiceFE";
-
 import {
   resetDealerAnimationCompletedAction,
   resetPlayerAnimationCompletedAction
@@ -26,7 +27,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "../utils/constants/ConstantsFE";
 import TableUtils from "../utils/TableUtils";
 
 function Table(props) {
@@ -95,6 +96,7 @@ function Table(props) {
         <TableLogo></TableLogo>
         <div className="inner-table">&nbsp;</div>
       </div>
+      <BasicStrategy></BasicStrategy>
       <SettingsDrawer></SettingsDrawer>
       <NavBar></NavBar>
       <Dealer></Dealer>

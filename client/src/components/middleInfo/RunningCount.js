@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import "../styles/RunningCount.scss";
+import "styles/RunningCount.scss";
 
 import React from "react";
 const RunningCount = (props) => {

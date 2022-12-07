@@ -1,10 +1,10 @@
 import React from "react";
-import Card from "./Card";
-import NumberBanner from "./NumberBanner";
-import TableUtils from "../utils/TableUtils";
+import Card from "components/players/Card";
+import NumberBanner from "components/players/NumberBanner";
+import TableUtils from "utils/TableUtils";
 import { connect } from "react-redux";
 
-import "../styles/PlayerCards.scss";
+import "styles/PlayerCards.scss";
 
 const PlayerCards = (props) => {
   const { cards, id, players } = props;

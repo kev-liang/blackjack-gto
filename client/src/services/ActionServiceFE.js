@@ -1,7 +1,7 @@
 import Url from "../utils/BackendUrlUtil";
 import ApiService from "./ApiService";
 import TableUtils from "../utils/TableUtils";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "../utils/constants/ConstantsFE";
 
 import { store } from "../store";
 

@@ -58,10 +58,12 @@ class TableService {
   resetPlayers() {
     this.players.forEach((player) => {
       player.cards = [
-        // { value: 6, suit: "h" },
-        // { value: 6, suit: "c" }
+        // { value: 11, suit: "h" },
+        // { value: 5, suit: "c" }
       ];
       player.deal(2);
+      player.isSoft = false;
+      player.hasPair = false;
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;

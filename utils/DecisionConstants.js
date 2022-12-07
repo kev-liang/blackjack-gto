@@ -1,12 +1,12 @@
 const HIT = "H";
 const STAND = "S";
 const SPLIT = "SP";
-const SPLIT_HIT = "SP_H";
+const SPLIT_HIT = "SPd";
 const DOUBLE = "D";
-const DOUBLE_STAND = "DS";
+const DOUBLE_STAND = "Ds";
 const SURRENDER = "SR";
-const SURRENDER_HIT = "SR_H";
-const SURRENDER_STAND = "SR_S";
+const SURRENDER_HIT = "Rh";
+const SURRENDER_STAND = "Rs";
 
 module.exports = {
   HIT,

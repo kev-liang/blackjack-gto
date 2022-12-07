@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import DecisionConstantsFE from "../utils/DecisionConstantsFE";
-import "../styles/CorrectDecision.scss";
+import DecisionConstantsFE from "utils/constants/DecisionConstantsFE";
+import "styles/CorrectDecision.scss";
 import React from "react";
 
 function CorrectDecision(props) {
