@@ -3,6 +3,7 @@
   "icon": "SettingsIcon",
   "settings": [
     {
+      "show": false,
       "subTitle": {
         "text": "Display",
         "variant": "h6"
@@ -48,6 +49,7 @@
       ]
     },
     {
+      "show": true,
       "subTitle": {
         "text": "Gameplay",
         "variant": "h6"
@@ -55,10 +57,16 @@
       "icon": "VideogameAssetIcon",
       "options": [
         {
+          "show": true,
           "components": [
             {
               "component": "Checkbox",
-              "onChange": "toggleDealerPlaying"
+              "onChange": "toggleDealerPlaying",
+              "props": {
+                "sx": {
+                  "padding": 0
+                }
+              }
             },
             {
               "component": "p",
@@ -113,6 +121,7 @@
           ]
         },
         {
+          "show": true,
           "components": [
             {
               "component": "p",
@@ -120,7 +129,12 @@
             },
             {
               "component": "Select",
-              "onChange": "change",
+              "onChange": "changeNumDecks",
+              "value": "numDecks",
+              "class": "settings-drawer-select",
+              "props": {
+                "size": "small"
+              },
               "items": [
                 {
                   "value": "1",

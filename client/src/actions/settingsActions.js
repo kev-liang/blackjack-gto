@@ -5,4 +5,11 @@ const setShowDrawerAction = (showDrawer) => {
   };
 };
 
-export { setShowDrawerAction };
+const setShowBasicStrategyChartAction = (showTable) => {
+  return {
+    type: "SET_SHOW_BASIC_STRATEGY_CHART",
+    data: showTable
+  };
+};
+
+export { setShowDrawerAction, setShowBasicStrategyChartAction };

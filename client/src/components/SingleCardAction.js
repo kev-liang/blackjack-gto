@@ -4,24 +4,30 @@ import { connect } from "react-redux";
 import { updateTableAction } from "../actions/tableActions";
 import { bindActionCreators } from "redux";
 import TableUtils from "../utils/TableUtils";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "../utils/constants/ConstantsFE";
 import React from "react";
 
 import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
 
 function SingleCardAction(props) {
-  const { table, label, action, players, turnId, tableState } = props;
+  const { table, players, turnId, tableState, action } = props;
+  const { label, handleFn, msgReplacement } = action;
   const [disabled, setDisabled] = React.useState(true);
+  const [buttonStyles, setButtonStyles] = React.useState();
   const [tooltip, setTooltip] = React.useState("");
   let determineDisabled;
 
-  React.useEffect(() => {
-    if (table) setDisabled(false);
-  }, [table]);
+  const greaterThanTwoCardMessage = "Cannot ACTION with more than 2 cards";
 
   React.useEffect(() => {
-    determineDisabled(players, action);
-  }, [players, action, determineDisabled]);
+    if (!table) return;
+
+    setDisabled(
+      ActionServiceFE.determineDisabled(table.players, table.turnId, handleFn)
+    );
+    handleTooltip();
+  }, [table, players, determineDisabled]);
 
   React.useEffect(() => {
     if (tableState === ConstantsFE.T_STATE_END) {
@@ -29,9 +35,25 @@ function SingleCardAction(props) {
     }
   }, [tableState]);
 
-  const handleClick = (action) => {
+  React.useEffect(() => {
+    const defaultStyles = {
+      height: 50,
+      width: 110
+    };
+    if (!disabled) {
+      setButtonStyles(defaultStyles);
+    } else {
+      setButtonStyles({
+        ...defaultStyles,
+        backgroundColor: "#aaa",
+        pointerEvents: "none"
+      });
+    }
+  }, [disabled]);
+
+  const handleClick = (handleFn) => {
     if (disabled) return;
-    switch (action) {
+    switch (handleFn) {
       case "handleSplit":
         handleSplit();
         break;
@@ -48,7 +70,7 @@ function SingleCardAction(props) {
         handleSurrender();
         break;
       default:
-        console.error("Unknown action type");
+        console.error("Unknown handleFn type");
         break;
     }
   };
@@ -73,52 +95,51 @@ function SingleCardAction(props) {
     ActionServiceFE.surrender(turnId);
   };
 
-  const determineMaxSplit = (players) => {
-    let splitPlayers = players.filter((player) => player.id < 0);
-    return splitPlayers.length === ConstantsFE.MAX_NUM_SPLITS;
-  };
-
-  const determineSplit = (player, players) => {
-    if (!player.isPlaying) {
-      setDisabled(true);
-      return;
+  const handleTooltip = () => {
+    switch (handleFn) {
+      case "handleSplit":
+        splitTooltip();
+        break;
+      case "handleDouble":
+      case "handleSurrender":
+        handleGreaterThanTwoCards();
+        break;
     }
-    let isMaxSplit = determineMaxSplit(players);
-    let splitDisabled =
-      player.cards.length > 2 ||
-      player.cards[0].value !== player.cards[1].value ||
-      isMaxSplit;
-    setDisabled(splitDisabled);
+  };
+  const splitTooltip = () => {
+    let player = TableUtils.findPlayerById(players, turnId);
+    let isMaxSplit = ActionServiceFE.determineMaxSplit(players);
+    let hasMoreThanTwoCards = player.cards.length > 2;
+    let hasDifferentCardValues =
+      player.cards[0].value !== player.cards[1].value;
     if (isMaxSplit) {
       setTooltip(`Cannot split more than ${ConstantsFE.MAX_NUM_SPLITS} times`);
+    } else if (hasMoreThanTwoCards) {
+      setTooltip(greaterThanTwoCardMessage.replace("ACTION", msgReplacement));
+    } else if (hasDifferentCardValues) {
+      setTooltip("Cannot split when dealt cards have different values");
     }
   };
 
-  determineDisabled = (players, action) => {
-    if (!players || !action) return;
+  const handleGreaterThanTwoCards = () => {
     let player = TableUtils.findPlayerById(players, turnId);
-    switch (action) {
-      case "handleSplit":
-        return determineSplit(player, players);
-      case "handleDouble":
-        setDisabled(player.cards.length > 2);
-        break;
-      default:
-        setDisabled(!player.isPlaying);
+    if (player.cards.length > 2) {
+      setTooltip(greaterThanTwoCardMessage.replace("ACTION", msgReplacement));
     }
   };
 
   return (
     <div>
       <Tooltip title={tooltip} placement="top">
-        <div
-          className={`card-action-button ${
-            disabled ? "card-action-disabled" : ""
-          }`}
-          onClick={() => handleClick(action)}
-        >
-          {label}
-        </div>
+        <span>
+          <Button
+            onClick={() => handleClick(handleFn)}
+            variant="contained"
+            sx={buttonStyles}
+          >
+            {label}
+          </Button>
+        </span>
       </Tooltip>
     </div>
   );

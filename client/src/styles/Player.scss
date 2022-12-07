@@ -10,6 +10,15 @@
   width: $card-width;
 }
 
+.player-cards-container {
+  width: fit-content;
+}
+
+.player-cards-flex-container {
+  width: fit-content;
+  display: flex;
+}
+
 #player-container-even-1, #player-container-odd-1 {
   left: 60%;
   bottom: 45%;
@@ -28,7 +37,3 @@
   bottom: 45%;
 }
 
-.player-turn {
-  background-color: #FFD800;
-  border-radius: 10px;
-}

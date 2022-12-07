@@ -3,9 +3,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cardController = require("./controller/CardController");
 const settingsController = require("./controller/SettingsController");
+const basicStrategyController = require("./controller/BasicStrategyController");
 
-const TableService = require("./services/TableService");
-const ActionService = require("./services/ActionService");
+const AllTableService = require("./services/AllTableService");
+const BasicStrategyService = require("./services/BasicStrategyService");
 
 const path = require("path");
 
@@ -22,11 +23,11 @@ app.use(cors());
 
 app.use(express.static("./build"));
 
-const tableService = new TableService();
-const actionService = new ActionService(tableService);
+const allTableService = new AllTableService();
 
-cardController(app, tableService, actionService);
-settingsController(app, tableService);
+cardController(app, allTableService);
+settingsController(app, allTableService);
+basicStrategyController(app, BasicStrategyService);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

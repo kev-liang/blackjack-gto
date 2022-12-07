@@ -5,6 +5,11 @@ const pairStrategyConfig = require("../config/pairStrategyConfig.json");
 const handStrategyConfig = require("../config/handStrategyConfig.json");
 const softStrategyConfig = require("../config/softStrategyConfig.json");
 
+// SITES FOR BASIC STRATEGY CHARTS
+// "https://www.livecasinos.com/blog/explaining-the-soft-17-rule-in-blackjack/",
+// "https://wizardofodds.com/games/blackjack/strategy/calculator/",
+// "https://www.blackjackapprenticeship.com/blackjack-strategy-charts/"
+
 class BasicStrategyService {
   constructor() {
     this.strategy = {
@@ -12,14 +17,13 @@ class BasicStrategyService {
       hand: handStrategyConfig,
       soft: softStrategyConfig
     };
-    this.canSurrender = true;
     this.canDoubleAfterSplit = true;
   }
 
   getHistory(dealerValue, player, decision) {
     const { cardTotal: playerValue, history } = player;
-    let isPair = player.hasPair();
-    let isSoft = player.isSoft();
+    let isPair = player.hasPair;
+    let isSoft = player.isSoft;
     let newHistory = {
       dealerValue,
       playerValues: {
@@ -55,11 +59,11 @@ class BasicStrategyService {
           ? DecisionConstants.DOUBLE
           : DecisionConstants.STAND;
       case DecisionConstants.SURRENDER_HIT:
-        return this.canSurrender
+        return numCards === 2
           ? DecisionConstants.SURRENDER
           : DecisionConstants.HIT;
       case DecisionConstants.SURRENDER_STAND:
-        return this.canSurrender
+        return numCards === 2
           ? DecisionConstants.SURRENDER
           : DecisionConstants.STAND;
       case DecisionConstants.SPLIT_HIT:

@@ -12,10 +12,16 @@ class Player {
     this.shouldShowAllCards = false;
     this.history = [];
     this.splitPlayerId = null;
+    this.hasPair = false;
+    this.isSoft = false;
   }
 
   deal(numCards, shouldCount = true) {
     this.cards = this.cards.concat(this.deck.deal(numCards, shouldCount));
+    this.isSoft = true;
+    this.cards.length === 2 && !!this.cards.find((card) => card.value == 14);
+    this.hasPair =
+      this.cards.length === 2 && this.cards[0].value === this.cards[1].value;
   }
 
   dealTest(numCards, shouldCount = true) {
@@ -37,8 +43,9 @@ class Player {
     this.getCardTotal();
   }
 
-  getCardTotal() {
-    let sum = this.cards.reduce((sum, { value }) => {
+  getCardTotal(cardsArg = []) {
+    let cards = cardsArg.length ? cardsArg : this.cards;
+    let sum = cards.reduce((sum, { value }) => {
       if (value === 14) {
         sum += 11;
       } else if (value >= 10) {
@@ -49,25 +56,13 @@ class Player {
       return sum;
     }, 0);
     // handling ace equaling 1 or 11
-    let cardsWithoutAce = this.cards.filter((card) => card.value !== 14);
-    let numOfAce = this.cards.length - cardsWithoutAce.length;
+    let cardsWithoutAce = cards.filter((card) => card.value !== 14);
+    let numOfAce = cards.length - cardsWithoutAce.length;
     while (numOfAce && sum > Constants.BLACKJACK) {
       sum -= 10;
       numOfAce--;
     }
     this.cardTotal = sum;
-  }
-
-  isSoft() {
-    return (
-      this.cards.length === 2 && this.cards.find((card) => card.value == 14)
-    );
-  }
-
-  hasPair() {
-    return (
-      this.cards.length === 2 && this.cards[0].value === this.cards[1].value
-    );
   }
 }
 

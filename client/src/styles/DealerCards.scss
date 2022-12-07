@@ -2,20 +2,23 @@
 
 .dealer-cards-container {
   opacity: 1;
-  display: flex;
   z-index: 100;
   border-radius: 20%;
+  display: flex;
 }
 
-.dealer-cards-container > div {
-  margin-right: calc($card-width / -2);
+.dealer-cards-flex-container {
+  display: flex;
+  position: relative;
+}
+.dealer-cards-flex-container > div {
+  margin-left: calc($card-width / -2);
+}
+ 
+.dealer-cards:first-child{
+  margin: 0;
 }
 
-.player-cards:first-child {
-  margin: 0
+.dealer-hidden-card {
+  margin: 0 !important;
 }
-// .dealer-hidden-card {
-//   right: -$card-width / 2;
-//   position: absolute;
-//   z-index: -1;
-// }

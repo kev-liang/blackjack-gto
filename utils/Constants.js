@@ -16,6 +16,7 @@ const T_STATE_END = "end";
 const DEALER_ID = -1;
 const USER_ID = 0;
 const BLACKJACK = 21;
+const DEFAULT_NUM_DECK = 6;
 
 module.exports = {
   P_STATE_LOST,
@@ -31,5 +32,6 @@ module.exports = {
   T_STATE_END,
   DEALER_ID,
   USER_ID,
-  BLACKJACK
+  BLACKJACK,
+  DEFAULT_NUM_DECK
 };

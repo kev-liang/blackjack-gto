@@ -6,7 +6,7 @@ const _ = require("lodash");
 const DecisionConstants = require("../utils/DecisionConstants");
 
 class TableService {
-  constructor() {
+  constructor(numPlayers) {
     this.deck = new Deck(this);
     this.players = []; // human player id = 0
     this.dealer;
@@ -15,6 +15,8 @@ class TableService {
     this.turnId = 0;
     this.lastDecision = null; // for determining correct basic strategy
     this.tableStateService = new TableStateService();
+    this.resetDealerAnimations = false;
+    this.initTable(numPlayers);
   }
 
   initTable(numPlayers) {
@@ -55,8 +57,13 @@ class TableService {
 
   resetPlayers() {
     this.players.forEach((player) => {
-      player.cards = [];
+      player.cards = [
+        // { value: 11, suit: "h" },
+        // { value: 5, suit: "c" }
+      ];
       player.deal(2);
+      player.isSoft = false;
+      player.hasPair = false;
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
@@ -121,10 +128,8 @@ class TableService {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
     } else {
-      result.dealer.shownCards = result.dealer.cards.slice(
-        0,
-        result.dealer.cards.length - 1
-      );
+      result.dealer.shownCards = [result.dealer.cards[1]];
+      result.dealer.getCardTotal([...result.dealer.shownCards]);
     }
     delete result.dealer.cards;
     delete result.dealer.deck;
@@ -192,6 +197,10 @@ class TableService {
     splitPlayer.splitPlayerId = player.id;
     this.players.push(splitPlayer);
     this.handlePlayerBlackjack();
+  }
+
+  setNumDeck(numDeck) {
+    this.deck.initDeck(numDeck);
   }
 
   // WIP: in case need histories in order

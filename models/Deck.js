@@ -1,22 +1,30 @@
 const Card = require("./Card");
+const Constants = require("../utils/Constants");
 
 // Handles the logic for the deck of a table
 class Deck {
   constructor(tableService) {
     this.tableService = tableService;
 
-    this.currCard = 0;
+    this.initDeck(Constants.DEFAULT_NUM_DECK);
+  }
+
+  initDeck(numDeck) {
     const suits = ["s", "c", "h", "d"];
+
     this.deck = [];
-    suits.forEach((suit) => {
-      for (let i = 2; i <= 14; i++) {
-        this.deck.push(new Card(i, suit));
-      }
-    });
+    for (let i = 0; i < numDeck; i++) {
+      suits.forEach((suit) => {
+        for (let i = 2; i <= 14; i++) {
+          this.deck.push(new Card(i, suit));
+        }
+      });
+    }
     this.shuffle();
   }
 
   shuffle() {
+    this.currCard = 0;
     let i = this.deck.length;
     let j = 0;
     let temp;
@@ -38,6 +46,9 @@ class Deck {
       cards.push(card);
       if (shouldCount) {
         this.count(card.value);
+      }
+      if (this.currCard === this.deck.length) {
+        this.shuffle();
       }
     }
     return cards;

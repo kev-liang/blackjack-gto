@@ -14,7 +14,7 @@ class ActionService {
     let player = this.tableService.findPlayerById(playerId);
     this.getHistory(
       player,
-      this.tableService.dealer.shownCards[0].value,
+      this.tableService.dealer.cards[1].value,
       DecisionConstants.HIT
     );
     player.deal(1);
@@ -58,7 +58,7 @@ class ActionService {
     let player = this.tableService.findPlayerById(playerId);
     this.getHistory(
       player,
-      this.tableService.dealer.shownCards[0].value,
+      this.tableService.dealer.cards[1].value,
       DecisionConstants.STAND
     );
     player.playerState = Constants.P_STATE_STAND;
@@ -71,7 +71,7 @@ class ActionService {
     this.tableService.addSplit(player);
     this.getHistory(
       player,
-      this.tableService.dealer.shownCards[0].value,
+      this.tableService.dealer.cards[1].value,
       DecisionConstants.SPLIT
     );
     this.tableService.lastDecision = player.history[player.history.length - 1];
@@ -83,7 +83,7 @@ class ActionService {
     //double bet here
     this.getHistory(
       player,
-      this.tableService.dealer.shownCards[0].value,
+      this.tableService.dealer.cards[1].value,
       DecisionConstants.DOUBLE
     );
     player.deal(1);
@@ -98,7 +98,7 @@ class ActionService {
     //double bet here
     this.getHistory(
       player,
-      this.tableService.dealer.shownCards[0].value,
+      this.tableService.dealer.cards[1].value,
       DecisionConstants.SURRENDER
     );
     player.playerState = Constants.P_STATE_LOST;
