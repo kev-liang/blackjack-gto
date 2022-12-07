@@ -12,9 +12,7 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import DecisionConstantsFE from "../../utils/constants/DecisionConstantsFE";
 
 function createData(playerHand, values) {
   return {
@@ -43,6 +41,7 @@ const BasicStrategyChart = (props) => {
   const [rows, setRow] = useState([]);
   const [dealerShownCards, setDealerShownCards] = useState([]);
   const [sideBarText, setSideBarText] = useState("");
+  let handleChart;
 
   useEffect(() => {
     BasicStrategyServiceFE.getBasicStrategyCharts();
@@ -54,11 +53,9 @@ const BasicStrategyChart = (props) => {
     if (!basicStrategyCharts || !table || table.turnId > 0) return;
     let player = TableUtils.findPlayerById(table.players, table.turnId);
     handleChart(player, basicStrategyCharts);
-  }, [table, basicStrategyCharts]);
+  }, [table, basicStrategyCharts, handleChart]);
 
-  const handleChart = (player) => {
-    // debugger;
-
+  handleChart = (player) => {
     if (player.isSoft) {
       setSideBarText("Soft Values");
       getRow(basicStrategyCharts.soft, true, false);

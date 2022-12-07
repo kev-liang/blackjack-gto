@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import { createElement, useEffect, useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuItem from "@mui/material/MenuItem";
 import SettingsService from "../services/SettingsService";
@@ -30,19 +30,28 @@ const components = {
 
 function SettingsDrawer(props) {
   const { showDrawer, setShowDrawer } = props;
-  const [numDecks, setNumDecks] = React.useState(ConstantsFE.DEFAULT_NUM_DECK);
-  const [propsMap, setPropsMap] = React.useState({
+  const [settings, setSettings] = useState([]);
+  const [numDecks, setNumDecks] = useState(ConstantsFE.DEFAULT_NUM_DECK);
+  const [propsMap, setPropsMap] = useState({
     numDecks: ConstantsFE.DEFAULT_NUM_DECK
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
+    let localSettings = settingsConfig.settings.filter((setting) => {
+      setting.options = setting.options.filter((option) => option.show);
+      return setting.show;
+    });
+    setSettings(localSettings);
+  }, []);
+
+  useEffect(() => {
     let localPropsMap = {
       toggleDealerPlaying,
       numDecks,
       changeNumDecks
     };
     setPropsMap(localPropsMap);
-  }, []);
+  }, [numDecks]);
 
   const toggleDealerPlaying = () => {
     SettingsService.toggleDealerPlaying();
@@ -81,15 +90,14 @@ function SettingsDrawer(props) {
       >
         <Container>
           <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
-            {React.createElement(components[settingsConfig.icon])}
+            {createElement(components[settingsConfig.icon])}
             <Typography variant="h4" sx={{ ml: 1, fontWeight: "bold" }}>
               {settingsConfig.title}
             </Typography>
           </Box>
           <hr />
 
-          {settingsConfig.settings.map((settings, i) => {
-            if (!settings.show) return;
+          {settings.map((setting, i) => {
             return (
               <Box key={`settings-container-box-1-${i}`}>
                 {/* Begin creating subtitle, e.g. Gameplay */}
@@ -98,21 +106,20 @@ function SettingsDrawer(props) {
                     sx={{ display: "flex", alignItems: "center", mb: 1 }}
                     key={`settings-container-box-3-${i}`}
                   >
-                    {React.createElement(components[settings.icon])}
+                    {createElement(components[setting.icon])}
                     <Typography
                       sx={{
                         display: "inline",
                         pl: 1,
                         fontWeight: "bold"
                       }}
-                      variant={settings.subTitle.variant}
+                      variant={setting.subTitle.variant}
                     >
-                      {settings.subTitle.text}
+                      {setting.subTitle.text}
                     </Typography>
                   </Box>
                   {/* Begin creating a row for settings, e.g. Enable dealing dealer w checkbox */}
-                  {settings.options.map((options, i) => {
-                    if (!options.show) return;
+                  {setting.options.map((options, i) => {
                     return (
                       <Box
                         key={`options-${i}`}
@@ -129,7 +136,7 @@ function SettingsDrawer(props) {
                               sx={{ mr: 1 }}
                               key={`outer-box-${component.text}-${component.compoennt}-${i}`}
                             >
-                              {React.createElement(
+                              {createElement(
                                 components[component.component],
                                 {
                                   onChange: propsMap[component.onChange],

@@ -13,7 +13,7 @@ const PlayerCards = (props) => {
   React.useEffect(() => {
     if (!players) return;
     setPlayer(TableUtils.findPlayerById(players, id));
-  });
+  }, [players, id]);
 
   return (
     <div className="player-container">
