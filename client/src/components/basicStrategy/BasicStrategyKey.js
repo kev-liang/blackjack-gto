@@ -103,12 +103,7 @@ const BasicStrategyKey = (props) => {
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {standHitDecision.map((decision) => getDecisionKey(decision))}
       </Box>
-      <Box>
-        {usedDecisions.map((decision) => {
-          console.log("zz", DecisionConstantsFE.KEY_MESSAGES[decision]);
-          return getDecisionKey(decision);
-        })}
-      </Box>
+      <Box>{usedDecisions.map((decision) => getDecisionKey(decision))}</Box>
     </Box>
   );
 };

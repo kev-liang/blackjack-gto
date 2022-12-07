@@ -11,25 +11,27 @@ const DealerCards = (props) => {
 
   return (
     <div className="dealer-cards-container">
-      {!shouldShowAllCards && (
-        <div className="dealer-hidden-card">
-          <Card
-            id={ConstantsFE.DEALER_ID}
-            cardIndex={-1}
-            isPlaying={false}
-          ></Card>
-        </div>
-      )}
-      {shownCards.map((card, i) => {
-        return (
-          <div
-            className="dealer-cards"
-            key={`dealer-cards-${card.value}-${card.suit}-${i}`}
-          >
-            <Card card={card} id={ConstantsFE.DEALER_ID} cardIndex={i}></Card>
+      <div className="dealer-cards-flex-container">
+        {!shouldShowAllCards && (
+          <div className="dealer-hidden-card">
+            <Card
+              id={ConstantsFE.DEALER_ID}
+              cardIndex={-1}
+              isPlaying={false}
+            ></Card>
           </div>
-        );
-      })}
+        )}
+        {shownCards.map((card, i) => {
+          return (
+            <div
+              className="dealer-cards"
+              key={`dealer-cards-${card.value}-${card.suit}-${i}`}
+            >
+              <Card card={card} id={ConstantsFE.DEALER_ID} cardIndex={i}></Card>
+            </div>
+          );
+        })}
+      </div>
       <NumberBanner player={dealer} id={ConstantsFE.DEALER_ID}></NumberBanner>
     </div>
   );
