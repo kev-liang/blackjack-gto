@@ -9,7 +9,6 @@ class TableStateServiceFE {
 
   dealDealer(table) {
     if (table.tableState === ConstantsFE.T_STATE_DEALER) {
-      console.log("DOING NEXT DEALER");
       setTimeout(() => {
         ActionServiceFE.dealDealer();
       }, store.getState().table?.dealingDelay);

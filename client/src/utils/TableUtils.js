@@ -11,7 +11,7 @@ class TableUtils {
     if (!cards) return;
     let isDealer = id === ConstantsFE.DEALER_ID;
     let numCards =
-      !isDealer || (dealer && dealer.shouldShowAllCards)
+      !isDealer || (isDealer && !dealer.shouldShowAllCards)
         ? cards.length - 1
         : cards.length;
     let width = ConstantsFE.CARD_WIDTH * (1 + 0.5 * numCards) + numCards * 4; // 4 for border
