@@ -15,7 +15,7 @@ import React from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuItem from "@mui/material/MenuItem";
 import SettingsService from "../services/SettingsService";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "../utils/constants/ConstantsFE";
 
 const settingsConfig = require("../config/settingsConfig.json");
 

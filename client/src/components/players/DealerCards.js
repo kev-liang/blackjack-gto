@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import Card from "./Card";
-import "../styles/DealerCards.scss";
+import "styles/DealerCards.scss";
 import NumberBanner from "./NumberBanner";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "utils/constants/ConstantsFE";
 
 const DealerCards = (props) => {
   const { dealer } = props;

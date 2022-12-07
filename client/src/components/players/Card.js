@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import "../styles/Card.scss";
+import "styles/Card.scss";
 
 import { connect } from "react-redux";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "utils/constants/ConstantsFE";
 import {
   addDealerAnimationCompletedAction,
   addPlayerAnimationCompletedAction
-} from "../actions/animationActions";
+} from "actions/animationActions";
 import { bindActionCreators } from "redux";
-import AnimationService from "../services/AnimationService";
+import AnimationService from "services/AnimationService";
 
 const Card = (props) => {
   const {

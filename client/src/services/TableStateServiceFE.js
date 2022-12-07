@@ -1,5 +1,5 @@
 import ActionServiceFE from "./ActionServiceFE";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "../utils/constants/ConstantsFE";
 import { store } from "../store";
 
 class TableStateServiceFE {

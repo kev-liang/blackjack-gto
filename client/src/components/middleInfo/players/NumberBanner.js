@@ -1,8 +1,8 @@
-import "../styles/NumberBanner.scss";
+import "styles/NumberBanner.scss";
 import { connect } from "react-redux";
 import React from "react";
-import TableUtils from "../utils/TableUtils";
-import ConstantsFE from "../utils/ConstantsFE";
+import TableUtils from "../../../utils/TableUtils";
+import ConstantsFE from "../../../utils/constants/ConstantsFE";
 
 const NumberBanner = (props) => {
   const { table, id, player, animations, animationsEnabled } = props;
@@ -10,9 +10,7 @@ const NumberBanner = (props) => {
   const [isTurn, setIsTurn] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [display, setDisplay] = React.useState(false);
-  const [usedAnimationCompleted, setUsedAnimationCompleted] = React.useState(
-    {}
-  );
+
   const [positionStyles, setPositionStyles] = React.useState({});
   React.useEffect(() => {
     if (!table || !player) return;
@@ -60,7 +58,7 @@ const NumberBanner = (props) => {
           isTurn ? "number-banner-active" : ""
         }`}
         style={{
-          ...TableUtils.getCardWidthStyle(cards, id, table?.dealer),
+          width: "calc(100% - 4px)",
           ...positionStyles
         }}
       >

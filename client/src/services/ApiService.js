@@ -3,6 +3,7 @@ import Url from "../utils/BackendUrlUtil";
 import TableStateServiceFE from "./TableStateServiceFE";
 
 import { updateTableAction } from "../actions/tableActions";
+import { setBasicStrategyChartsAction } from "../actions/basicStrategyActions";
 import { store } from "../store";
 
 class ApiService {
@@ -34,6 +35,12 @@ class ApiService {
         // handle error
         console.error("Error getting initial table", e);
       });
+  }
+
+  getAndUpdateBasicStrategyCharts(endpoint) {
+    axios.get(endpoint).then((res) => {
+      store.dispatch(setBasicStrategyChartsAction(res.data));
+    });
   }
 }
 

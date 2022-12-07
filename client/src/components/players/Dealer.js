@@ -1,8 +1,8 @@
-import DealerCards from "./DealerCards";
-import "../styles/Dealer.scss";
+import DealerCards from "components/players/DealerCards";
+import "styles/Dealer.scss";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "utils/constants/ConstantsFE";
 
 function Dealer(props) {
   const { table, cardTotal, cards } = props;

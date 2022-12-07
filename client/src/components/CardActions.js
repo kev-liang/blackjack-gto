@@ -10,7 +10,7 @@ function CardActions(props) {
   const [width, setWidth] = React.useState(0);
 
   return (
-    <div className="card-action-container center-absolute">
+    <div className="card-action-container horizontal-center-absolute">
       <div className="card-actions">
         {actionsConfig.actions.map((action) => {
           return (

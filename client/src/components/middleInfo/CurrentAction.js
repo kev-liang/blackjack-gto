@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import React from "react";
-import ConstantsFE from "../utils/ConstantsFE";
+import ConstantsFE from "utils/constants/ConstantsFE";
 
 const CurrentAction = (props) => {
   const { tableState } = props;

@@ -1,8 +1,14 @@
-.center-absolute {
+.horizontal-center-absolute {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
   text-align: center;
+}
+
+.vertical-center-absolute {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

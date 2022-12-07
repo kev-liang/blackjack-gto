@@ -1,4 +1,4 @@
-import ConstantsFE from "./ConstantsFE";
+import ConstantsFE from "./constants/ConstantsFE";
 
 class TableUtils {
   findPlayerById(players, playerId) {

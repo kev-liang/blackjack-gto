@@ -3,8 +3,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cardController = require("./controller/CardController");
 const settingsController = require("./controller/SettingsController");
+const basicStrategyController = require("./controller/BasicStrategyController");
 
 const AllTableService = require("./services/AllTableService");
+const BasicStrategyService = require("./services/BasicStrategyService");
 
 const path = require("path");
 
@@ -25,6 +27,7 @@ const allTableService = new AllTableService();
 
 cardController(app, allTableService);
 settingsController(app, allTableService);
+basicStrategyController(app, BasicStrategyService);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

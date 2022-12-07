@@ -1,10 +1,8 @@
-import "../styles/Winner.scss";
-import Winner from "./Winner";
-import CorrectDecision from "./CorrectDecision";
-import RunningCount from "./RunningCount";
-import CurrentAction from "./CurrentAction";
-
-import "../styles/MiddleInfo.scss";
+import "styles/MiddleInfo.scss";
+import Winner from "components/middleInfo/Winner";
+import CorrectDecision from "components/middleInfo/CorrectDecision";
+import RunningCount from "components/middleInfo/RunningCount";
+import CurrentAction from "components/middleInfo/CurrentAction";
 
 import React from "react";
 
