@@ -17,6 +17,7 @@ function SingleCardAction(props) {
   const [buttonStyles, setButtonStyles] = React.useState();
   const [tooltip, setTooltip] = React.useState("");
   let determineDisabled;
+  let handleTooltip;
 
   const greaterThanTwoCardMessage = "Cannot ACTION with more than 2 cards";
 
@@ -27,7 +28,7 @@ function SingleCardAction(props) {
       ActionServiceFE.determineDisabled(table.players, table.turnId, handleFn)
     );
     handleTooltip();
-  }, [table, players, determineDisabled]);
+  }, [table, players, determineDisabled, handleFn, handleTooltip]);
 
   React.useEffect(() => {
     if (tableState === ConstantsFE.T_STATE_END) {
@@ -95,7 +96,7 @@ function SingleCardAction(props) {
     ActionServiceFE.surrender(turnId);
   };
 
-  const handleTooltip = () => {
+  handleTooltip = () => {
     switch (handleFn) {
       case "handleSplit":
         splitTooltip();
@@ -104,6 +105,8 @@ function SingleCardAction(props) {
       case "handleSurrender":
         handleGreaterThanTwoCards();
         break;
+      default:
+        console.error("Unexpected tooltip type");
     }
   };
   const splitTooltip = () => {

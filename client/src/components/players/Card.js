@@ -28,6 +28,7 @@ const Card = (props) => {
   const [suit, setSuit] = useState();
   const [rotate, setRotate] = useState(false);
   const [display, setDisplay] = useState(false);
+  let setDisplayRotateAndCount;
 
   useEffect(() => {
     setValue(card?.value);
@@ -45,7 +46,7 @@ const Card = (props) => {
     } else if (table.tableState === ConstantsFE.T_STATE_DEALER) {
       AnimationService.setAnimations(table);
     }
-  }, [table]);
+  }, [table, animationsEnabled]);
 
   // handle animations for initial deal of two cards to player(s)/dealer
   useEffect(() => {
@@ -60,7 +61,15 @@ const Card = (props) => {
       let delay = playerAnimations[id][cardIndex];
       setDisplayRotateAndCount(delay, false);
     }
-  }, [dealerAnimations, playerAnimations]);
+  }, [
+    dealerAnimations,
+    playerAnimations,
+    animationsEnabled,
+    cardIndex,
+    id,
+    setDisplayRotateAndCount,
+    table.tableState
+  ]);
 
   // handle animations for dealing dealer
   useEffect(() => {
@@ -73,9 +82,16 @@ const Card = (props) => {
     // debugger;
     let delay = dealerAnimations[cardIndex];
     setDisplayRotateAndCount(delay, true);
-  }, [dealerAnimations]);
+  }, [
+    dealerAnimations,
+    animationsEnabled,
+    cardIndex,
+    id,
+    setDisplayRotateAndCount,
+    table.tableState
+  ]);
 
-  const setDisplayRotateAndCount = (delay, isDealer) => {
+  setDisplayRotateAndCount = (delay, isDealer) => {
     setTimeout(() => {
       setDisplay(true);
     }, delay - 200);
