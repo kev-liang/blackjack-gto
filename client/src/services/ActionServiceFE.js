@@ -67,11 +67,9 @@ class ActionServiceFE {
     switch (handleFn) {
       case "handleSplit":
         return this.determineSplit(player, players);
-        break;
       case "handleDouble":
       case "handleSurrender":
         return player.cards.length > 2;
-        break;
       default:
         return !player.isPlaying;
     }

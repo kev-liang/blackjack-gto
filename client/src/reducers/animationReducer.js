@@ -1,5 +1,3 @@
-import TableUtils from "../utils/TableUtils";
-
 const animationReducer = (
   state = {
     playerAnimationCompleted: { 0: 0 },

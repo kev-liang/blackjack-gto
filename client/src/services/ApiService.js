@@ -1,6 +1,5 @@
 import axios from "axios";
 import Url from "../utils/BackendUrlUtil";
-import TableStateServiceFE from "./TableStateServiceFE";
 
 import { updateTableAction } from "../actions/tableActions";
 import { setBasicStrategyChartsAction } from "../actions/basicStrategyActions";

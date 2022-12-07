@@ -6,7 +6,6 @@ import ConstantsFE from "../../utils/constants/ConstantsFE";
 
 const NumberBanner = (props) => {
   const { table, id, player, animations, animationsEnabled } = props;
-  const [cards, setCards] = React.useState([]);
   const [isTurn, setIsTurn] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [display, setDisplay] = React.useState(false);
@@ -15,14 +14,16 @@ const NumberBanner = (props) => {
   React.useEffect(() => {
     if (!table || !player) return;
     setValue(player.cardTotal);
-    setCards(player.shownCards);
     setIsTurn(id === table.turnId);
     if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
       setPositionStyles({ margin: "45px 0 0 2px" });
     } else {
       setPositionStyles({ top: "45px", left: "2px" });
     }
-  }, [table, player]);
+  }, [table, player, id]);
+
+  const currentPlayerAnimationCompleted =
+    animations.playerAnimationCompleted[id];
 
   React.useEffect(() => {
     if (!table) return;
@@ -48,7 +49,10 @@ const NumberBanner = (props) => {
   }, [
     table,
     animations.dealerAnimationCompleted,
-    animations.playerAnimationCompleted[id]
+    animations.playerAnimationCompleted,
+    currentPlayerAnimationCompleted,
+    animationsEnabled,
+    id
   ]);
 
   if (display) {

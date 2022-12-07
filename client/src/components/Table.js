@@ -28,7 +28,6 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ConstantsFE from "../utils/constants/ConstantsFE";
-import TableUtils from "../utils/TableUtils";
 
 function Table(props) {
   const {
@@ -47,7 +46,7 @@ function Table(props) {
     updateNumPlayers(numPlayers);
     updateDealingDelay(1000);
     ActionServiceFE.initTable(numPlayers);
-  }, [updateNumPlayers, updateDealingDelay]);
+  }, [updateNumPlayers, updateDealingDelay, setId]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
@@ -80,7 +79,7 @@ function Table(props) {
         TableStateServiceFE.determineNextAction(table);
       }
     }
-  }, [table, dealerAnimationCompleted]);
+  }, [table, dealerAnimationCompleted, animationsEnabled]);
 
   useEffect(() => {
     document.addEventListener("keydown", KeydownService.handleKeyDown);

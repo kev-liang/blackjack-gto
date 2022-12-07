@@ -2,7 +2,6 @@ import Url from "../utils/BackendUrlUtil";
 import ApiService from "./ApiService";
 
 import { store } from "../store";
-import { updateTableAction } from "../actions/tableActions";
 
 class SettingsService {
   constructor() {
