@@ -1,13 +1,24 @@
 const { MongoClient } = require("mongodb");
-const dbSecrets = require("../config/dbSecrets.json");
 
 class MongoDBConnection {
   constructor() {
-    const uri = `mongodb+srv://${dbSecrets.user}:${dbSecrets.password}@cluster0.16qkd.mongodb.net/?retryWrites=true&w=majority`;
+    const uri = this.getUri();
     this.client = new MongoClient(uri);
     this.init();
   }
 
+  getUri() {
+    let user, password;
+    if (process.env.NODE_ENV === "production") {
+      user = process.env.DB_USER;
+      password = process.env.DB_PASSWORD;
+    } else {
+      const dbSecrets = require("../config/dbSecrets.json");
+      user = dbSecrets.user;
+      password = dbSecrets.password;
+    }
+    return `mongodb+srv://${user}:${password}@cluster0.16qkd.mongodb.net/?retryWrites=true&w=majority`;
+  }
   async addHistory(userId, history) {
     let historyCollection = this.client
       .db("crack-blackjack")
