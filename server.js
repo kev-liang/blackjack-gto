@@ -1,12 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
 const cardController = require("./controller/CardController");
 const settingsController = require("./controller/SettingsController");
 const basicStrategyController = require("./controller/BasicStrategyController");
+const MongoDBConnection = require("./db/MongoDBConnection");
 
 const AllTableService = require("./services/AllTableService");
 const BasicStrategyService = require("./services/BasicStrategyService");
+const basicStrategyService = new BasicStrategyService(MongoDBConnection);
 
 const path = require("path");
 
@@ -23,11 +26,11 @@ app.use(cors());
 
 app.use(express.static("./build"));
 
-const allTableService = new AllTableService();
+const allTableService = new AllTableService(basicStrategyService);
 
 cardController(app, allTableService);
 settingsController(app, allTableService);
-basicStrategyController(app, BasicStrategyService);
+basicStrategyController(app, basicStrategyService);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
