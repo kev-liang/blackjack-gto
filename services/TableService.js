@@ -67,6 +67,7 @@ class TableService {
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
+      player.userId = "testestest";
     });
   }
 
