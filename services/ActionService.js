@@ -1,13 +1,13 @@
 const Constants = require("../utils/Constants");
-const BasicStrategyService = require("./BasicStrategyService");
 const DecisionConstants = require("../utils/DecisionConstants");
 
 const dealerStopHit = 17;
 const hitSoftMax = true;
 
 class ActionService {
-  constructor(tableService) {
+  constructor(tableService, basicStrategyService) {
     this.tableService = tableService;
+    this.basicStrategyService = basicStrategyService;
   }
 
   hit(playerId) {
@@ -116,7 +116,7 @@ class ActionService {
     } else {
       newDealerValue = dealerValue;
     }
-    player.history = BasicStrategyService.getHistory(
+    player.history = this.basicStrategyService.getHistory(
       newDealerValue,
       player,
       decision

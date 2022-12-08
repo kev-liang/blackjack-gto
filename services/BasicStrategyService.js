@@ -11,7 +11,8 @@ const softStrategyConfig = require("../config/softStrategyConfig.json");
 // "https://www.blackjackapprenticeship.com/blackjack-strategy-charts/"
 
 class BasicStrategyService {
-  constructor() {
+  constructor(mongoDBConnection) {
+    this.mongoDBConnection = mongoDBConnection;
     this.strategy = {
       pair: pairStrategyConfig,
       hand: handStrategyConfig,
@@ -41,7 +42,13 @@ class BasicStrategyService {
       )
     };
     history.push(newHistory);
+    this.saveHistory(player, newHistory);
     return history;
+  }
+
+  async saveHistory(player, newHistory) {
+    if (!player.userId) return;
+    await this.mongoDBConnection.addHistory(player.userId, newHistory);
   }
 
   getCorrectDecision(dealerValue, playerValue, isPair, isSoft, numCards) {
@@ -100,4 +107,4 @@ class BasicStrategyService {
   }
 }
 
-module.exports = new BasicStrategyService();
+module.exports = BasicStrategyService;
