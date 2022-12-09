@@ -1,5 +1,12 @@
+@import "_vars.scss";
+
 .basic-strategy-container {
   position: absolute;
   left: 5%;
   top: 10%;
+  height: 100%;
+  @media screen and (max-width: $screen-large) {
+    overflow: scroll;
+    height: 65%;
+  }
 }

@@ -1,7 +1,7 @@
 import "./App.css";
-import Table from "./components/Table";
-import CardActions from "./components/CardActions";
-import React from "react";
+import TableRenderer from "components/TableRenderer";
+import RotateScreen from "components/RotateScreen";
+import { useEffect, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -16,11 +16,27 @@ const theme = createTheme({
 });
 
 function App() {
+  const [showRotateMsg, setShowRotateMsg] = useState(false);
+
+  const handleWindowResize = () => {
+    setShowRotateMsg(
+      window.innerWidth < 1200 && window.innerWidth < window.innerHeight
+    );
+  };
+
+  useEffect(() => {
+    handleWindowResize();
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize");
+    };
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      <div className="App table-background">
-        <Table></Table>
-        <CardActions></CardActions>
+      <div className="App">
+        <TableRenderer shown={!showRotateMsg}></TableRenderer>
+        <RotateScreen shown={showRotateMsg}></RotateScreen>
       </div>
     </ThemeProvider>
   );

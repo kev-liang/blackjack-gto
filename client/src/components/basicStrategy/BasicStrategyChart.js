@@ -90,7 +90,7 @@ const BasicStrategyChart = (props) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ mb: 2 }}>
       <TableContainer
         sx={{
           backgroundColor: "rgba(0, 0, 0, 0.7)",
@@ -120,6 +120,7 @@ const BasicStrategyChart = (props) => {
                 ></TableCell>
                 {dealerShownCards.map((dealerShownCard) => (
                   <TableCell
+                    key={`dealer-shown-${dealerShownCard}`}
                     sx={{ ...tdStyle.cell, ...tdStyle.handValue }}
                     align="center"
                   >
@@ -130,16 +131,18 @@ const BasicStrategyChart = (props) => {
                 ))}
               </TableRow>
               {/* END DEALER SHOWN CARD */}
-              {rows.map((row) => (
-                <TableRow key={row.name}>
+              {rows.map((row, i) => (
+                <TableRow key={`player-hand-row-${row.playerHand}`}>
                   <TableCell
+                    key={`player-hand-${row.playerHand}`}
                     sx={{ ...tdStyle.cell, ...tdStyle.handValue }}
                     align="center"
                   >
                     {row.playerHand}
                   </TableCell>
-                  {row.values.map((val) => (
+                  {row.values.map((val, j) => (
                     <TableCell
+                      key={`decision-${i}-${j}`}
                       sx={{
                         ...tdStyle.cell,
                         ...ColorConstants.BACKGROUND_COLORS[val]

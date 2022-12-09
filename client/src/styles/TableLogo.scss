@@ -1,4 +1,5 @@
 @import "_common.scss";
+@import "_vars.scss";
 
 .logo {
   background-size: contain;
@@ -15,4 +16,8 @@
 .table-logo {
   font-family: "Pridi";
   font-size: 6em;
+  white-space: nowrap;
+  @media screen and (max-width: $screen-large){
+    font-size: 3em;
+  }
 }

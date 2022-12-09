@@ -1,4 +1,4 @@
-import "styles/_common.scss";
+import "styles/BasicStrategyKey.scss";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
@@ -6,11 +6,13 @@ import { connect } from "react-redux";
 import DecisionConstantsFE from "utils/constants/DecisionConstantsFE";
 import ColorConstants from "utils/constants/ColorConstants";
 import TableUtils from "utils/TableUtils";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const BasicStrategyKey = (props) => {
   const { table } = props;
   const [usedDecisions, setUsedDecisions] = useState([]);
   const standHitDecision = [DecisionConstantsFE.HIT, DecisionConstantsFE.STAND];
+  const isScreenLg = useMediaQuery("(min-width:1200px)");
 
   useEffect(() => {
     if (!table || table.turnId > 0) return;
@@ -40,9 +42,8 @@ const BasicStrategyKey = (props) => {
     box: {
       backgroundColor: "rgba(0, 0, 0, 0.7)",
       color: "#fff",
-      mb: 2,
       px: 2,
-      py: 4,
+      py: isScreenLg ? 4 : 2,
       borderRadius: "20px"
     }
   };
@@ -51,8 +52,10 @@ const BasicStrategyKey = (props) => {
     let keyString = DecisionConstantsFE.KEY_MESSAGES[decision];
     let splitString = keyString.split("\n");
     return (
-      <Box sx={{ height: "45px" }}>
+      <Box key={decision} sx={{ height: "45px" }}>
         <Box
+          key={`inner-${decision}`}
+          className="key-text"
           sx={{
             height: 30,
             width: 30,
@@ -74,19 +77,10 @@ const BasicStrategyKey = (props) => {
             {splitString[0]}
           </Typography>
         ) : (
-          <Typography
-            sx={{
-              display: "inline-block",
-              fontSize: "14px"
-            }}
-          >
-            {splitString[0]}
-          </Typography>
+          <Typography className="key-text">{splitString[0]}</Typography>
         )}
         {splitString.length === 2 && (
-          <Typography
-            sx={{ display: "block", fontSize: "14px", lineHeight: "14px" }}
-          >
+          <Typography className="key-text">
             {DecisionConstantsFE.KEY_MESSAGES[decision].split("\n")[1]}
           </Typography>
         )}
@@ -96,7 +90,7 @@ const BasicStrategyKey = (props) => {
 
   return (
     <Box sx={styles.box}>
-      <Typography variant="h5" sx={{ mb: 2 }}>
+      <Typography variant={isScreenLg ? "h5" : "h6"} sx={{ mb: 2 }}>
         Key
         <hr />
       </Typography>
