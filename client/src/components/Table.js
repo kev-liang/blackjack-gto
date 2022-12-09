@@ -83,10 +83,8 @@ function Table(props) {
 
   useEffect(() => {
     document.addEventListener("keydown", KeydownService.handleKeyDown);
-    window.screen.orientation.lock("landscape");
     return () => {
       document.removeEventListener("keydown", KeydownService.handleKeyDown);
-      window.screen.orientation.unlock();
     };
   }, []);
 

@@ -27,6 +27,7 @@ body {
   width: 100vw;
   position: absolute;
   z-index: -99;
+  overflow: hidden
 }
 
 .App {

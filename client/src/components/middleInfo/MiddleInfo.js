@@ -8,7 +8,7 @@ import React from "react";
 
 function MiddleInfo() {
   return (
-    <div className="middle-info-container">
+    <div className="middle-info-container horizontal-center-absolute">
       <CorrectDecision></CorrectDecision>
       <Winner></Winner>
       <RunningCount></RunningCount>

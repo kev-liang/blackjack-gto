@@ -11,8 +11,8 @@ const BasicStrategy = (props) => {
   if (showBasicStrategyChart) {
     return (
       <Box className="basic-strategy-container" sx={{ width: "372px" }}>
-        <BasicStrategyKey></BasicStrategyKey>
         <BasicStrategyChart></BasicStrategyChart>
+        <BasicStrategyKey></BasicStrategyKey>
       </Box>
     );
   }
