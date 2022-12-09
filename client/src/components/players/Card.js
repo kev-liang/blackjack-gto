@@ -127,7 +127,13 @@ const Card = (props) => {
         <div className="card-text">
           {faceCards[value] ? faceCards[value] : value}
         </div>
-        <div className="card-text">{selectedSuit?.symbol}</div>
+        <div
+          className={`card-text ${
+            selectedSuit?.symbol === "♥" ? "heart-text" : ""
+          }`}
+        >
+          {selectedSuit?.symbol}
+        </div>
       </div>
     );
   };
