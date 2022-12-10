@@ -13,7 +13,7 @@ class MongoDBConnection {
       user = process.env.DB_USER;
       password = process.env.DB_PASSWORD;
     } else {
-      const dbSecrets = require("../config/dbSecrets.json");
+      const dbSecrets = require("../config/secrets.json");
       user = dbSecrets.user;
       password = dbSecrets.password;
     }

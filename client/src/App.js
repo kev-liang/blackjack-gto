@@ -1,6 +1,8 @@
 import "./App.css";
 import TableRenderer from "components/TableRenderer";
 import RotateScreen from "components/RotateScreen";
+import GoogleLogin from "utils/GoogleLogin";
+
 import { useEffect, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -27,8 +29,10 @@ function App() {
   useEffect(() => {
     handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
+    window.addEventListener("load", GoogleLogin.init);
     return () => {
       window.removeEventListener("resize");
+      window.removeEventListener("load");
     };
   }, []);
 

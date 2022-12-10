@@ -65,9 +65,10 @@ function NavBar(props) {
           </Tooltip>
 
           <Box sx={{ flexGrow: 1 }}></Box>
-          <Button color="inherit" onClick={showDrawer}>
+          <div id="google-sign-in"></div>
+          {/* <Button color="inherit" onClick={showDrawer}>
             <Settings></Settings>
-          </Button>
+          </Button> */}
         </Toolbar>
       </AppBar>
     </Box>
