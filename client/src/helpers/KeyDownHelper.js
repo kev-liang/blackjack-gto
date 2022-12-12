@@ -1,6 +1,6 @@
 import KeyboardUtil from "../utils/KeyboardUtil";
-import ActionServiceFE from "./ActionServiceFE";
-import ActionConstantsFE from "../utils/ActionConstantsFE";
+import ActionServiceFE from "../services/ActionServiceFE";
+import ActionConstantsFE from "../utils/constants/ActionConstantsFE";
 
 import { store } from "../store";
 

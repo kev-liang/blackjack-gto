@@ -9,9 +9,9 @@ import TableLogo from "./TableLogo";
 import BasicStrategy from "./basicStrategy/BasicStrategy";
 
 import ActionServiceFE from "../services/ActionServiceFE";
-import TableStateServiceFE from "../services/TableStateServiceFE";
-import KeydownService from "../services/KeyDownService";
-import AnimationService from "../services/AnimationService";
+import TableStateHelper from "../helpers/TableStateHelper";
+import KeydownService from "../helpers/KeyDownHelper";
+import AnimationDomain from "../helpers/AnimationHelper";
 import {
   resetDealerAnimationCompletedAction,
   resetPlayerAnimationCompletedAction
@@ -54,21 +54,21 @@ function Table(props) {
     }
     if (!table) return;
     if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
-      AnimationService.resetAnimations(table);
-      AnimationService.setAnimations(table);
+      AnimationDomain.resetAnimations(table);
+      AnimationDomain.setAnimations(table);
     } else if (
       table.tableState === ConstantsFE.T_STATE_DEALER &&
       table.tableStateService.resetDealerAnimation
     ) {
-      AnimationService.resetDealerAnimations();
-      AnimationService.setDealerAnimations(table);
+      AnimationDomain.resetDealerAnimations();
+      AnimationDomain.setDealerAnimations(table);
     }
   }, [table]);
 
   useEffect(() => {
     if (!table) return;
     if (!animationsEnabled || table.tableState !== ConstantsFE.T_STATE_DEALER) {
-      TableStateServiceFE.determineNextAction(table);
+      TableStateHelper.determineNextAction(table);
     }
     // wait until all animations compelte before making next dealer req
     else {
@@ -76,7 +76,7 @@ function Table(props) {
         ? dealerAnimationCompleted
         : dealerAnimationCompleted - 1;
       if (table.dealer.shownCards.length === animationCompleted) {
-        TableStateServiceFE.determineNextAction(table);
+        TableStateHelper.determineNextAction(table);
       }
     }
   }, [table, dealerAnimationCompleted, animationsEnabled]);

@@ -41,6 +41,11 @@ class ApiService {
       store.dispatch(setBasicStrategyChartsAction(res.data));
     });
   }
+
+  sendToken(endpoint, token) {
+    let body = {token}
+    axios.post(endpoint, body);
+  }
 }
 
 export default new ApiService();

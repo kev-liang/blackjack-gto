@@ -1,7 +1,7 @@
 import "styles/_common.scss";
 import { connect } from "react-redux";
 import ColorConstants from "utils/constants/ColorConstants";
-import BasicStrategyServiceFE from "services/BasicStrategyServiceFE";
+import BasicStrategyHelper from "helpers/BasicStrategyHelper";
 import { useEffect, useState } from "react";
 import TableUtils from "utils/TableUtils";
 import _ from "lodash";
@@ -44,7 +44,7 @@ const BasicStrategyChart = (props) => {
   let handleChart;
 
   useEffect(() => {
-    BasicStrategyServiceFE.getBasicStrategyCharts();
+    BasicStrategyHelper.getBasicStrategyCharts();
     let range = [...Array(9).keys()];
     setDealerShownCards([...range.map((r) => r + 2), "A"]);
   }, []);

@@ -1,8 +1,8 @@
-import ActionServiceFE from "./ActionServiceFE";
+import ActionServiceFE from "../services/ActionServiceFE";
 import ConstantsFE from "../utils/constants/ConstantsFE";
 import { store } from "../store";
 
-class TableStateServiceFE {
+class TableStateHelper {
   constructor() {
     this.prevState = null;
   }
@@ -29,4 +29,4 @@ class TableStateServiceFE {
   }
 }
 
-export default new TableStateServiceFE();
+export default new TableStateHelper();

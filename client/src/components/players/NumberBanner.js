@@ -59,11 +59,7 @@ const NumberBanner = (props) => {
       marginLeft = 1;
     }
     setWidth(`calc(100% - ${diff}px)`);
-    if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
-      setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
-    } else {
-      setPositionStyles({ top: `45px", left: "${marginLeft}px` });
-    }
+    setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
   };
 
   if (display) {

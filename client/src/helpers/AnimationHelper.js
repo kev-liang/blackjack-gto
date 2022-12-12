@@ -7,7 +7,7 @@ import {
 
 import { store } from "../store";
 
-class AnimationService {
+class AnimationDomain {
   constructor() {
     this.animationDelay = 700;
     this.count = 0;
@@ -88,4 +88,4 @@ class AnimationService {
   }
 }
 
-export default new AnimationService();
+export default new AnimationDomain();
