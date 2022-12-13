@@ -1,9 +1,12 @@
 import AuthService from "services/AuthService";
+import { setLoggedInAction } from "actions/applicationActions";
+import { store } from "store";
 
 class GoogleLogin {
   init() {
     const handleInitialize = (res) => {
       AuthService.sendToken(res);
+      store.dispatch(setLoggedInAction(true));
     };
 
     /*global google*/

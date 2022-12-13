@@ -1,9 +1,10 @@
 import axios from "axios";
-import Url from "../utils/BackendUrlUtil";
+import Url from "utils/BackendUrlUtil";
 
-import { updateTableAction } from "../actions/tableActions";
-import { setBasicStrategyChartsAction } from "../actions/basicStrategyActions";
-import { store } from "../store";
+import { updateTableAction } from "actions/tableActions";
+import { setBasicStrategyChartsAction } from "actions/basicStrategyActions";
+import {setUserAction} from "actions/applicationActions"
+import { store } from "store";
 
 class ApiService {
   constructor() {
@@ -44,7 +45,9 @@ class ApiService {
 
   sendToken(endpoint, token) {
     let body = {token}
-    axios.post(endpoint, body);
+    axios.post(endpoint, body).then(res => {
+      store.dispatch(setUserAction(res.data))
+    });
   }
 }
 

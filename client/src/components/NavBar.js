@@ -8,6 +8,7 @@ import TableViewIcon from "@mui/icons-material/TableView";
 import BlockIcon from "@mui/icons-material/Block";
 import Settings from "@mui/icons-material/Settings";
 import Tooltip from "@mui/material/Tooltip";
+import LoggedIn from "components/LoggedIn";
 
 import {
   setShowDrawerAction,
@@ -17,8 +18,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 function NavBar(props) {
-  const { setShowDrawer, setShowBasicStrategyChart, showBasicStrategyChart } =
-    props;
+  const {
+    user,
+    setShowDrawer,
+    setShowBasicStrategyChart,
+    showBasicStrategyChart
+  } = props;
   const [tooltipMsg, setTooltipMsg] = useState("");
 
   useEffect(() => {
@@ -65,19 +70,20 @@ function NavBar(props) {
           </Tooltip>
 
           <Box sx={{ flexGrow: 1 }}></Box>
-          <div id="google-sign-in"></div>
-          {/* <Button color="inherit" onClick={showDrawer}>
+          <Button color="inherit" onClick={showDrawer}>
             <Settings></Settings>
-          </Button> */}
+          </Button>
+          <LoggedIn></LoggedIn>
+          {!user && <div id="google-sign-in"></div>}
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
-
 const mapStateToProps = (state) => {
   return {
-    showBasicStrategyChart: state.settings.showBasicStrategyChart
+    showBasicStrategyChart: state.settings.showBasicStrategyChart,
+    user: state.application.user
   };
 };
 

@@ -1,8 +1,8 @@
-import KeyboardUtil from "../utils/KeyboardUtil";
-import ActionServiceFE from "../services/ActionServiceFE";
-import ActionConstantsFE from "../utils/constants/ActionConstantsFE";
+import KeyboardUtil from "utils/KeyboardUtil";
+import ActionServiceFE from "services/ActionServiceFE";
+import ActionConstantsFE from "utils/constants/ActionConstantsFE";
 
-import { store } from "../store";
+import { store } from "store";
 
 class KeyDownService {
   handleKeyDown = (e) => {
