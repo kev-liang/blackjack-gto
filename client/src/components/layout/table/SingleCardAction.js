@@ -1,10 +1,10 @@
-import "../styles/SingleCardAction.scss";
-import ActionServiceFE from "../services/ActionServiceFE";
+import "styles/SingleCardAction.scss";
+import ActionServiceFE from "services/ActionServiceFE";
 import { connect } from "react-redux";
-import { updateTableAction } from "../actions/tableActions";
+import { updateTableAction } from "actions/tableActions";
 import { bindActionCreators } from "redux";
-import TableUtils from "../utils/TableUtils";
-import ConstantsFE from "../utils/constants/ConstantsFE";
+import TableUtils from "utils/TableUtils";
+import ConstantsFE from "utils/constants/ConstantsFE";
 import React from "react";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -147,7 +147,9 @@ function SingleCardAction(props) {
           <Button
             onClick={() => handleClick(handleFn)}
             variant="contained"
-            className={`card-action-button ${disabled ? "card-action-button-disabled" : ""}`}
+            className={`card-action-button ${
+              disabled ? "card-action-button-disabled" : ""
+            }`}
           >
             {label}
           </Button>

@@ -1,5 +1,5 @@
 import "./App.css";
-import TableRenderer from "components/TableRenderer";
+import TableRenderer from "components/layout/table/TableRenderer";
 import RotateScreen from "components/RotateScreen";
 import GoogleLogin from "utils/GoogleLogin";
 

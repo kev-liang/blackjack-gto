@@ -1,33 +1,33 @@
 import React from "react";
-import "../styles/Table.scss";
+import "styles/Table.scss";
 import Dealer from "components/players/Dealer";
 import Player from "components/players/Player";
-import NavBar from "./NavBar";
-import MiddleInfo from "./middleInfo/MiddleInfo";
-import SettingsDrawer from "./SettingsDrawer";
-import TableLogo from "./TableLogo";
-import BasicStrategy from "./basicStrategy/BasicStrategy";
+import NavBar from "components/layout/nav/NavBar";
+import MiddleInfo from "components/layout/table/middleInfo/MiddleInfo";
+import SettingsDrawer from "components/layout/settings/SettingsDrawer";
+import TableLogo from "components/layout/table/TableLogo";
+import BasicStrategy from "components/basicStrategy/BasicStrategy";
 
-import ActionServiceFE from "../services/ActionServiceFE";
-import TableStateHelper from "../helpers/TableStateHelper";
-import KeydownService from "../helpers/KeyDownHelper";
-import AnimationDomain from "../helpers/AnimationHelper";
+import ActionServiceFE from "services/ActionServiceFE";
+import TableStateHelper from "helpers/TableStateHelper";
+import KeydownService from "helpers/KeyDownHelper";
+import AnimationDomain from "helpers/AnimationHelper";
 import {
   resetDealerAnimationCompletedAction,
   resetPlayerAnimationCompletedAction
-} from "../actions/animationActions";
+} from "actions/animationActions";
 
 import {
   updateNumPlayersAction,
   updateDealingDelayAction,
   setIdAction
-} from "../actions/tableActions";
+} from "actions/tableActions";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import ConstantsFE from "../utils/constants/ConstantsFE";
+import ConstantsFE from "utils/constants/ConstantsFE";
 
 function Table(props) {
   const {

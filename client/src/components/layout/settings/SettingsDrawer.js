@@ -1,6 +1,6 @@
-import "../styles/SingleCardAction.scss";
+import "styles/SingleCardAction.scss";
 import { connect } from "react-redux";
-import { setShowDrawerAction } from "../actions/settingsActions";
+import { setShowDrawerAction } from "actions/settingsActions";
 import { bindActionCreators } from "redux";
 
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
@@ -14,10 +14,10 @@ import Typography from "@mui/material/Typography";
 import { createElement, useEffect, useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuItem from "@mui/material/MenuItem";
-import SettingsService from "../services/SettingsService";
-import ConstantsFE from "../utils/constants/ConstantsFE";
+import SettingsService from "services/SettingsService";
+import ConstantsFE from "utils/constants/ConstantsFE";
 
-const settingsConfig = require("../config/settingsConfig.json");
+const settingsConfig = require("config/settingsConfig.json");
 
 const components = {
   MonitorIcon,

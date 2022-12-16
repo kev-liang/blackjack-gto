@@ -1,4 +1,4 @@
-import "../styles/TableLogo.scss";
+import "styles/TableLogo.scss";
 
 const TableLogo = (props) => {
   return (

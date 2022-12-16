@@ -1,8 +1,8 @@
 import SingleCardAction from "./SingleCardAction";
-import "../styles/CardActions.scss";
+import "styles/CardActions.scss";
 import React from "react";
 
-const actionsConfig = require("../config/cardActionConfig.json");
+const actionsConfig = require("config/cardActionConfig.json");
 
 function CardActions() {
   return (

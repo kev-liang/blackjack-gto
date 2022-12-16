@@ -1,8 +1,8 @@
 import "styles/MiddleInfo.scss";
-import Winner from "components/middleInfo/Winner";
-import CorrectDecision from "components/middleInfo/CorrectDecision";
-import RunningCount from "components/middleInfo/RunningCount";
-import CurrentAction from "components/middleInfo/CurrentAction";
+import Winner from "components/layout/table/middleInfo/Winner";
+import CorrectDecision from "components/layout/table/middleInfo/CorrectDecision";
+import RunningCount from "components/layout/table/middleInfo/RunningCount";
+import CurrentAction from "components/layout/table/middleInfo/CurrentAction";
 
 import React from "react";
 

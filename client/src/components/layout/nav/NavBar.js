@@ -8,8 +8,10 @@ import TableViewIcon from "@mui/icons-material/TableView";
 import BlockIcon from "@mui/icons-material/Block";
 import Settings from "@mui/icons-material/Settings";
 import Tooltip from "@mui/material/Tooltip";
-import LoggedIn from "components/LoggedIn";
+import LoggedIn from "components/layout/nav/LoggedIn";
+import BarChartIcon from "@mui/icons-material/BarChart";
 
+import { toggleModalOpenAction } from "actions/applicationActions";
 import {
   setShowDrawerAction,
   setShowBasicStrategyChartAction
@@ -22,7 +24,8 @@ function NavBar(props) {
     user,
     setShowDrawer,
     setShowBasicStrategyChart,
-    showBasicStrategyChart
+    showBasicStrategyChart,
+    toggleModalOpen
   } = props;
   const [tooltipMsg, setTooltipMsg] = useState("");
 
@@ -70,6 +73,9 @@ function NavBar(props) {
           </Tooltip>
 
           <Box sx={{ flexGrow: 1 }}></Box>
+          <Button color="inherit" onClick={toggleModalOpen}>
+            <BarChartIcon></BarChartIcon>
+          </Button>
           <Button color="inherit" onClick={showDrawer}>
             <Settings></Settings>
           </Button>
@@ -91,7 +97,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       setShowDrawer: setShowDrawerAction,
-      setShowBasicStrategyChart: setShowBasicStrategyChartAction
+      setShowBasicStrategyChart: setShowBasicStrategyChartAction,
+      toggleModalOpen: toggleModalOpenAction
     },
     dispatch
   );
