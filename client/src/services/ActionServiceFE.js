@@ -3,7 +3,7 @@ import ApiService from "./ApiService";
 import TableUtils from "../utils/TableUtils";
 import ConstantsFE from "../utils/constants/ConstantsFE";
 
-import { store } from "../store";
+import { store } from "store";
 
 class ActionServiceFE {
   constructor() {
@@ -22,34 +22,39 @@ class ActionServiceFE {
     ApiService.getAndUpdateTable(endpoint);
   }
 
-  hit(playerId) {
+  hit(playerId, userId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/hit?playerId=${playerId}&id=${id}`;
     ApiService.getAndUpdateTable(endpoint);
+    this.getStatistics(playerId, userId);
   }
 
   stand(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/stand?playerId=${playerId}&id=${id}`;
     ApiService.getAndUpdateTable(endpoint);
+    this.getStatistics(playerId);
   }
 
   split(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/split?playerId=${playerId}&id=${id}`;
     ApiService.getAndUpdateTable(endpoint);
+    this.getStatistics(playerId);
   }
 
   double(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/double?playerId=${playerId}&id=${id}`;
     ApiService.getAndUpdateTable(endpoint);
+    this.getStatistics(playerId);
   }
 
   surrender(playerId) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/surrender?playerId=${playerId}&id=${id}`;
     ApiService.getAndUpdateTable(endpoint);
+    this.getStatistics(playerId);
   }
 
   dealDealer() {
@@ -86,6 +91,16 @@ class ActionServiceFE {
     let hasDifferentCardValues =
       player.cards[0].value !== player.cards[1].value;
     return isMaxSplit || hasMoreThanTwoCards || hasDifferentCardValues;
+  }
+
+  getStatistics(playerId) {
+    let user = store.getState().application.user;
+    if (playerId <= 0 && user) {
+      let decisionHistoryEndpoint = `${
+        this.url
+      }/getStatistics?userId=${"testestest"}`;
+      ApiService.getStatistics(decisionHistoryEndpoint);
+    }
   }
 }
 

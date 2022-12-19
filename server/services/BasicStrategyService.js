@@ -22,7 +22,7 @@ class BasicStrategyService {
   }
 
   getHistory(dealerValue, player, decision) {
-    const { cardTotal: playerValue, history } = player;
+    const { cardTotal: playerValue } = player;
     let isPair = player.hasPair;
     let isSoft = player.isSoft;
     let newHistory = {
@@ -41,14 +41,7 @@ class BasicStrategyService {
         player.cards.length
       )
     };
-    history.push(newHistory);
-    this.saveHistory(player, newHistory);
-    return history;
-  }
-
-  async saveHistory(player, newHistory) {
-    if (!player.userId) return;
-    await this.mongoDBConnection.addHistory(player.userId, newHistory);
+    return newHistory;
   }
 
   getCorrectDecision(dealerValue, playerValue, isPair, isSoft, numCards) {

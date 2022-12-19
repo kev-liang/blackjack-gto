@@ -40,14 +40,18 @@ class MongoDBConnection {
   createUser(userId) {
     let userCollection = this.client.db(this.dbName).collection("users");
     let user = new User(userId);
-    let test = { ...user };
     userCollection.insertOne({ ...user });
   }
 
   async getUser(userId) {
     let userCollection = this.client.db(this.dbName).collection("users");
-    const player = await userCollection.findOne({ userId });
-    return player;
+    const user = await userCollection.findOne({ userId });
+    return user;
+  }
+
+  async getHistory(userId) {
+    let user = await this.getUser(userId);
+    return user.history;
   }
 
   async init() {

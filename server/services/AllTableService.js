@@ -1,5 +1,6 @@
 const TableService = require("./TableService");
 const ActionService = require("./ActionService");
+const MongoDBConnection = require("../db/MongoDBConnection");
 
 class AllTableService {
   constructor(basicStrategyService) {
@@ -11,7 +12,8 @@ class AllTableService {
     let tableService = new TableService(numPlayers);
     let actionService = new ActionService(
       tableService,
-      this.basicStrategyService
+      this.basicStrategyService,
+      MongoDBConnection
     );
     this.tables[id] = { tableService, actionService };
   }

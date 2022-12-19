@@ -5,9 +5,10 @@ const dealerStopHit = 17;
 const hitSoftMax = true;
 
 class ActionService {
-  constructor(tableService, basicStrategyService) {
+  constructor(tableService, basicStrategyService, mongoDbConnection) {
     this.tableService = tableService;
     this.basicStrategyService = basicStrategyService;
+    this.mongoDbConnection = mongoDbConnection;
   }
 
   hit(playerId) {
@@ -107,7 +108,7 @@ class ActionService {
   }
 
   getHistory(player, dealerValue, decision) {
-    // jack, queen, king, ace value = 10
+    // jack, queen, king = 10
     let newDealerValue;
     if (dealerValue === 14) {
       newDealerValue = 14;
@@ -116,12 +117,18 @@ class ActionService {
     } else {
       newDealerValue = dealerValue;
     }
-    player.history = this.basicStrategyService.getHistory(
+    let newHistory = this.basicStrategyService.getHistory(
       newDealerValue,
       player,
       decision
     );
+    this.saveHistory(player, newHistory);
     this.tableService.lastDecision = player.history[player.history.length - 1];
+  }
+
+  async saveHistory(player, newHistory) {
+    if (!player.userId) return;
+    await this.mongoDbConnection.addHistory(player.userId, newHistory);
   }
 }
 

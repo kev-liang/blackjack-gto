@@ -67,7 +67,6 @@ class TableService {
       player.getCardTotal();
       player.playerState = Constants.P_STATE_PLAYING;
       player.isPlaying = true;
-      player.userId = "testestest";
     });
   }
 
@@ -204,6 +203,13 @@ class TableService {
     this.deck.initDeck(numDeck);
   }
 
+  setPlayerUserId(userId) {
+    this.players.forEach((player) => {
+      if (player.id <= 0) {
+        player.userId = userId;
+      }
+    });
+  }
   // WIP: in case need histories in order
   // mergeHistories(originalPlayer, splitPlayers) {
   //   let player = this.findPlayerById(originalPlayer.id);

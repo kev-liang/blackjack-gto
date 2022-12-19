@@ -7,7 +7,9 @@ import { toggleModalOpenAction } from "actions/applicationActions";
 import { useEffect } from "react";
 import GoogleLogin from "utils/GoogleLogin";
 import StrategyPercentCard from "components/layout/modal/cards/StrategyPercentCard";
+import MisplayedDecisionCard from "components/layout/modal/cards/MisplayedDecisionCard";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 const ModalRenderer = (props) => {
   const { isModalOpen, toggleModalOpen } = props;
 
@@ -41,9 +43,14 @@ const ModalRenderer = (props) => {
         <Box className="modal-header">
           <Typography variant="h4">Your Statistics</Typography>
         </Box>
-        <Box className="modal-body">
-          <StrategyPercentCard></StrategyPercentCard>
-        </Box>
+        <Grid container className="modal-body" sx={{ p: 2 }} spacing={2}>
+          <Grid item xs={12} md={4}>
+            <StrategyPercentCard></StrategyPercentCard>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MisplayedDecisionCard></MisplayedDecisionCard>
+          </Grid>
+        </Grid>
       </Box>
     </Modal>
   );

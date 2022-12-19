@@ -1,7 +1,8 @@
 const { OAuth2Client } = require("google-auth-library");
 const MongoDBConnection = require("../db/MongoDBConnection");
+const StatisticsService = require("../services/StatisticsService");
 
-module.exports = (app) => {
+module.exports = (app, allTableService) => {
   async function verify(client, credential, client_id) {
     const ticket = await client.verifyIdToken({
       idToken: credential,
@@ -17,6 +18,7 @@ module.exports = (app) => {
 
   app.post("/authenticate", async (req, res) => {
     let { token } = req.body;
+    let { id } = req.query;
     let { credential, client_id } = token;
     const client = new OAuth2Client(client_id);
     const authUser = await verify(client, credential, client_id).catch(
@@ -29,6 +31,15 @@ module.exports = (app) => {
       console.log("Creating user:", userId);
       MongoDBConnection.createUser(userId);
     }
+    let { tableService } = allTableService.tables[id];
+    tableService.setPlayerUserId("testestest");
     res.send(authUser);
+  });
+
+  app.get("/getStatistics", async (req, res) => {
+    let { userId } = req.query;
+    let history = await MongoDBConnection.getHistory(userId);
+    let statistics = StatisticsService.getAllStatistics(history);
+    res.send(statistics);
   });
 };

@@ -1,16 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const MongoDBConnection = require("./db/MongoDBConnection");
 
 const cardController = require("./controller/CardController");
 const settingsController = require("./controller/SettingsController");
 const basicStrategyController = require("./controller/BasicStrategyController");
-const authController = require("./controller/AuthController");
+const userController = require("./controller/UserController");
 
 const AllTableService = require("./services/AllTableService");
 const BasicStrategyService = require("./services/BasicStrategyService");
-const basicStrategyService = new BasicStrategyService(MongoDBConnection);
+const basicStrategyService = new BasicStrategyService();
 
 const path = require("path");
 
@@ -29,7 +28,7 @@ app.use(express.static("./build"));
 
 const allTableService = new AllTableService(basicStrategyService);
 
-authController(app);
+userController(app, allTableService);
 cardController(app, allTableService);
 settingsController(app, allTableService);
 basicStrategyController(app, basicStrategyService);
