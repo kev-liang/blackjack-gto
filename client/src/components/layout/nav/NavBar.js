@@ -6,26 +6,29 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import TableViewIcon from "@mui/icons-material/TableView";
 import BlockIcon from "@mui/icons-material/Block";
+import InfoIcon from "@mui/icons-material/Info";
 import Settings from "@mui/icons-material/Settings";
 import Tooltip from "@mui/material/Tooltip";
 import LoggedIn from "components/layout/nav/LoggedIn";
 import BarChartIcon from "@mui/icons-material/BarChart";
 
-import { toggleModalOpenAction } from "actions/applicationActions";
 import {
-  setShowDrawerAction,
-  setShowBasicStrategyChartAction
-} from "actions/settingsActions";
+  toggleModalOpenAction,
+  setShowSettingsDrawerAction,
+  setInfoModalOpenAction
+} from "actions/applicationActions";
+import { setShowBasicStrategyChartAction } from "actions/settingsActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 function NavBar(props) {
   const {
     user,
-    setShowDrawer,
+    setShowSettingsDrawer,
     setShowBasicStrategyChart,
     showBasicStrategyChart,
-    toggleModalOpen
+    toggleModalOpen,
+    setInfoModalOpen
   } = props;
   const [tooltipMsg, setTooltipMsg] = useState("");
 
@@ -36,7 +39,7 @@ function NavBar(props) {
   }, [showBasicStrategyChart]);
 
   const showDrawer = () => {
-    setShowDrawer(true);
+    setShowSettingsDrawer(true);
   };
 
   const toggleShowTable = () => {
@@ -73,12 +76,21 @@ function NavBar(props) {
           </Tooltip>
 
           <Box sx={{ flexGrow: 1 }}></Box>
-          <Button color="inherit" onClick={toggleModalOpen}>
-            <BarChartIcon></BarChartIcon>
-          </Button>
-          <Button color="inherit" onClick={showDrawer}>
-            <Settings></Settings>
-          </Button>
+          <Tooltip title="Information" placement="bottom">
+            <Button color="inherit" onClick={() => setInfoModalOpen(true)}>
+              <InfoIcon></InfoIcon>
+            </Button>
+          </Tooltip>
+          <Tooltip title="Statistics" placement="bottom">
+            <Button color="inherit" onClick={toggleModalOpen}>
+              <BarChartIcon></BarChartIcon>
+            </Button>
+          </Tooltip>
+          <Tooltip title="Settings" placement="bottom">
+            <Button color="inherit" onClick={showDrawer}>
+              <Settings></Settings>
+            </Button>
+          </Tooltip>
           <LoggedIn></LoggedIn>
           {!user && <div id="google-sign-in"></div>}
         </Toolbar>
@@ -96,9 +108,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      setShowDrawer: setShowDrawerAction,
+      setShowSettingsDrawer: setShowSettingsDrawerAction,
       setShowBasicStrategyChart: setShowBasicStrategyChartAction,
-      toggleModalOpen: toggleModalOpenAction
+      toggleModalOpen: toggleModalOpenAction,
+      setInfoModalOpen: setInfoModalOpenAction
     },
     dispatch
   );

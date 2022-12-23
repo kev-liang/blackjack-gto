@@ -1,4 +1,4 @@
-@import '_vars.scss';
+@import "_vars.scss";
 
 .card-action-disabled {
   cursor: default !important;
@@ -16,6 +16,6 @@
 }
 
 .card-action-button-disabled {
-  background-color: "#aaa";
-  pointer-events: "none";
+  background-color: "#aaa" !important;
+  pointer-events: "none" !important;
 }

@@ -145,7 +145,7 @@ const BasicStrategyChart = (props) => {
                       key={`decision-${i}-${j}`}
                       sx={{
                         ...tdStyle.cell,
-                        ...ColorConstants.BACKGROUND_COLORS[val]
+                        backgroundColor: ColorConstants.BACKGROUND_COLORS[val]
                       }}
                       align="center"
                     >

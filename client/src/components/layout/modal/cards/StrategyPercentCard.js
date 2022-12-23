@@ -3,23 +3,33 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { PieChart, Pie, Cell } from "recharts";
+import { connect } from "react-redux";
+import ColoredBox from "components/common/ColoredBox";
+import { useState, useEffect } from "react";
 
 const StrategyPercentCard = (props) => {
-  const percentage = 96;
+  const { percentageCorrect } = props;
+  const [percentageIncorrect, setPercentageIncorrect] = useState();
+  const [data, setData] = useState([]);
 
-  // TODO add real data
-  const data = [
-    { name: "Group A", value: 96 },
-    { name: "Group B", value: 4 }
-  ];
-  const COLORS = ["#5e4075", "#000"];
+  useEffect(() => {
+    if (!percentageCorrect) return;
+    let localPercentageIncorrect = 100 - percentageCorrect;
+    setPercentageIncorrect(localPercentageIncorrect);
+    setData([
+      { name: "Correct", value: percentageCorrect },
+      { name: "Incorrect", value: localPercentageIncorrect }
+    ]);
+  }, [percentageCorrect]);
+
+  const COLORS = ["#5e4075", "#232323"];
 
   return (
     <Box className="strategy-percent-card">
       <Card sx={{ p: 2 }}>
         <Typography variant="h6">Basic Strategy Accuracy:</Typography>
         <Typography variant="h4" className="strategy-percentage">
-          {percentage}%
+          {percentageCorrect}%
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <PieChart width={200} height={200}>
@@ -40,9 +50,35 @@ const StrategyPercentCard = (props) => {
             </Pie>
           </PieChart>
         </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <ColoredBox backgroundColor={COLORS[0]} color="#fff"></ColoredBox>
+          <Typography>Correct Decision ({percentageCorrect}%)</Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <ColoredBox backgroundColor={COLORS[1]} color="#fff"></ColoredBox>
+          <Typography>Incorrect Decision ({percentageIncorrect}%)</Typography>
+        </Box>
       </Card>
     </Box>
   );
 };
 
-export default StrategyPercentCard;
+const mapStateToProps = (state) => {
+  return {
+    percentageCorrect: state.statistics?.computedStats?.percentageCorrect
+  };
+};
+
+export default connect(mapStateToProps, null)(StrategyPercentCard);

@@ -16,6 +16,11 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: "RobotoMono-Regular";
+  src: url("../public/fonts/RobotoMono-Regular.ttf") format("truetype");
+}
+
 body {
   margin: 0;
   padding: 0;

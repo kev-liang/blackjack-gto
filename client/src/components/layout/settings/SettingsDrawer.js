@@ -1,6 +1,6 @@
-import "styles/SingleCardAction.scss";
+import "styles/SettingsDrawer.scss";
 import { connect } from "react-redux";
-import { setShowDrawerAction } from "actions/settingsActions";
+import { setShowSettingsDrawerAction } from "actions/applicationActions";
 import { bindActionCreators } from "redux";
 
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
@@ -9,6 +9,7 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
 import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import { createElement, useEffect, useState } from "react";
@@ -16,7 +17,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import MenuItem from "@mui/material/MenuItem";
 import SettingsService from "services/SettingsService";
 import ConstantsFE from "utils/constants/ConstantsFE";
-
+import { setResetDelayAction } from "actions/applicationActions";
 const settingsConfig = require("config/settingsConfig.json");
 
 const components = {
@@ -25,11 +26,18 @@ const components = {
   VideogameAssetIcon,
   Select,
   SettingsIcon,
+  TextField,
   p: "p"
 };
 
 function SettingsDrawer(props) {
-  const { showDrawer, setShowDrawer } = props;
+  const {
+    showDrawer,
+    setShowSettingsDrawer,
+    resetDelay,
+    setResetDelay,
+    validation
+  } = props;
   const [settings, setSettings] = useState([]);
   const [numDecks, setNumDecks] = useState(ConstantsFE.DEFAULT_NUM_DECK);
   const [propsMap, setPropsMap] = useState({
@@ -48,23 +56,26 @@ function SettingsDrawer(props) {
     let localPropsMap = {
       toggleDealerPlaying,
       numDecks,
+      resetDelay,
+      setResetDelay,
       changeNumDecks
     };
     setPropsMap(localPropsMap);
-  }, [numDecks]);
+  }, [numDecks, resetDelay]);
 
   const toggleDealerPlaying = () => {
     SettingsService.toggleDealerPlaying();
   };
 
   const changeNumDecks = (e) => {
+    console.log("zz", resetDelay);
     let numDecks = e.target.value;
     setNumDecks(numDecks);
     SettingsService.changeNumDecks(numDecks);
   };
 
   const closeDrawer = () => {
-    setShowDrawer(false);
+    setShowSettingsDrawer(false);
   };
 
   const getSelectItems = (items) => {
@@ -82,7 +93,10 @@ function SettingsDrawer(props) {
     <div>
       <Drawer
         PaperProps={{
-          sx: { width: "30%" }
+          sx: {
+            width: "30%",
+            backgroundColor: "#f2f2f2"
+          }
         }}
         anchor="right"
         open={showDrawer}
@@ -127,9 +141,11 @@ function SettingsDrawer(props) {
                           display: "flex",
                           alignItems: "center",
                           height: 40,
+                          mb: 2,
                           color: "#393939"
                         }}
                       >
+                        {/* Begin specific component (like checkbox or label text) */}
                         {options.components.map((component, i) => {
                           return (
                             <Box
@@ -141,6 +157,8 @@ function SettingsDrawer(props) {
                                 {
                                   onChange: propsMap[component.onChange],
                                   value: propsMap[component.value],
+                                  error: validation[component.error]?.length,
+                                  helperText: validation[component.error],
                                   key: `${component.component}-${i}`,
                                   ...component.props
                                 },
@@ -172,7 +190,8 @@ function SettingsDrawer(props) {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      setShowDrawer: setShowDrawerAction
+      setShowSettingsDrawer: setShowSettingsDrawerAction,
+      setResetDelay: setResetDelayAction
     },
     dispatch
   );
@@ -180,7 +199,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    showDrawer: state.settings?.showDrawer
+    showDrawer: state.application.showDrawer,
+    resetDelay: state.application.resetDelay,
+    validation: state.validation
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsDrawer);

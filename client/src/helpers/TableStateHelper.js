@@ -19,7 +19,7 @@ class TableStateHelper {
     if (table.tableState === ConstantsFE.T_STATE_END) {
       setTimeout(() => {
         ActionServiceFE.deal(store.getState().table.numPlayers);
-      }, 2000);
+      }, store.getState().application.resetDelay * 1000);
     }
   }
 

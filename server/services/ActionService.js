@@ -123,7 +123,7 @@ class ActionService {
       decision
     );
     this.saveHistory(player, newHistory);
-    this.tableService.lastDecision = player.history[player.history.length - 1];
+    this.tableService.lastDecision = newHistory;
   }
 
   async saveHistory(player, newHistory) {

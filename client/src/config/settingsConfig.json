@@ -75,6 +75,27 @@
           ]
         },
         {
+          "show": true,
+          "components": [
+            {
+              "component": "p",
+              "text": "Reset delay (in seconds)"
+            },
+            {
+              "component": "TextField",
+              "onChange": "setResetDelay",
+              "value": "resetDelay",
+              "error": "settingsResetDelayError",
+              "props": {
+                "size": "small",
+                "sx": {
+                  "padding": 0
+                }
+              }
+            }
+          ]
+        },
+        {
           "components": [
             {
               "component": "Checkbox",

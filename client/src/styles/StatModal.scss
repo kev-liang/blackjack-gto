@@ -15,3 +15,15 @@
 .modal-body {
   padding: 8px;
 }
+
+.shortcut {
+  font-family: "RobotoMono-Regular";
+  padding: 0.2em 0.4em;
+  background-color: $dark-grey;
+  color: $light-grey;
+  margin-right: 0.2em;
+}
+
+.shortcut-space {
+  font-weight: bold;
+}

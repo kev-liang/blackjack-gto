@@ -2,18 +2,19 @@ import { connect } from "react-redux";
 import DecisionConstantsFE from "utils/constants/DecisionConstantsFE";
 import "styles/CorrectDecision.scss";
 import React from "react";
+import _ from "lodash";
 
 function CorrectDecision(props) {
-  const { table } = props;
+  const { lastDecision, customLastDecision } = props;
   const [decisionText, setDecisionText] = React.useState("");
 
   React.useEffect(() => {
-    if (!table || !table.lastDecision) return;
-    setDecisionText(getDecisionText(table));
-  }, [table]);
+    if (_.isEmpty(lastDecision) && _.isEmpty(customLastDecision)) return;
+    let usedDecision = customLastDecision ? customLastDecision : lastDecision;
+    setDecisionText(getDecisionText(usedDecision));
+  }, [lastDecision, customLastDecision]);
 
-  const getDecisionText = (table) => {
-    let { lastDecision } = table;
+  const getDecisionText = (lastDecision) => {
     let { correctDecision } = lastDecision;
     let playerDecision = lastDecision.playerValues.decision;
     let correctDecisionString = DecisionConstantsFE.STRING_MAP[correctDecision];
@@ -51,7 +52,7 @@ function CorrectDecision(props) {
 
 const mapStateToProps = (state) => {
   return {
-    table: state.table?.table
+    lastDecision: state.table?.table?.lastDecision
   };
 };
 

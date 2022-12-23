@@ -31,10 +31,13 @@ function SingleCardAction(props) {
 
   React.useEffect(() => {
     if (!table) return;
-
-    setDisabled(
-      ActionServiceFE.determineDisabled(table.players, table.turnId, handleFn)
-    );
+    let localDisabled =
+      ActionServiceFE.determineDisabled(
+        table.players,
+        table.turnId,
+        handleFn
+      ) || table.tableState !== ConstantsFE.T_STATE_PLAYING;
+    setDisabled(localDisabled);
     handleTooltip();
   }, [table, players, determineDisabled, handleFn, handleTooltip]);
 
@@ -150,6 +153,7 @@ function SingleCardAction(props) {
             className={`card-action-button ${
               disabled ? "card-action-button-disabled" : ""
             }`}
+            sx={{ ...buttonStyles }}
           >
             {label}
           </Button>

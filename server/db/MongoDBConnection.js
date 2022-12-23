@@ -51,7 +51,7 @@ class MongoDBConnection {
 
   async getHistory(userId) {
     let user = await this.getUser(userId);
-    return user.history;
+    return user ? user.history : null;
   }
 
   async init() {

@@ -96,9 +96,7 @@ class ActionServiceFE {
   getStatistics(playerId) {
     let user = store.getState().application.user;
     if (playerId <= 0 && user) {
-      let decisionHistoryEndpoint = `${
-        this.url
-      }/getStatistics?userId=${"testestest"}`;
+      let decisionHistoryEndpoint = `${this.url}/getStatistics?userId=${user.sub}`;
       ApiService.getStatistics(decisionHistoryEndpoint);
     }
   }

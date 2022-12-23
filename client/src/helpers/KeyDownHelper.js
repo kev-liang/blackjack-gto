@@ -6,6 +6,8 @@ import { store } from "store";
 
 class KeyDownService {
   handleKeyDown = (e) => {
+    let { isModalOpen, showDrawer } = store.getState().application;
+    if (isModalOpen || showDrawer) return;
     let letter = String.fromCharCode(e.keyCode);
     let turnId = store.getState().table.table.turnId;
     switch (letter) {
@@ -15,7 +17,6 @@ class KeyDownService {
           ActionServiceFE.hit,
           turnId
         );
-        // ActionServiceFE.hit(turnId);
         break;
       case KeyboardUtil.stand:
         this.makeCallIfNotDisabled(

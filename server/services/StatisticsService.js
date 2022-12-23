@@ -36,6 +36,10 @@ class StatisticsService {
     };
   }
 
+  // transform history into a nested object with keys
+  // type (hard, soft, pair) to playerValue, to dealerValue
+  // and final value is count for that arrangement
+  // of type, playerValue, dealerValue
   countMostMisplayed(history) {
     const countDecision = { hard: {}, soft: {}, pair: {} };
     history.forEach((h) => {
@@ -61,6 +65,8 @@ class StatisticsService {
     return countDecision;
   }
 
+  // find the max count of a certain type, playerValue, dealerValue
+  // multiple of the same value are pushed to the return array
   findMostMisplayed(countDecision) {
     let maxValues = [];
     let max = 0;
@@ -80,6 +86,8 @@ class StatisticsService {
     return maxValues;
   }
 
+  // returns the most recent type, playerValue, and dealerValue
+  // assuming that history is chronologically ordered
   getRecentMostMisplayed(history, mostMisplayed) {
     if (mostMisplayed.length === 0) return mostMisplayed[0];
     let lastIndex = history.length - 1;

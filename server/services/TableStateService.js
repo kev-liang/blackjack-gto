@@ -16,11 +16,12 @@ class TableStateService {
     switch (this.tableState) {
       case Constants.T_STATE_PLAYING:
         if (players.every((player) => !player.isPlaying)) {
-          // if all players lost then don't deal dealer
+          // if all players lost or shouldDeaDealer = false then don't deal dealer
           if (
             players.every(
               (player) => player.playerState === Constants.P_STATE_LOST
-            )
+            ) ||
+            !this.shouldDealDealer
           ) {
             this.tableState = Constants.T_STATE_END;
           } else {
