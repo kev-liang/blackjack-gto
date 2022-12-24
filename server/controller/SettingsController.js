@@ -6,20 +6,20 @@ module.exports = (app, allTableService) => {
     let { tableService } = allTableService.tables[req.query.id];
     let shouldDealDealer = tableService.tableStateService.shouldDealDealer;
     tableService.tableStateService.shouldDealDealer = !shouldDealDealer;
-    res.send(tableService.showTable());
+    res.status(200).send(tableService.showTable());
   });
 
   app.patch("/change-num-decks", (req, res) => {
     let { tableService } = allTableService.tables[req.query.id];
     let numDecks = req.query.num;
     tableService.setNumDeck(numDecks);
-    res.send(tableService.showTable());
+    res.status(200).send(tableService.showTable());
   });
 
   app.patch("/change-num-decks", (req, res) => {
     let { tableService } = allTableService.tables[req.query.id];
     let numDecks = req.query.num;
     tableService.setNumDeck(numDecks);
-    res.send(tableService.showTable());
+    res.status(200).send(tableService.showTable());
   });
 };

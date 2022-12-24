@@ -33,17 +33,17 @@ module.exports = (app, allTableService) => {
     }
     let { tableService } = allTableService.tables[id];
     tableService.setPlayerUserId(userId);
-    res.send(authUser);
+    res.status(200).send(authUser);
   });
 
   app.get("/getStatistics", async (req, res) => {
     let { userId } = req.query;
     let history = await MongoDBConnection.getHistory(userId);
     if (!history) {
-      res.send({ mostMisplayedValues: {}, percentageCorrect: 0 });
+      res.status(200).send({ mostMisplayedValues: {}, percentageCorrect: 0 });
       return;
     }
     let statistics = StatisticsService.getAllStatistics(history);
-    res.send(statistics);
+    res.status(200).send(statistics);
   });
 };

@@ -56,8 +56,14 @@ class Deck {
 
   dealTest(numCards, shouldCount = true) {
     this.deck = [
-      { value: 5, suit: "h" },
-      { value: 5, suit: "c" },
+      { value: 14, suit: "h" },
+      { value: 10, suit: "c" },
+      { value: 14, suit: "h" },
+      { value: 14, suit: "c" },
+      { value: 14, suit: "s" },
+      { value: 14, suit: "h" },
+      { value: 14, suit: "c" },
+      { value: 14, suit: "s" },
       { value: 14, suit: "h" },
       { value: 14, suit: "c" },
       { value: 14, suit: "s" }

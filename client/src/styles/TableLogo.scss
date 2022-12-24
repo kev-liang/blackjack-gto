@@ -11,13 +11,23 @@
   width: 50vw;
   text-align: center;
   color: #fff;
+  @media screen and (max-width: $screen-large) {
+    right: 25px !important;
+  }
+}
+
+.logo-img {
+  height: 200px;
+  @media screen and (max-width: $screen-large) {
+    height: 100px;
+  }
 }
 
 .table-logo {
   font-family: "Pridi";
   font-size: 6em;
   white-space: nowrap;
-  @media screen and (max-width: $screen-large){
+  @media screen and (max-width: $screen-large) {
     font-size: 3em;
   }
 }
