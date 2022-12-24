@@ -1,10 +1,12 @@
 import AuthService from "services/AuthService";
 import { setLoggedInAction } from "actions/applicationActions";
 import { store } from "store";
+import { trackEvent } from "analytics/analytics";
 
 class GoogleLogin {
   init() {
     const handleInitialize = (res) => {
+      trackEvent("NavBar", "Sign In", "Sign In Button");
       AuthService.sendToken(res);
       store.dispatch(setLoggedInAction(true));
     };

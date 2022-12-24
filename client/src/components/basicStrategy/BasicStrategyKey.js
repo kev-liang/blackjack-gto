@@ -73,16 +73,23 @@ const BasicStrategyKey = (props) => {
           <Typography
             sx={{
               display: "inline-block",
-              fontSize: "14px"
+              fontSize: "14px",
+              "@media (max-width: 1200px)": { fontSize: "12px" }
             }}
           >
             {splitString[0]}
           </Typography>
         ) : (
-          <Typography className="key-text">{splitString[0]}</Typography>
+          <Typography
+            sx={{ "@media (max-width: 1200px)": { fontSize: "12px" } }}
+          >
+            {splitString[0]}
+          </Typography>
         )}
         {splitString.length === 2 && (
-          <Typography className="key-text">
+          <Typography
+            sx={{ "@media (max-width: 1200px)": { fontSize: "12px" } }}
+          >
             {DecisionConstantsFE.KEY_MESSAGES[decision].split("\n")[1]}
           </Typography>
         )}

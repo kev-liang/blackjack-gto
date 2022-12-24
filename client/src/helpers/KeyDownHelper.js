@@ -2,6 +2,7 @@ import KeyboardUtil from "utils/KeyboardUtil";
 import ActionServiceFE from "services/ActionServiceFE";
 import ActionConstantsFE from "utils/constants/ActionConstantsFE";
 
+import { trackEvent } from "analytics/analytics";
 import { store } from "store";
 
 class KeyDownService {
@@ -54,6 +55,7 @@ class KeyDownService {
   makeCallIfNotDisabled(handleFn, callback, turnId) {
     let players = store.getState().table.table.players;
     if (!ActionServiceFE.determineDisabled(players, turnId, handleFn)) {
+      trackEvent("Actions", handleFn, "Keyboard");
       callback.call(ActionServiceFE, turnId);
     }
   }

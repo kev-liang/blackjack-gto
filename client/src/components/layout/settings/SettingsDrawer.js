@@ -18,6 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import SettingsService from "services/SettingsService";
 import ConstantsFE from "utils/constants/ConstantsFE";
 import { setResetDelayAction } from "actions/applicationActions";
+import { trackEvent } from "analytics/analytics";
 const settingsConfig = require("config/settingsConfig.json");
 
 const components = {
@@ -64,11 +65,12 @@ function SettingsDrawer(props) {
   }, [numDecks, resetDelay]);
 
   const toggleDealerPlaying = () => {
+    trackEvent("Settings", "Toggle Dealer Playing", "Toggle Dealer Checkbox");
     SettingsService.toggleDealerPlaying();
   };
 
   const changeNumDecks = (e) => {
-    console.log("zz", resetDelay);
+    trackEvent("Settings", "Change Num Decks", "Change Num Decks Input");
     let numDecks = e.target.value;
     setNumDecks(numDecks);
     SettingsService.changeNumDecks(numDecks);
@@ -157,8 +159,6 @@ function SettingsDrawer(props) {
                                 {
                                   onChange: propsMap[component.onChange],
                                   value: propsMap[component.value],
-                                  error: validation[component.error]?.length,
-                                  helperText: validation[component.error],
                                   key: `${component.component}-${i}`,
                                   ...component.props
                                 },

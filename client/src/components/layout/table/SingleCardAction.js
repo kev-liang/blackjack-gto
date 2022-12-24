@@ -6,9 +6,10 @@ import { bindActionCreators } from "redux";
 import TableUtils from "utils/TableUtils";
 import ConstantsFE from "utils/constants/ConstantsFE";
 import React from "react";
+import { trackEvent } from "analytics/analytics";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme, createTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 
@@ -65,6 +66,7 @@ function SingleCardAction(props) {
 
   const handleClick = (handleFn) => {
     if (disabled) return;
+    trackEvent("Actions", handleFn, "Button");
     switch (handleFn) {
       case "handleSplit":
         handleSplit();

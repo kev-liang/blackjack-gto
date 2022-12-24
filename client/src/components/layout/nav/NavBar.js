@@ -11,6 +11,7 @@ import Settings from "@mui/icons-material/Settings";
 import Tooltip from "@mui/material/Tooltip";
 import LoggedIn from "components/layout/nav/LoggedIn";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import { trackEvent } from "analytics/analytics";
 
 import {
   toggleModalOpenAction,
@@ -46,6 +47,25 @@ function NavBar(props) {
     setShowBasicStrategyChart(!showBasicStrategyChart);
   };
 
+  const handleShowTableClick = () => {
+    trackEvent("NavBar", "Toggle Show Table", "Toggle Show Table Button");
+    toggleShowTable();
+  };
+  const handleInfoModalClick = () => {
+    trackEvent("NavBar", "Info Modal Click", "Info Button");
+    setInfoModalOpen(true);
+  };
+
+  const handleStatisticsModalClick = () => {
+    trackEvent("NavBar", "Statistcs Modal Click", "Statistics Button");
+    toggleModalOpen();
+  };
+
+  const handleSettingsClick = () => {
+    trackEvent("NavBar", "Settings Click", "Settings Button");
+    showDrawer();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -59,7 +79,7 @@ function NavBar(props) {
               edge="start"
               color="inherit"
               aria-label="menu"
-              onClick={toggleShowTable}
+              onClick={handleShowTableClick}
             >
               {showBasicStrategyChart && (
                 <BlockIcon
@@ -77,17 +97,17 @@ function NavBar(props) {
 
           <Box sx={{ flexGrow: 1 }}></Box>
           <Tooltip title="Information" placement="bottom">
-            <Button color="inherit" onClick={() => setInfoModalOpen(true)}>
+            <Button color="inherit" onClick={handleInfoModalClick}>
               <InfoIcon></InfoIcon>
             </Button>
           </Tooltip>
           <Tooltip title="Statistics" placement="bottom">
-            <Button color="inherit" onClick={toggleModalOpen}>
+            <Button color="inherit" onClick={handleStatisticsModalClick}>
               <BarChartIcon></BarChartIcon>
             </Button>
           </Tooltip>
           <Tooltip title="Settings" placement="bottom">
-            <Button color="inherit" onClick={showDrawer}>
+            <Button color="inherit" onClick={handleSettingsClick}>
               <Settings></Settings>
             </Button>
           </Tooltip>

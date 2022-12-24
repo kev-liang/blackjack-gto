@@ -1,6 +1,7 @@
 import { numberValidator, greaterThanZeroValidator } from "validators";
 import { setSettingsResetDelayErrorAction } from "./validationActions";
 import { store } from "store";
+import { trackEvent } from "analytics/analytics";
 
 const toggleModalOpenAction = () => {
   return {
@@ -41,19 +42,16 @@ const setResetDelayAction = (e) => {
   console.log("SETTING", resetDelay);
   // debugger;
   if (!numberValidator(resetDelay)) {
-    console.log("INVALID NUMBER");
     store.dispatch(setSettingsResetDelayErrorAction("Invalid Number"));
     return;
   }
   if (!greaterThanZeroValidator(resetDelay)) {
-    console.log("NEGATIVE");
-
     store.dispatch(
       setSettingsResetDelayErrorAction("Number cannot be negative")
     );
     return;
   }
-  console.log("SETTING DELAY FINAL");
+  trackEvent("Settings", "Reset Delay", "Reset Delay Input");
   store.dispatch(setSettingsResetDelayErrorAction(""));
   let data = resetDelay === "" ? "" : parseFloat(resetDelay);
   return {

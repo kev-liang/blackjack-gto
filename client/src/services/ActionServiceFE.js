@@ -2,6 +2,7 @@ import Url from "../utils/BackendUrlUtil";
 import ApiService from "./ApiService";
 import TableUtils from "../utils/TableUtils";
 import ConstantsFE from "../utils/constants/ConstantsFE";
+import ActionConstantsFE from "utils/constants/ActionConstantsFE";
 
 import { store } from "store";
 
@@ -70,10 +71,10 @@ class ActionServiceFE {
       return true;
     }
     switch (handleFn) {
-      case "handleSplit":
+      case ActionConstantsFE.SPLIT:
         return this.determineSplit(player, players);
-      case "handleDouble":
-      case "handleSurrender":
+      case ActionConstantsFE.DOUBLE:
+      case ActionConstantsFE.SURRENDER:
         return player.cards.length > 2;
       default:
         return !player.isPlaying;
