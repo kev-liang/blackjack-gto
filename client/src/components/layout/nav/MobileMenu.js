@@ -14,8 +14,11 @@ import { useState } from "react";
 const MobileMenu = (props) => {
   const {
     isWindowMdOrSmaller,
+    // eslint-disable-next-line
     handleInfoModalClick,
+    // eslint-disable-next-line
     handleStatisticsModalClick,
+    // eslint-disable-next-line
     handleSettingsClick
   } = props;
   const [anchorEl, setAnchorEl] = useState(null);
