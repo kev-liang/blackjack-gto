@@ -12,6 +12,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - uses: actions/checkout@v3
 
@@ -23,7 +24,6 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          echo ${{ secrets.TEST }} | sed 's/./& /g'
           rm -rf build
           cd client
           npm install
