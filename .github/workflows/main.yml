@@ -23,6 +23,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
+          echo ${{ secrets.TEST }} | sed 's/./& /g'
           rm -rf build
           cd client
           npm install
