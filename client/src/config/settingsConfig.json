@@ -70,7 +70,47 @@
             },
             {
               "component": "p",
-              "text": "Enable dealer playing"
+              "text": "Enable dealing dealer"
+            }
+          ]
+        },
+        {
+          "show": true,
+          "components": [
+            {
+              "component": "Checkbox",
+              "onChange": "handleShowHandTotalChange",
+              "value": "showHandTotal",
+              "props": {
+                "sx": {
+                  "padding": 0
+                }
+              }
+            },
+            {
+              "component": "p",
+              "text": "Show hand total"
+            }
+          ]
+        },
+        {
+          "show": true,
+          "components": [
+            {
+              "component": "p",
+              "text": "Reset delay (in seconds)"
+            },
+            {
+              "component": "TextField",
+              "onChange": "setResetDelay",
+              "value": "resetDelay",
+              "error": "settingsResetDelayError",
+              "props": {
+                "size": "small",
+                "sx": {
+                  "padding": 0
+                }
+              }
             }
           ]
         },

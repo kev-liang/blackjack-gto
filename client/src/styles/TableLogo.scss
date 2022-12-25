@@ -1,4 +1,5 @@
 @import "_common.scss";
+@import "_vars.scss";
 
 .logo {
   background-size: contain;
@@ -6,13 +7,28 @@
   background-position: 50%;
   // background-image: url("../img/logo.png");
   position: absolute;
-  bottom: 20%;
+  bottom: 18%;
   width: 50vw;
   text-align: center;
   color: #fff;
+  @media screen and (max-width: $screen-large) {
+    right: 25px !important;
+  }
 }
 
-.table-logo {
+.logo-img {
+  height: 200px;
+  @media screen and (max-width: $screen-large) {
+    height: 100px;
+  }
+}
+
+.table-title {
   font-family: "Pridi";
   font-size: 6em;
+  white-space: nowrap;
+  margin-left: 25px;
+  @media screen and (max-width: $screen-large) {
+    font-size: 3em;
+  }
 }

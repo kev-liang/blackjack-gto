@@ -5,21 +5,18 @@ import TableUtils from "../../utils/TableUtils";
 import ConstantsFE from "../../utils/constants/ConstantsFE";
 
 const NumberBanner = (props) => {
-  const { table, id, player, animations, animationsEnabled } = props;
+  const { table, id, player, animations, animationsEnabled, showHandTotal } =
+    props;
   const [isTurn, setIsTurn] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [display, setDisplay] = React.useState(false);
-
   const [positionStyles, setPositionStyles] = React.useState({});
+  const [width, setWidth] = React.useState(0);
   React.useEffect(() => {
     if (!table || !player) return;
-    setValue(player.cardTotal);
+    setValue(player.displayTotal);
     setIsTurn(id === table.turnId);
-    if (table.tableState === ConstantsFE.T_STATE_PLAYING) {
-      setPositionStyles({ margin: "45px 0 0 2px" });
-    } else {
-      setPositionStyles({ top: "45px", left: "2px" });
-    }
+    handleStyling();
   }, [table, player, id]);
 
   const currentPlayerAnimationCompleted =
@@ -55,14 +52,25 @@ const NumberBanner = (props) => {
     id
   ]);
 
-  if (display) {
+  const handleStyling = () => {
+    let marginLeft = 2;
+    let diff = 4; // due to 2px border
+    if (id === ConstantsFE.DEALER_ID) {
+      diff = 2; // looks like a pixel missing when 2 cards but good w other num cards for some reason
+      marginLeft = 1;
+    }
+    setWidth(`calc(100% - ${diff}px)`);
+    setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
+  };
+
+  if (display && showHandTotal) {
     return (
       <div
         className={`number-banner-container ${
           isTurn ? "number-banner-active" : ""
         }`}
         style={{
-          width: "calc(100% - 4px)",
+          width,
           ...positionStyles
         }}
       >
@@ -76,7 +84,8 @@ const mapStateToProps = (state) => {
   return {
     table: state.table?.table,
     animations: state.animations,
-    animationsEnabled: state.animations?.animationsEnabled
+    animationsEnabled: state.animations?.animationsEnabled,
+    showHandTotal: state.settings.showHandTotal
   };
 };
 

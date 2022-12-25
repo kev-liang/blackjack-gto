@@ -1,13 +1,20 @@
 import axios from "axios";
-import Url from "../utils/BackendUrlUtil";
 
-import { updateTableAction } from "../actions/tableActions";
-import { setBasicStrategyChartsAction } from "../actions/basicStrategyActions";
-import { store } from "../store";
+import { updateTableAction } from "actions/tableActions";
+import { setBasicStrategyChartsAction } from "actions/basicStrategyActions";
+import { setUserAction } from "actions/applicationActions";
+import {
+  setShowStatisticsAction,
+  setStatisticsAction
+} from "actions/statisticsActions";
+import { store } from "store";
+import ActionServiceFE from "./ActionServiceFE";
+import ConstantsFE from "utils/constants/ConstantsFE";
+import _ from "lodash";
 
 class ApiService {
   constructor() {
-    this.url = Url;
+    this.url = process.env.REACT_APP_BACKEND_URL;
   }
 
   getAndUpdateTable(endpoint) {
@@ -39,6 +46,25 @@ class ApiService {
   getAndUpdateBasicStrategyCharts(endpoint) {
     axios.get(endpoint).then((res) => {
       store.dispatch(setBasicStrategyChartsAction(res.data));
+    });
+  }
+
+  sendToken(endpoint, token) {
+    let body = { token };
+    axios.post(endpoint, body).then((res) => {
+      store.dispatch(setUserAction(res.data));
+      ActionServiceFE.getStatistics(ConstantsFE.USER_ID);
+    });
+  }
+
+  getStatistics(endpoint) {
+    axios.get(endpoint).then((res) => {
+      let mostMisplayedData = res.data;
+      store.dispatch(setStatisticsAction(mostMisplayedData));
+      // history available
+      if (!_.isEmpty(mostMisplayedData.mostMisplayedValues.mostMisplayed)) {
+        store.dispatch(setShowStatisticsAction(true));
+      }
     });
   }
 }

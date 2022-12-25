@@ -1,0 +1,29 @@
+@import "_vars.scss";
+
+.modal {
+  background-color: $light-grey;
+}
+
+.modal-header {
+  background-color: $dark-grey;
+  color: $light-grey;
+  border-radius: 20px 20px 0 0;
+  padding: 16px;
+  margin-top: -1px;
+}
+
+.modal-body {
+  padding: 8px;
+}
+
+.shortcut {
+  font-family: "RobotoMono-Regular";
+  padding: 0.2em 0.4em;
+  background-color: $dark-grey;
+  color: $light-grey;
+  margin-right: 0.2em;
+}
+
+.shortcut-space {
+  font-weight: bold;
+}
