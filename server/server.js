@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.use(express.static("./build"));
+app.use(express.static("../build"));
 
 const allTableService = new AllTableService(basicStrategyService);
 
