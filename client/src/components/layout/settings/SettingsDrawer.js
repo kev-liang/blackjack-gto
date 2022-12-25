@@ -38,7 +38,6 @@ function SettingsDrawer(props) {
     setShowSettingsDrawer,
     resetDelay,
     setResetDelay,
-    validation,
     showHandTotal,
     setShowHandTotal
   } = props;
@@ -47,7 +46,7 @@ function SettingsDrawer(props) {
   const [propsMap, setPropsMap] = useState({
     numDecks: ConstantsFE.DEFAULT_NUM_DECK
   });
-
+  let handleShowHandTotalChange;
   useEffect(() => {
     let localSettings = settingsConfig.settings.filter((setting) => {
       setting.options = setting.options.filter((option) => option.show);
@@ -67,14 +66,20 @@ function SettingsDrawer(props) {
       handleShowHandTotalChange
     };
     setPropsMap(localPropsMap);
-  }, [numDecks, resetDelay, showHandTotal]);
+  }, [
+    numDecks,
+    resetDelay,
+    showHandTotal,
+    handleShowHandTotalChange,
+    setResetDelay
+  ]);
 
   const toggleDealerPlaying = () => {
     trackEvent("Settings", "Toggle Dealer Playing", "Toggle Dealer Checkbox");
     SettingsService.toggleDealerPlaying();
   };
 
-  const handleShowHandTotalChange = () => {
+  handleShowHandTotalChange = () => {
     trackEvent(
       "Settings",
       "Set Show Hand Total",

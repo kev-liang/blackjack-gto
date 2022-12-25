@@ -7,7 +7,7 @@ import ConstantsFE from "utils/constants/ConstantsFE";
 import { useState, useEffect } from "react";
 
 const StatModalMissingCard = (props) => {
-  const { user, player, mostMisplayedValues } = props;
+  const { user, mostMisplayedValues } = props;
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
