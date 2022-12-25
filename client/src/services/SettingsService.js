@@ -1,11 +1,10 @@
-import Url from "../utils/BackendUrlUtil";
 import ApiService from "./ApiService";
 
 import { store } from "../store";
 
 class SettingsService {
   constructor() {
-    this.url = Url;
+    this.url = process.env.REACT_APP_BACKEND_URL;
   }
 
   toggleDealerPlaying() {

@@ -1,4 +1,3 @@
-import Url from "../utils/BackendUrlUtil";
 import ApiService from "./ApiService";
 import TableUtils from "../utils/TableUtils";
 import ConstantsFE from "../utils/constants/ConstantsFE";
@@ -8,7 +7,7 @@ import { store } from "store";
 
 class ActionServiceFE {
   constructor() {
-    this.url = Url;
+    this.url = process.env.REACT_APP_BACKEND_URL;
   }
 
   initTable(numPlayers) {

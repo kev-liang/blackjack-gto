@@ -14,6 +14,7 @@ class Player {
     this.splitPlayerId = null;
     this.hasPair = false;
     this.isSoft = false;
+    this.displayTotal = "";
   }
 
   deal(numCards, shouldCount = true) {
@@ -58,11 +59,22 @@ class Player {
     // handling ace equaling 1 or 11
     let cardsWithoutAce = cards.filter((card) => card.value !== 14);
     let numOfAce = cards.length - cardsWithoutAce.length;
-    while (numOfAce && sum > Constants.BLACKJACK) {
+    let numOfAceCount = numOfAce;
+    while (numOfAceCount && sum > Constants.BLACKJACK) {
       sum -= 10;
-      numOfAce--;
+      numOfAceCount--;
     }
+    this.getDisplayTotal(numOfAce, sum);
     this.cardTotal = sum;
+  }
+
+  getDisplayTotal(numOfAce, sum) {
+    if (this.id === Constants.DEALER_ID && !this.shouldShowAllCards) {
+      this.displayTotal = sum === 11 ? "A" : `${sum}`;
+    } else {
+      this.displayTotal =
+        numOfAce && sum !== 21 ? `${sum} or ${sum - 10}` : `${sum}`;
+    }
   }
 }
 

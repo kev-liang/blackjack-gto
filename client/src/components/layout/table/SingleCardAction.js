@@ -8,15 +8,8 @@ import ConstantsFE from "utils/constants/ConstantsFE";
 import React from "react";
 import { trackEvent } from "analytics/analytics";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
-
-const useIsWidthLonger = (breakpoint) => {
-  const theme = useTheme();
-  return useMediaQuery(theme.breakpoints.up(breakpoint));
-};
 
 function SingleCardAction(props) {
   const { table, players, turnId, tableState, action } = props;
@@ -24,7 +17,6 @@ function SingleCardAction(props) {
   const [disabled, setDisabled] = React.useState(true);
   const [buttonStyles, setButtonStyles] = React.useState();
   const [tooltip, setTooltip] = React.useState("");
-  const isLongerLg = useIsWidthLonger("lg");
   let determineDisabled;
   let handleTooltip;
 

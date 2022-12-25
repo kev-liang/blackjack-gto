@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import TableViewIcon from "@mui/icons-material/TableView";
 import BlockIcon from "@mui/icons-material/Block";
-import InfoIcon from "@mui/icons-material/Info";
-import Settings from "@mui/icons-material/Settings";
+
 import Tooltip from "@mui/material/Tooltip";
 import LoggedIn from "components/layout/nav/LoggedIn";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import { trackEvent } from "analytics/analytics";
+import MobileMenu from "components/layout/nav/MobileMenu";
+import DesktopMenu from "components/layout/nav/DesktopMenu";
 
 import {
   toggleModalOpenAction,
@@ -78,7 +77,7 @@ function NavBar(props) {
               size="large"
               edge="start"
               color="inherit"
-              aria-label="menu"
+              aria-label="basic-strategy-chart"
               onClick={handleShowTableClick}
             >
               {showBasicStrategyChart && (
@@ -96,21 +95,12 @@ function NavBar(props) {
           </Tooltip>
 
           <Box sx={{ flexGrow: 1 }}></Box>
-          <Tooltip title="Information" placement="bottom">
-            <Button color="inherit" onClick={handleInfoModalClick}>
-              <InfoIcon></InfoIcon>
-            </Button>
-          </Tooltip>
-          <Tooltip title="Statistics" placement="bottom">
-            <Button color="inherit" onClick={handleStatisticsModalClick}>
-              <BarChartIcon></BarChartIcon>
-            </Button>
-          </Tooltip>
-          <Tooltip title="Settings" placement="bottom">
-            <Button color="inherit" onClick={handleSettingsClick}>
-              <Settings></Settings>
-            </Button>
-          </Tooltip>
+          <MobileMenu
+            handleInfoModalClick={handleInfoModalClick}
+            handleStatisticsModalClick={handleStatisticsModalClick}
+            handleSettingsClick={handleSettingsClick}
+          ></MobileMenu>
+          <DesktopMenu></DesktopMenu>
           <LoggedIn></LoggedIn>
           {!user && <div id="google-sign-in"></div>}
         </Toolbar>

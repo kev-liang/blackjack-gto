@@ -6,7 +6,7 @@ const TableLogo = (props) => {
       <div className="">
         <img src={logo} className="logo-img" alt="Crack Blackjack Logo" />
       </div>
-      <div className="table-logo">Crack Blackjack</div>
+      <div className="table-title">Crack Blackjack</div>
     </div>
   );
 };

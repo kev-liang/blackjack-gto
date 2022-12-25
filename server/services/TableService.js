@@ -126,7 +126,6 @@ class TableService {
       this.tableStateService.tableState === Constants.T_STATE_DEALER
     ) {
       result.dealer.shownCards = result.dealer.cards;
-      result.dealer.shouldShowAllCards = true;
     } else {
       result.dealer.shownCards = [result.dealer.cards[1]];
       result.dealer.getCardTotal([...result.dealer.shownCards]);
@@ -138,6 +137,8 @@ class TableService {
   afterAction() {
     this.handlePlayerBlackjack();
     this.tableStateService.determineTableState(this.players, this.dealer);
+    this.dealer.shouldShowAllCards =
+      this.tableStateService.tableState === Constants.T_STATE_DEALER;
     this.determineNextPlayer();
     this.determineWinner();
   }

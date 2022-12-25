@@ -19,6 +19,7 @@ import SettingsService from "services/SettingsService";
 import ConstantsFE from "utils/constants/ConstantsFE";
 import { setResetDelayAction } from "actions/applicationActions";
 import { trackEvent } from "analytics/analytics";
+import { setShowHandTotalAction } from "actions/settingsActions";
 const settingsConfig = require("config/settingsConfig.json");
 
 const components = {
@@ -37,7 +38,9 @@ function SettingsDrawer(props) {
     setShowSettingsDrawer,
     resetDelay,
     setResetDelay,
-    validation
+    validation,
+    showHandTotal,
+    setShowHandTotal
   } = props;
   const [settings, setSettings] = useState([]);
   const [numDecks, setNumDecks] = useState(ConstantsFE.DEFAULT_NUM_DECK);
@@ -59,14 +62,25 @@ function SettingsDrawer(props) {
       numDecks,
       resetDelay,
       setResetDelay,
-      changeNumDecks
+      changeNumDecks,
+      showHandTotal,
+      handleShowHandTotalChange
     };
     setPropsMap(localPropsMap);
-  }, [numDecks, resetDelay]);
+  }, [numDecks, resetDelay, showHandTotal]);
 
   const toggleDealerPlaying = () => {
     trackEvent("Settings", "Toggle Dealer Playing", "Toggle Dealer Checkbox");
     SettingsService.toggleDealerPlaying();
+  };
+
+  const handleShowHandTotalChange = () => {
+    trackEvent(
+      "Settings",
+      "Set Show Hand Total",
+      "Toggle Show Hand Total Checkbox"
+    );
+    setShowHandTotal(!showHandTotal);
   };
 
   const changeNumDecks = (e) => {
@@ -159,6 +173,7 @@ function SettingsDrawer(props) {
                                 {
                                   onChange: propsMap[component.onChange],
                                   value: propsMap[component.value],
+                                  checked: propsMap[component.value],
                                   key: `${component.component}-${i}`,
                                   ...component.props
                                 },
@@ -191,7 +206,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       setShowSettingsDrawer: setShowSettingsDrawerAction,
-      setResetDelay: setResetDelayAction
+      setResetDelay: setResetDelayAction,
+      setShowHandTotal: setShowHandTotalAction
     },
     dispatch
   );
@@ -201,7 +217,8 @@ const mapStateToProps = (state) => {
   return {
     showDrawer: state.application.showDrawer,
     resetDelay: state.application.resetDelay,
-    validation: state.validation
+    validation: state.validation,
+    showHandTotal: state.settings.showHandTotal
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsDrawer);

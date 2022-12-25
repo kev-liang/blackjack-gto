@@ -10,17 +10,8 @@ class MongoDBConnection {
   }
 
   getUri() {
-    let user, password;
-    if (process.env.NODE_ENV === "production") {
-      user = process.env.DB_USER;
-      password = process.env.DB_PASSWORD;
-      this.dbName = "crack-blackjack";
-    } else {
-      const dbSecrets = require("../config/secrets.json");
-      user = dbSecrets.user;
-      password = dbSecrets.password;
-      this.dbName = "crack-blackjack-dev";
-    }
+    let user = process.env.DB_USER;
+    let password = process.env.DB_PASSWORD;
     return `mongodb+srv://${user}:${password}@cluster0.16qkd.mongodb.net/?retryWrites=true&w=majority`;
   }
 

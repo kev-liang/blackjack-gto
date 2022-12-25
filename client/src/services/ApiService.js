@@ -1,5 +1,4 @@
 import axios from "axios";
-import Url from "utils/BackendUrlUtil";
 
 import { updateTableAction } from "actions/tableActions";
 import { setBasicStrategyChartsAction } from "actions/basicStrategyActions";
@@ -15,7 +14,7 @@ import _ from "lodash";
 
 class ApiService {
   constructor() {
-    this.url = Url;
+    this.url = process.env.REACT_APP_BACKEND_URL;
   }
 
   getAndUpdateTable(endpoint) {
@@ -63,7 +62,7 @@ class ApiService {
       let mostMisplayedData = res.data;
       store.dispatch(setStatisticsAction(mostMisplayedData));
       // history available
-      if (!_.isEmpty(mostMisplayedData.mostMisplayedValues)) {
+      if (!_.isEmpty(mostMisplayedData.mostMisplayedValues.mostMisplayed)) {
         store.dispatch(setShowStatisticsAction(true));
       }
     });

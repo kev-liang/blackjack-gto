@@ -1,11 +1,10 @@
-import Url from "../utils/BackendUrlUtil";
 import ApiService from "services/ApiService";
 
 import { store } from "store";
 
 class AuthService {
   constructor() {
-    this.url = Url;
+    this.url = process.env.REACT_APP_BACKEND_URL;
   }
 
   sendToken(token) {

@@ -1,9 +1,8 @@
-import Url from "../utils/BackendUrlUtil";
 import ApiService from "../services/ApiService";
 
 class BasicStrategyServiceFE {
   constructor() {
-    this.url = Url;
+    this.url = process.env.REACT_APP_BACKEND_URL;
   }
 
   getBasicStrategyCharts() {

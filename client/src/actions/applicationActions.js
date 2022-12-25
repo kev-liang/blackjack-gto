@@ -37,10 +37,15 @@ const setUserAction = (user) => {
   };
 };
 
+const setIsWindowMdOrSmallerAction = (isWindowMdOrSmaller) => {
+  return {
+    type: "SET_IS_WINDOW_MD_OR_SMALLER",
+    data: isWindowMdOrSmaller
+  };
+};
+
 const setResetDelayAction = (e) => {
   let resetDelay = e.target.value;
-  console.log("SETTING", resetDelay);
-  // debugger;
   if (!numberValidator(resetDelay)) {
     store.dispatch(setSettingsResetDelayErrorAction("Invalid Number"));
     return;
@@ -66,5 +71,6 @@ export {
   setShowSettingsDrawerAction,
   setLoggedInAction,
   setUserAction,
-  setResetDelayAction
+  setResetDelayAction,
+  setIsWindowMdOrSmallerAction
 };

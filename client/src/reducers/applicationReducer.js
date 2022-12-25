@@ -14,6 +14,8 @@ const applicationReducer = (
       return { ...state, isLoggedIn: action.data };
     case "SET_USER":
       return { ...state, user: action.data };
+    case "SET_IS_WINDOW_MD_OR_SMALLER":
+      return { ...state, isWindowMdOrSmaller: action.data };
     case "SET_RESET_DELAY":
       return { ...state, resetDelay: action.data };
     default:

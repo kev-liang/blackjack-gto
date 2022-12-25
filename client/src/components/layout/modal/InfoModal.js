@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import InfoIcon from "@mui/icons-material/Info";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 
 import { setInfoModalOpenAction } from "actions/applicationActions";
 import { bindActionCreators } from "redux";
@@ -33,7 +32,7 @@ const InfoModal = (props) => {
         <Box className="modal-header">
           <InfoIcon></InfoIcon>
           <Typography variant="h4" sx={{ display: "inline", ml: 2 }}>
-            Information
+            Help
           </Typography>
         </Box>
         <Box sx={{ p: 2 }}>

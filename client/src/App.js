@@ -6,7 +6,9 @@ import GoogleLogin from "utils/GoogleLogin";
 import { useEffect, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ReactGA from "react-ga4";
-import secrets from "config/secrets.json";
+import { setIsWindowMdOrSmallerAction } from "actions/applicationActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 const theme = createTheme({
   palette: {
@@ -19,16 +21,17 @@ const theme = createTheme({
   }
 });
 
-const { trackingId } = secrets;
-ReactGA.initialize(trackingId);
+ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
 
-function App() {
+function App(props) {
+  const { setIsWindowMdOrSmaller } = props;
   const [showRotateMsg, setShowRotateMsg] = useState(false);
 
   const handleWindowResize = () => {
     setShowRotateMsg(
       window.innerWidth < 1200 && window.innerWidth < window.innerHeight
     );
+    setIsWindowMdOrSmaller(window.innerWidth < 1200);
   };
 
   useEffect(() => {
@@ -51,4 +54,13 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      setIsWindowMdOrSmaller: setIsWindowMdOrSmallerAction
+    },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(App);
