@@ -10,7 +10,10 @@ const BasicStrategy = (props) => {
 
   if (showBasicStrategyChart) {
     return (
-      <Box className="basic-strategy-container" sx={{ width: "372px" }}>
+      <Box
+        className="basic-strategy-container"
+        sx={{ "@media (max-width: 1200px)": { width: "256px" } }}
+      >
         <BasicStrategyChart></BasicStrategyChart>
         <BasicStrategyKey></BasicStrategyKey>
       </Box>

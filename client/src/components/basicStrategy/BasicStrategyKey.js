@@ -4,9 +4,10 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import DecisionConstantsFE from "utils/constants/DecisionConstantsFE";
-import ColorConstants from "utils/constants/ColorConstants";
 import TableUtils from "utils/TableUtils";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import ColoredBox from "components/common/ColoredBox";
+import ColorConstants from "utils/constants/ColorConstants";
 
 const BasicStrategyKey = (props) => {
   const { table } = props;
@@ -48,39 +49,47 @@ const BasicStrategyKey = (props) => {
     }
   };
 
+  // create the box with color and letter and the key message
   const getDecisionKey = (decision) => {
     let keyString = DecisionConstantsFE.KEY_MESSAGES[decision];
     let splitString = keyString.split("\n");
     return (
-      <Box key={decision} sx={{ height: "45px" }}>
-        <Box
-          key={`inner-${decision}`}
-          className="key-text"
-          sx={{
-            height: 30,
-            width: 30,
-            m: 1,
-            display: "inline-block",
-            ...ColorConstants.BACKGROUND_COLORS[decision],
-            position: "relative"
-          }}
-        >
-          <Typography sx={{ lineHeight: "30px" }}>{decision}</Typography>
-        </Box>
+      <Box
+        key={decision}
+        sx={{
+          height: "45px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <ColoredBox
+          text={decision}
+          backgroundColor={ColorConstants.BACKGROUND_COLORS[decision]}
+          color="#fff"
+        ></ColoredBox>
+        {/* For issues with longer lines, create a new element for the new line */}
         {splitString.length === 1 ? (
           <Typography
             sx={{
               display: "inline-block",
-              fontSize: "14px"
+              fontSize: "14px",
+              "@media (max-width: 1200px)": { fontSize: "12px" }
             }}
           >
             {splitString[0]}
           </Typography>
         ) : (
-          <Typography className="key-text">{splitString[0]}</Typography>
+          <Typography
+            sx={{ "@media (max-width: 1200px)": { fontSize: "12px" } }}
+          >
+            {splitString[0]}
+          </Typography>
         )}
         {splitString.length === 2 && (
-          <Typography className="key-text">
+          <Typography
+            sx={{ "@media (max-width: 1200px)": { fontSize: "12px" } }}
+          >
             {DecisionConstantsFE.KEY_MESSAGES[decision].split("\n")[1]}
           </Typography>
         )}

@@ -1,10 +1,3 @@
-const setShowDrawerAction = (showDrawer) => {
-  return {
-    type: "SET_DRAWER",
-    data: showDrawer
-  };
-};
-
 const setShowBasicStrategyChartAction = (showTable) => {
   return {
     type: "SET_SHOW_BASIC_STRATEGY_CHART",
@@ -12,4 +5,11 @@ const setShowBasicStrategyChartAction = (showTable) => {
   };
 };
 
-export { setShowDrawerAction, setShowBasicStrategyChartAction };
+const setShowHandTotalAction = (showHandTotal) => {
+  return {
+    type: "SET_SHOW_HAND_TOTAL",
+    data: showHandTotal
+  };
+};
+
+export { setShowBasicStrategyChartAction, setShowHandTotalAction };

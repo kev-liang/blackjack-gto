@@ -1,7 +1,7 @@
 import "styles/_common.scss";
 import { connect } from "react-redux";
 import ColorConstants from "utils/constants/ColorConstants";
-import BasicStrategyServiceFE from "services/BasicStrategyServiceFE";
+import BasicStrategyHelper from "helpers/BasicStrategyHelper";
 import { useEffect, useState } from "react";
 import TableUtils from "utils/TableUtils";
 import _ from "lodash";
@@ -29,7 +29,12 @@ const tdStyle = {
     boxSizing: "border-box",
     position: "relative",
     padding: "0px",
-    color: "#fff"
+    color: "#fff",
+    "@media (max-width: 1200px)": {
+      width: 20,
+      height: 20,
+      fontSize: 12
+    }
   },
   handValue: {
     backgroundColor: "rgba(128, 128, 128, 0.7)"
@@ -44,7 +49,7 @@ const BasicStrategyChart = (props) => {
   let handleChart;
 
   useEffect(() => {
-    BasicStrategyServiceFE.getBasicStrategyCharts();
+    BasicStrategyHelper.getBasicStrategyCharts();
     let range = [...Array(9).keys()];
     setDealerShownCards([...range.map((r) => r + 2), "A"]);
   }, []);
@@ -105,11 +110,19 @@ const BasicStrategyChart = (props) => {
             transform: "rotate(180deg)"
           }}
         >
-          <Typography sx={{ px: 1 }}>{sideBarText}</Typography>
+          <Typography
+            sx={{ px: 1, "@media (max-width: 1200px)": { fontSize: "12px" } }}
+          >
+            {sideBarText}
+          </Typography>
         </Box>
         <Box>
           <Box sx={{ color: "#fff" }}>
-            <Typography sx={{ py: 1 }}>Dealer Shown Card</Typography>
+            <Typography
+              sx={{ py: 1, "@media (max-width: 1200px)": { fontSize: "12px" } }}
+            >
+              Dealer Shown Card
+            </Typography>
           </Box>
           <Table aria-label="simple table">
             <TableBody>
@@ -145,7 +158,7 @@ const BasicStrategyChart = (props) => {
                       key={`decision-${i}-${j}`}
                       sx={{
                         ...tdStyle.cell,
-                        ...ColorConstants.BACKGROUND_COLORS[val]
+                        backgroundColor: ColorConstants.BACKGROUND_COLORS[val]
                       }}
                       align="center"
                     >

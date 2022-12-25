@@ -8,7 +8,7 @@ import {
   addPlayerAnimationCompletedAction
 } from "actions/animationActions";
 import { bindActionCreators } from "redux";
-import AnimationService from "services/AnimationService";
+import AnimationDomain from "helpers/AnimationHelper";
 
 const Card = (props) => {
   const {
@@ -44,7 +44,7 @@ const Card = (props) => {
     if (table.tableState === ConstantsFE.T_STATE_END) {
       setDisplay(false);
     } else if (table.tableState === ConstantsFE.T_STATE_DEALER) {
-      AnimationService.setAnimations(table);
+      AnimationDomain.setAnimations(table);
     }
   }, [table, animationsEnabled]);
 

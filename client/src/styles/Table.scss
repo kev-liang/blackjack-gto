@@ -1,24 +1,25 @@
 @import "_common.scss";
+@import "_vars.scss";
 
 .table {
-    position: absolute;
-    z-index: -1;
-    top: -130%;
-    left: -14%;
-    right: 0;
-    height: 200vh;
-    border-radius: 0 0 100% 100%;
-    background-color: #5E4075;
-    width: 120vw;
-    border: 50px solid #000;
-    box-shadow: inset 0px 5px 75px #000;
+  position: absolute;
+  z-index: -1;
+  top: -130%;
+  left: -14%;
+  right: 0;
+  height: 200vh;
+  border-radius: 0 0 100% 100%;
+  background-color: $primary;
+  width: 120vw;
+  border: 50px solid #000;
+  box-shadow: inset 0px 5px 75px #000;
 }
 
 .inner-table {
-    width: 120vw;
-    height: 250vh;
-    position: absolute;
-    bottom: 15%;
-    border-radius: 0 0 100% 100%;
-    border: 5px solid #BCABC3;
+  width: 120vw;
+  height: 250vh;
+  position: absolute;
+  bottom: 15%;
+  border-radius: 0 0 100% 100%;
+  border: 5px solid #bcabc3;
 }

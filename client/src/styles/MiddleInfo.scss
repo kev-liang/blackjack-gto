@@ -1,4 +1,5 @@
 @import "_common.scss";
+@import "_vars.scss";
 
 .middle-info-container {
   position: absolute;
@@ -8,4 +9,9 @@
   padding: 10px 20px;
   border-radius: 20px;
   width: 25%;
+  @media screen and (max-width: $screen-large) {
+    left: auto !important;
+    right: 5% !important;
+    bottom: auto !important;
+  }
 }
