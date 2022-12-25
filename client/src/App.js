@@ -3,7 +3,7 @@ import TableRenderer from "components/layout/table/TableRenderer";
 import RotateScreen from "components/RotateScreen";
 import GoogleLogin from "utils/GoogleLogin";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ReactGA from "react-ga4";
 import { setIsWindowMdOrSmallerAction } from "actions/applicationActions";
@@ -27,12 +27,12 @@ function App(props) {
   const { setIsWindowMdOrSmaller } = props;
   const [showRotateMsg, setShowRotateMsg] = useState(false);
 
-  const handleWindowResize = () => {
+  const handleWindowResize = useCallback(() => {
     setShowRotateMsg(
       window.innerWidth < 1200 && window.innerWidth < window.innerHeight
     );
     setIsWindowMdOrSmaller(window.innerWidth < 1200);
-  };
+  }, [setIsWindowMdOrSmaller]);
 
   useEffect(() => {
     handleWindowResize();
@@ -42,7 +42,7 @@ function App(props) {
       window.removeEventListener("resize");
       window.removeEventListener("load");
     };
-  }, []);
+  }, [handleWindowResize]);
 
   return (
     <ThemeProvider theme={theme}>

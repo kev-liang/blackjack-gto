@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ScreenRotationIcon from "@mui/icons-material/ScreenRotation";

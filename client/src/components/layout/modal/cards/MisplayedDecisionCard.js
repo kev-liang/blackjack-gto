@@ -13,21 +13,22 @@ const MisplayedDecisionCard = (props) => {
   const [handType, setHandType] = useState("");
   const [playerValue, setPlayerValue] = useState(0);
   const [dealerValue, setDealerValue] = useState(0);
+  let parseMisplayedHandString;
 
   useEffect(() => {
     parseMisplayedHandString(mostMisplayedValues);
-  }, [mostMisplayedValues]);
+  }, [mostMisplayedValues, parseMisplayedHandString]);
 
-  function parseMisplayedHandString(mostMisplayedValues) {
+  parseMisplayedHandString = (mostMisplayedValues) => {
     let localMostMisplayed = mostMisplayedValues.mostMisplayed[0];
     setMostMisplayed(localMostMisplayed);
     let { playerValues } = localMostMisplayed;
     getHandType(playerValues);
     setPlayerValue(playerValues.playerValue);
     setDealerValue(localMostMisplayed.dealerValue);
-  }
+  };
 
-  function getHandType(playerValues) {
+  const getHandType = (playerValues) => {
     const { isPair, isSoft } = playerValues;
     if (isPair) {
       setHandType("Pair");
@@ -36,7 +37,7 @@ const MisplayedDecisionCard = (props) => {
     } else {
       setHandType("Hard");
     }
-  }
+  };
 
   return (
     <MuiCard
