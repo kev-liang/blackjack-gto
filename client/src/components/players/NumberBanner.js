@@ -16,6 +16,17 @@ const NumberBanner = (props) => {
     if (!table || !player) return;
     setValue(player.displayTotal);
     setIsTurn(id === table.turnId);
+
+    const handleStyling = () => {
+      let marginLeft = 2;
+      let diff = 4; // due to 2px border
+      if (id === ConstantsFE.DEALER_ID) {
+        diff = 2; // looks like a pixel missing when 2 cards but good w other num cards for some reason
+        marginLeft = 1;
+      }
+      setWidth(`calc(100% - ${diff}px)`);
+      setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
+    };
     handleStyling();
   }, [table, player, id]);
 
@@ -51,17 +62,6 @@ const NumberBanner = (props) => {
     animationsEnabled,
     id
   ]);
-
-  const handleStyling = () => {
-    let marginLeft = 2;
-    let diff = 4; // due to 2px border
-    if (id === ConstantsFE.DEALER_ID) {
-      diff = 2; // looks like a pixel missing when 2 cards but good w other num cards for some reason
-      marginLeft = 1;
-    }
-    setWidth(`calc(100% - ${diff}px)`);
-    setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
-  };
 
   if (display && showHandTotal) {
     return (
