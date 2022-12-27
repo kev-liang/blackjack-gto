@@ -19,7 +19,7 @@ const MainButton = (props) => {
         pointerEvents: "none"
       });
     }
-  }, [disabled]);
+  }, [disabled, height, width]);
 
   return (
     <Button
