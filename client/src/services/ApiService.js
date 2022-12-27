@@ -19,7 +19,9 @@ class ApiService {
 
   getAndUpdateTable(endpoint) {
     axios
-      .get(endpoint)
+      .get(endpoint, {
+        headers: { "x-access-token": localStorage.getItem("token") }
+      })
       .then((res) => {
         let table = res.data;
         store.dispatch(updateTableAction(table));
@@ -49,23 +51,29 @@ class ApiService {
     });
   }
 
-  sendToken(endpoint, token) {
-    let body = { token };
+  sendIdToken(endpoint, idToken) {
+    let body = { idToken };
     axios.post(endpoint, body).then((res) => {
-      store.dispatch(setUserAction(res.data));
+      const { user, token } = res.data;
+      store.dispatch(setUserAction(user));
+      localStorage.setItem("token", token);
       ActionServiceFE.getStatistics(ConstantsFE.USER_ID);
     });
   }
 
   getStatistics(endpoint) {
-    axios.get(endpoint).then((res) => {
-      let mostMisplayedData = res.data;
-      store.dispatch(setStatisticsAction(mostMisplayedData));
-      // history available
-      if (!_.isEmpty(mostMisplayedData.mostMisplayedValues.mostMisplayed)) {
-        store.dispatch(setShowStatisticsAction(true));
-      }
-    });
+    axios
+      .get(endpoint, {
+        headers: { "x-access-token": localStorage.getItem("token") }
+      })
+      .then((res) => {
+        let mostMisplayedData = res.data;
+        store.dispatch(setStatisticsAction(mostMisplayedData));
+        // history available
+        if (!_.isEmpty(mostMisplayedData.mostMisplayedValues.mostMisplayed)) {
+          store.dispatch(setShowStatisticsAction(true));
+        }
+      });
   }
 }
 

@@ -12,4 +12,15 @@ const setShowHandTotalAction = (showHandTotal) => {
   };
 };
 
-export { setShowBasicStrategyChartAction, setShowHandTotalAction };
+const setShowCountAction = (showCount) => {
+  return {
+    type: "SET_SHOW_COUNT",
+    data: showCount
+  };
+};
+
+export {
+  setShowBasicStrategyChartAction,
+  setShowHandTotalAction,
+  setShowCountAction
+};

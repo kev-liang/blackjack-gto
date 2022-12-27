@@ -4,6 +4,8 @@ import ActionConstantsFE from "utils/constants/ActionConstantsFE";
 
 import { trackEvent } from "analytics/analytics";
 import { store } from "store";
+import { setShowCountAction } from "actions/settingsActions";
+import SettingsService from "services/SettingsService";
 
 class KeyDownService {
   handleKeyDown = (e) => {
@@ -46,6 +48,13 @@ class KeyDownService {
           ActionServiceFE.surrender,
           turnId
         );
+        break;
+      case KeyboardUtil.toggleCount:
+        trackEvent("Settings", "Toggle Count", "Keyboard");
+        store.dispatch(setShowCountAction());
+        break;
+      case KeyboardUtil.resetCount:
+        SettingsService.resetCount();
         break;
       default:
         return;

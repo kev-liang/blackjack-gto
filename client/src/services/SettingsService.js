@@ -1,6 +1,7 @@
 import ApiService from "./ApiService";
 
 import { store } from "../store";
+import { trackEvent } from "analytics/analytics";
 
 class SettingsService {
   constructor() {
@@ -16,6 +17,13 @@ class SettingsService {
   changeNumDecks(numDecks) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/change-num-decks?num=${numDecks}&id=${id}`;
+    ApiService.patchAndUpdateTable(endpoint);
+  }
+
+  resetCount() {
+    trackEvent("Settings", "Reset Count", "All");
+    let id = store.getState().table.id;
+    let endpoint = `${this.url}/reset-count?id=${id}`;
     ApiService.patchAndUpdateTable(endpoint);
   }
 }

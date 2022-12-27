@@ -17,10 +17,6 @@ class TableStateHelper {
 
   resetTable(table) {
     if (table.tableState === ConstantsFE.T_STATE_END) {
-      console.log(
-        "RESETTING IN",
-        store.getState().application.resetDelay * 1000
-      );
       setTimeout(() => {
         ActionServiceFE.deal(store.getState().table.numPlayers);
       }, store.getState().application.resetDelay * 1000);

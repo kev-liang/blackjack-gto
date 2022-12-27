@@ -15,7 +15,14 @@ const LoggedIn = (props) => {
   if (isLoggedIn) {
     return (
       <div className="logged-in">
-        <img className="logged-in-prof-pic" src={profImgUrl} alt="" />{" "}
+        <img
+          className="logged-in-prof-pic"
+          src={profImgUrl}
+          alt=""
+          onError={({ currentTarget }) =>
+            (currentTarget.style.display = "none")
+          }
+        />
         <p>
           Signed in as <span className="logged-in-name">{name}</span>
         </p>

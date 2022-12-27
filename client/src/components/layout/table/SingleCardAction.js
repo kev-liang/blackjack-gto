@@ -7,15 +7,14 @@ import TableUtils from "utils/TableUtils";
 import ConstantsFE from "utils/constants/ConstantsFE";
 import React from "react";
 import { trackEvent } from "analytics/analytics";
+import MainButton from "components/common/MainButton";
 
 import Tooltip from "@mui/material/Tooltip";
-import Button from "@mui/material/Button";
 
 function SingleCardAction(props) {
   const { table, players, turnId, tableState, action } = props;
   const { label, handleFn, msgReplacement } = action;
   const [disabled, setDisabled] = React.useState(true);
-  const [buttonStyles, setButtonStyles] = React.useState();
   const [tooltip, setTooltip] = React.useState("");
   let determineDisabled;
   let handleTooltip;
@@ -40,39 +39,24 @@ function SingleCardAction(props) {
     }
   }, [tableState]);
 
-  React.useEffect(() => {
-    const defaultStyles = {
-      height: 50,
-      width: 110
-    };
-    if (!disabled) {
-      setButtonStyles(defaultStyles);
-    } else {
-      setButtonStyles({
-        ...defaultStyles,
-        backgroundColor: "#aaa",
-        pointerEvents: "none"
-      });
-    }
-  }, [disabled]);
-
   const handleClick = (handleFn) => {
     if (disabled) return;
+    console.log("HANDLING", handleFn);
     trackEvent("Actions", handleFn, "Button");
     switch (handleFn) {
-      case "handleSplit":
+      case "Split":
         handleSplit();
         break;
-      case "handleStand":
+      case "Stand":
         handleStand();
         break;
-      case "handleDouble":
+      case "Double":
         handleDouble();
         break;
-      case "handleHit":
+      case "Hit":
         handleHit();
         break;
-      case "handleSurrender":
+      case "Surrender":
         handleSurrender();
         break;
       default:
@@ -141,16 +125,11 @@ function SingleCardAction(props) {
     <div>
       <Tooltip title={tooltip} placement="top">
         <span>
-          <Button
-            onClick={() => handleClick(handleFn)}
-            variant="contained"
-            className={`card-action-button ${
-              disabled ? "card-action-button-disabled" : ""
-            }`}
-            sx={{ ...buttonStyles }}
-          >
-            {label}
-          </Button>
+          <MainButton
+            label={label}
+            handleClick={handleClick}
+            disabled={disabled}
+          ></MainButton>
         </span>
       </Tooltip>
     </div>

@@ -12,7 +12,10 @@ const BasicStrategy = (props) => {
     return (
       <Box
         className="basic-strategy-container"
-        sx={{ "@media (max-width: 1200px)": { width: "256px" } }}
+        sx={{
+          width: "372px",
+          "@media (max-width: 1200px)": { width: "256px" }
+        }}
       >
         <BasicStrategyChart></BasicStrategyChart>
         <BasicStrategyKey></BasicStrategyKey>

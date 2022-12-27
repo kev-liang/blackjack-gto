@@ -7,7 +7,7 @@ class GoogleLogin {
   init() {
     const handleInitialize = (res) => {
       trackEvent("NavBar", "Sign In", "Sign In Button");
-      AuthService.sendToken(res);
+      AuthService.sendIdToken(res);
       store.dispatch(setLoggedInAction(true));
     };
 

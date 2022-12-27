@@ -24,7 +24,7 @@ KEY_MESSAGES[SURRENDER_HIT] = "Surrender if allowed, otherwise hit";
 KEY_MESSAGES[SURRENDER_STAND] = "Surrender if allowed, otherwise stand";
 KEY_MESSAGES[
   SPLIT_DOUBLE
-] = `Split if double allowed after split,\notherwise hit`;
+] = `Split if double allowed after split, otherwise hit`;
 KEY_MESSAGES[DOUBLE_STAND] = "Double if allowed, otherwise stand";
 
 const DecisionConstantsFE = {

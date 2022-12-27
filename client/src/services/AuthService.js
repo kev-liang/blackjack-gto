@@ -7,10 +7,10 @@ class AuthService {
     this.url = process.env.REACT_APP_BACKEND_URL;
   }
 
-  sendToken(token) {
+  sendIdToken(idToken) {
     let id = store.getState().table.id;
     let endpoint = `${this.url}/authenticate?id=${id}`;
-    ApiService.sendToken(endpoint, token);
+    ApiService.sendIdToken(endpoint, idToken);
   }
 }
 

@@ -14,13 +14,15 @@ import { useState } from "react";
 const MobileMenu = (props) => {
   const {
     isWindowMdOrSmaller,
-    // eslint-disable-next-line
     handleInfoModalClick,
-    // eslint-disable-next-line
     handleStatisticsModalClick,
-    // eslint-disable-next-line
     handleSettingsClick
   } = props;
+  const handleFnObj = {
+    handleInfoModalClick,
+    handleStatisticsModalClick,
+    handleSettingsClick
+  };
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -30,7 +32,7 @@ const MobileMenu = (props) => {
 
   const handleClose = (handleFn) => {
     setAnchorEl(null);
-    if (handleFn) props[handleFn]();
+    if (handleFn) handleFnObj[handleFn]();
   };
 
   if (isWindowMdOrSmaller) {
