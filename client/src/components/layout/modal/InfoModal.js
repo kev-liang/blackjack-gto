@@ -77,6 +77,11 @@ const InfoModal = (props) => {
               value of -1. Mid-range cards, such as 7, 8, and 9, are assigned a
               value of 0 and are not counted.
             </Typography>
+            <Typography
+              sx={{ textDecoration: "underline", textAlign: "center", mb: 1 }}
+            >
+              Card Values and Corresponding Count Value
+            </Typography>
             <InfoModalChart></InfoModalChart>
           </Box>
           <Box>

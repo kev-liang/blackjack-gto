@@ -44,9 +44,7 @@ class Deck {
       let card = this.deck[this.currCard];
       this.currCard++;
       cards.push(card);
-      if (shouldCount) {
-        this.count(card.value);
-      }
+      this.count(card.value, shouldCount);
       if (this.currCard === this.deck.length) {
         this.shuffle();
       }
@@ -56,13 +54,13 @@ class Deck {
 
   dealTest(numCards, shouldCount = true) {
     this.deck = [
-      { value: 2, suit: "h" },
-      { value: 3, suit: "c" },
-      { value: 8, suit: "h" },
-      { value: 8, suit: "c" },
-      { value: 10, suit: "s" },
       { value: 14, suit: "h" },
-      { value: 14, suit: "c" },
+      { value: 6, suit: "c" },
+      { value: 3, suit: "h" },
+      { value: 9, suit: "c" },
+      { value: 14, suit: "s" },
+      { value: 14, suit: "h" },
+      { value: 10, suit: "c" },
       { value: 14, suit: "s" },
       { value: 14, suit: "h" },
       { value: 14, suit: "c" },
@@ -73,14 +71,14 @@ class Deck {
       let card = this.deck[this.currCard];
       this.currCard++;
       cards.push(card);
-      if (shouldCount) {
-        this.count(card.value);
-      }
+      this.count(card.value, shouldCount);
     }
     return cards;
   }
 
-  count(value) {
+  count(value, shouldCount) {
+    console.log("COUNTING", value, shouldCount);
+    if (!shouldCount) return;
     if (value <= 6) {
       this.tableService.count++;
     } else if (value >= 10) {

@@ -1,5 +1,7 @@
 const numberValidator = (number) => {
-  return (!isNaN(number) && number !== " ") || number === "";
+  return (
+    (!isNaN(number) && number !== " ") || number === "" || number.endsWith(".")
+  );
 };
 
 const greaterThanZeroValidator = (number) => {
