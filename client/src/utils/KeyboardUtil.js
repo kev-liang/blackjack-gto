@@ -5,6 +5,8 @@ class KeyboardUtil {
     this.split = "S";
     this.double = "D";
     this.surrender = "F";
+    this.toggleCount = "C";
+    this.resetCount = "R";
   }
 }
 

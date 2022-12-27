@@ -13,6 +13,8 @@ import Grid from "@mui/material/Grid";
 import StatModalMissingCard from "components/layout/modal/cards/StatModalMissingCard";
 import ComingSoon from "components/layout/modal/cards/ComingSoon";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 
 const ModalRenderer = (props) => {
   const { isModalOpen, toggleModalOpen, showStatistics } = props;
@@ -47,11 +49,21 @@ const ModalRenderer = (props) => {
       aria-describedby="Your Statistics"
     >
       <Box className="modal" sx={{ ...style }}>
-        <Box className="modal-header">
-          <BarChartIcon></BarChartIcon>
-          <Typography variant="h4" sx={{ display: "inline", ml: 2 }}>
-            Your Statistics
-          </Typography>
+        <Box
+          className="modal-header"
+          sx={{ display: "flex", alignItems: "center" }}
+        >
+          <Box sx={{ flex: 1 }}>
+            <BarChartIcon></BarChartIcon>
+            <Typography variant="h4" sx={{ display: "inline", ml: 2 }}>
+              Your Statistics
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton onClick={handleClose} sx={{ color: "inherit" }}>
+              <CloseIcon fontSize="large"></CloseIcon>
+            </IconButton>
+          </Box>
         </Box>
         {showStatistics ? (
           <Box>

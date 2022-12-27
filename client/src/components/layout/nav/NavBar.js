@@ -100,7 +100,11 @@ function NavBar(props) {
             handleStatisticsModalClick={handleStatisticsModalClick}
             handleSettingsClick={handleSettingsClick}
           ></MobileMenu>
-          <DesktopMenu></DesktopMenu>
+          <DesktopMenu
+            handleInfoModalClick={handleInfoModalClick}
+            handleStatisticsModalClick={handleStatisticsModalClick}
+            handleSettingsClick={handleSettingsClick}
+          ></DesktopMenu>
           <LoggedIn></LoggedIn>
           {!user && <div id="google-sign-in"></div>}
         </Toolbar>

@@ -3,7 +3,7 @@
   "icon": "SettingsIcon",
   "settings": [
     {
-      "show": false,
+      "show": true,
       "subTitle": {
         "text": "Display",
         "variant": "h6"
@@ -11,26 +11,40 @@
       "icon": "MonitorIcon",
       "options": [
         {
+          "show": true,
           "components": [
             {
               "component": "Checkbox",
-              "onChange": "change"
+              "onChange": "setShowCount",
+              "value": "showCount",
+              "props": {
+                "sx": {
+                  "padding": 0
+                }
+              }
             },
             {
               "component": "p",
-              "text": "Display count"
+              "text": "Show running count"
             }
           ]
         },
         {
+          "show": true,
           "components": [
             {
               "component": "Checkbox",
-              "onChange": "change"
+              "onChange": "handleShowHandTotalChange",
+              "value": "showHandTotal",
+              "props": {
+                "sx": {
+                  "padding": 0
+                }
+              }
             },
             {
               "component": "p",
-              "text": "Display winner"
+              "text": "Show hand total"
             }
           ]
         },
@@ -71,25 +85,6 @@
             {
               "component": "p",
               "text": "Enable dealing dealer"
-            }
-          ]
-        },
-        {
-          "show": true,
-          "components": [
-            {
-              "component": "Checkbox",
-              "onChange": "handleShowHandTotalChange",
-              "value": "showHandTotal",
-              "props": {
-                "sx": {
-                  "padding": 0
-                }
-              }
-            },
-            {
-              "component": "p",
-              "text": "Show hand total"
             }
           ]
         },
@@ -161,7 +156,7 @@
           ]
         },
         {
-          "show": true,
+          "show": false,
           "components": [
             {
               "component": "p",

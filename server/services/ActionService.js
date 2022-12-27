@@ -11,12 +11,13 @@ class ActionService {
     this.mongoDbConnection = mongoDbConnection;
   }
 
-  hit(playerId) {
+  hit(playerId, isAuthenticated) {
     let player = this.tableService.findPlayerById(playerId);
     this.getHistory(
       player,
       this.tableService.dealer.cards[1].value,
-      DecisionConstants.HIT
+      DecisionConstants.HIT,
+      isAuthenticated
     );
     player.deal(1);
     player.getCardTotal();
@@ -55,37 +56,40 @@ class ActionService {
     return player.cards.find((card) => card.value === 14);
   }
 
-  stand(playerId) {
+  stand(playerId, isAuthenticated) {
     let player = this.tableService.findPlayerById(playerId);
     this.getHistory(
       player,
       this.tableService.dealer.cards[1].value,
-      DecisionConstants.STAND
+      DecisionConstants.STAND,
+      isAuthenticated
     );
     player.playerState = Constants.P_STATE_STAND;
     player.isPlaying = false;
     this.tableService.afterAction();
   }
 
-  split(playerId) {
+  split(playerId, isAuthenticated) {
     let player = this.tableService.findPlayerById(playerId);
     this.tableService.addSplit(player);
     this.getHistory(
       player,
       this.tableService.dealer.cards[1].value,
-      DecisionConstants.SPLIT
+      DecisionConstants.SPLIT,
+      isAuthenticated
     );
     this.tableService.lastDecision = player.history[player.history.length - 1];
     this.tableService.afterAction();
   }
 
-  double(playerId) {
+  double(playerId, isAuthenticated) {
     let player = this.tableService.findPlayerById(playerId);
     //double bet here
     this.getHistory(
       player,
       this.tableService.dealer.cards[1].value,
-      DecisionConstants.DOUBLE
+      DecisionConstants.DOUBLE,
+      isAuthenticated
     );
     player.deal(1);
     player.getCardTotal();
@@ -94,20 +98,21 @@ class ActionService {
     this.tableService.afterAction();
   }
 
-  surrender(playerId) {
+  surrender(playerId, isAuthenticated) {
     let player = this.tableService.findPlayerById(playerId);
     //double bet here
     this.getHistory(
       player,
       this.tableService.dealer.cards[1].value,
-      DecisionConstants.SURRENDER
+      DecisionConstants.SURRENDER,
+      isAuthenticated
     );
     player.playerState = Constants.P_STATE_LOST;
     player.isPlaying = false;
     this.tableService.afterAction();
   }
 
-  getHistory(player, dealerValue, decision) {
+  getHistory(player, dealerValue, decision, isAuthenticated) {
     // jack, queen, king = 10
     let newDealerValue;
     if (dealerValue === 14) {
@@ -122,12 +127,12 @@ class ActionService {
       player,
       decision
     );
-    this.saveHistory(player, newHistory);
     this.tableService.lastDecision = newHistory;
+    this.saveHistory(player, newHistory, isAuthenticated);
   }
 
   async saveHistory(player, newHistory) {
-    if (!player.userId) return;
+    if (!player.userId || !isAuthenticated) return;
     await this.mongoDbConnection.addHistory(player.userId, newHistory);
   }
 }

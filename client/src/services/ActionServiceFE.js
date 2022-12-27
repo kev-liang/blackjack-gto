@@ -23,36 +23,46 @@ class ActionServiceFE {
   }
 
   hit(playerId, userId) {
-    let id = store.getState().table.id;
-    let endpoint = `${this.url}/hit?playerId=${playerId}&id=${id}`;
+    let state = store.getState();
+    let id = state.table.id;
+    let isLoggedIn = state.application.isLoggedIn;
+    let endpoint = `${this.url}/hit?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId, userId);
   }
 
   stand(playerId) {
-    let id = store.getState().table.id;
-    let endpoint = `${this.url}/stand?playerId=${playerId}&id=${id}`;
+    let state = store.getState();
+    let id = state.table.id;
+    let isLoggedIn = state.application.isLoggedIn;
+    let endpoint = `${this.url}/stand?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
 
   split(playerId) {
-    let id = store.getState().table.id;
-    let endpoint = `${this.url}/split?playerId=${playerId}&id=${id}`;
+    let state = store.getState();
+    let id = state.table.id;
+    let isLoggedIn = state.application.isLoggedIn;
+    let endpoint = `${this.url}/split?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
 
   double(playerId) {
-    let id = store.getState().table.id;
-    let endpoint = `${this.url}/double?playerId=${playerId}&id=${id}`;
+    let state = store.getState();
+    let id = state.table.id;
+    let isLoggedIn = state.application.isLoggedIn;
+    let endpoint = `${this.url}/double?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
 
   surrender(playerId) {
-    let id = store.getState().table.id;
-    let endpoint = `${this.url}/surrender?playerId=${playerId}&id=${id}`;
+    let state = store.getState();
+    let id = state.table.id;
+    let isLoggedIn = state.application.isLoggedIn;
+    let endpoint = `${this.url}/surrender?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
@@ -94,9 +104,11 @@ class ActionServiceFE {
   }
 
   getStatistics(playerId) {
-    let user = store.getState().application.user;
+    let state = store.getState();
+    let user = state.application.user;
+    let isLoggedIn = state.application.isLoggedIn;
     if (playerId <= 0 && user) {
-      let decisionHistoryEndpoint = `${this.url}/getStatistics?userId=${user.sub}`;
+      let decisionHistoryEndpoint = `${this.url}/getStatistics?userId=${user.sub}&isLoggedIn=${!!isLoggedIn}`;
       ApiService.getStatistics(decisionHistoryEndpoint);
     }
   }

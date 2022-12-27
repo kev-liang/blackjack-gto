@@ -19,7 +19,13 @@ import SettingsService from "services/SettingsService";
 import ConstantsFE from "utils/constants/ConstantsFE";
 import { setResetDelayAction } from "actions/applicationActions";
 import { trackEvent } from "analytics/analytics";
-import { setShowHandTotalAction } from "actions/settingsActions";
+import {
+  setShowHandTotalAction,
+  setShowCountAction
+} from "actions/settingsActions";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
+
 const settingsConfig = require("config/settingsConfig.json");
 
 const components = {
@@ -39,7 +45,9 @@ function SettingsDrawer(props) {
     resetDelay,
     setResetDelay,
     showHandTotal,
-    setShowHandTotal
+    setShowHandTotal,
+    showCount,
+    setShowCount
   } = props;
   const [settings, setSettings] = useState([]);
   const [numDecks, setNumDecks] = useState(ConstantsFE.DEFAULT_NUM_DECK);
@@ -63,7 +71,9 @@ function SettingsDrawer(props) {
       setResetDelay,
       changeNumDecks,
       showHandTotal,
-      handleShowHandTotalChange
+      handleShowHandTotalChange,
+      showCount,
+      setShowCount
     };
     setPropsMap(localPropsMap);
   }, [
@@ -71,7 +81,9 @@ function SettingsDrawer(props) {
     resetDelay,
     showHandTotal,
     handleShowHandTotalChange,
-    setResetDelay
+    setResetDelay,
+    showCount,
+    setShowCount
   ]);
 
   const toggleDealerPlaying = () => {
@@ -125,10 +137,19 @@ function SettingsDrawer(props) {
       >
         <Container>
           <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
-            {createElement(components[settingsConfig.icon])}
-            <Typography variant="h4" sx={{ ml: 1, fontWeight: "bold" }}>
-              {settingsConfig.title}
-            </Typography>
+            <Box sx={{ flex: 1 }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                {createElement(components[settingsConfig.icon])}
+                <Typography variant="h4" sx={{ ml: 1, fontWeight: "bold" }}>
+                  {settingsConfig.title}
+                </Typography>
+              </Box>
+            </Box>
+            <Box>
+              <IconButton onClick={closeDrawer} sx={{ color: "inherit" }}>
+                <CloseIcon fontSize="large"></CloseIcon>
+              </IconButton>
+            </Box>
           </Box>
           <hr />
 
@@ -212,7 +233,8 @@ const mapDispatchToProps = (dispatch) => {
     {
       setShowSettingsDrawer: setShowSettingsDrawerAction,
       setResetDelay: setResetDelayAction,
-      setShowHandTotal: setShowHandTotalAction
+      setShowHandTotal: setShowHandTotalAction,
+      setShowCount: setShowCountAction
     },
     dispatch
   );
@@ -223,7 +245,8 @@ const mapStateToProps = (state) => {
     showDrawer: state.application.showDrawer,
     resetDelay: state.application.resetDelay,
     validation: state.validation,
-    showHandTotal: state.settings.showHandTotal
+    showHandTotal: state.settings.showHandTotal,
+    showCount: state.settings.showCount
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsDrawer);

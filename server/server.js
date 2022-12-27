@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== "production") {
 const cardController = require("./controller/CardController");
 const settingsController = require("./controller/SettingsController");
 const basicStrategyController = require("./controller/BasicStrategyController");
-const userController = require("./controller/UserController");
+const { userController, verifyJWT } = require("./controller/UserController");
 
 const AllTableService = require("./services/AllTableService");
 const BasicStrategyService = require("./services/BasicStrategyService");
@@ -33,7 +33,7 @@ app.use(express.static("../build"));
 const allTableService = new AllTableService(basicStrategyService);
 
 userController(app, allTableService);
-cardController(app, allTableService);
+cardController(app, allTableService, verifyJWT);
 settingsController(app, allTableService);
 basicStrategyController(app, basicStrategyService);
 
