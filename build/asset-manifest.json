@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/static/css/main.b0408630.css",
-    "main.js": "/static/js/main.2507fb23.js",
+    "main.js": "/static/js/main.46f419af.js",
     "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
     "static/media/Inter-VariableFont_slnt,wght.ttf": "/static/media/Inter-VariableFont_slnt,wght.aadb65ac45347ff46699.ttf",
     "static/media/Pridi-Bold.ttf": "/static/media/Pridi-Bold.ca7c6d9c8b8e31ecefa1.ttf",
     "static/media/Pridi-Regular.ttf": "/static/media/Pridi-Regular.d55bd1ae3127176e6d92.ttf",
     "static/media/RobotoMono-Regular.ttf": "/static/media/RobotoMono-Regular.34e46962590bff8eefe5.ttf",
-    "static/media/logo.png": "/static/media/logo.ae61ad752df9818a0f6f.png",
+    "static/media/logo.png": "/static/media/logo.4e4d872e2f90c84d156e.png",
     "index.html": "/index.html",
     "main.b0408630.css.map": "/static/css/main.b0408630.css.map",
-    "main.2507fb23.js.map": "/static/js/main.2507fb23.js.map",
+    "main.46f419af.js.map": "/static/js/main.46f419af.js.map",
     "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b0408630.css",
-    "static/js/main.2507fb23.js"
+    "static/js/main.46f419af.js"
   ]
 }
