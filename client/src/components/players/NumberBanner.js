@@ -25,7 +25,7 @@ const NumberBanner = (props) => {
         marginLeft = 1;
       }
       setWidth(`calc(100% - ${diff}px)`);
-      setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
+      // setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
     };
     handleStyling();
   }, [table, player, id]);
@@ -66,12 +66,11 @@ const NumberBanner = (props) => {
   if (display && showHandTotal) {
     return (
       <div
-        className={`number-banner-container ${
+        className={`number-banner-container vertical-center-absolute ${
           isTurn ? "number-banner-active" : ""
         }`}
         style={{
-          width,
-          ...positionStyles
+          width
         }}
       >
         {value}

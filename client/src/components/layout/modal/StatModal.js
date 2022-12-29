@@ -36,8 +36,8 @@ const ModalRenderer = (props) => {
     boxShadow: 24,
     borderRadius: "20px",
     "@media (max-width: 1200px)": {
-      height: "80vh",
-      overflow: "scroll"
+      maxHeight: "80vh",
+      overflowY: "auto"
     }
   };
 

@@ -1,12 +1,17 @@
 @import "_common.scss";
+@import "_vars.scss";
 
 .number-banner-container {
   color: #fff;
   background-color: #000;
   position: absolute;
+  left: 2px;
+  @media screen and (max-width: $screen-large) {
+    font-size: 14px;
+  }
 }
 
 .number-banner-active {
-  background-color: #FFD800;
+  background-color: #ffd800;
   color: #000 !important;
 }

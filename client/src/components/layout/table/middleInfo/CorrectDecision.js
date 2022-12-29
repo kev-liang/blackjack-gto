@@ -3,6 +3,7 @@ import DecisionConstantsFE from "utils/constants/DecisionConstantsFE";
 import "styles/CorrectDecision.scss";
 import React from "react";
 import _ from "lodash";
+import Typography from "@mui/material/Typography";
 
 function CorrectDecision(props) {
   const { lastDecision, customLastDecision } = props;
@@ -47,7 +48,19 @@ function CorrectDecision(props) {
     }
   };
 
-  return <div className="decision-container">{decisionText}</div>;
+  return (
+    <div className="decision-container">
+      <Typography
+        sx={{
+          "@media (max-width: 1200px)": {
+            fontSize: "12px"
+          }
+        }}
+      >
+        {decisionText}
+      </Typography>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {

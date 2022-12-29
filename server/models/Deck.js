@@ -10,6 +10,7 @@ class Deck {
   }
 
   initDeck(numDeck) {
+    this.currCard = 0;
     const suits = ["s", "c", "h", "d"];
 
     this.deck = [];
@@ -23,19 +24,21 @@ class Deck {
     this.shuffle();
   }
 
-  shuffle() {
-    this.currCard = 0;
+  shuffle(shuffleStart = 0) {
     let i = this.deck.length;
     let j = 0;
     let temp;
 
-    while (i--) {
+    while (i >= shuffleStart) {
       j = Math.floor(Math.random() * (i + 1));
 
       temp = this.deck[i];
       this.deck[i] = this.deck[j];
       this.deck[j] = temp;
+      i--;
     }
+    this.deck[2] = { value: 3, suit: "h" };
+    this.deck[3] = { value: 3, suit: "h" };
   }
 
   deal(numCards, shouldCount = true) {
@@ -52,10 +55,15 @@ class Deck {
     return cards;
   }
 
+  resetBlackjack() {
+    this.currCard += 2;
+    this.shuffle(this.currCard);
+  }
+
   dealTest(numCards, shouldCount = true) {
     this.deck = [
       { value: 14, suit: "h" },
-      { value: 6, suit: "c" },
+      { value: 10, suit: "c" },
       { value: 3, suit: "h" },
       { value: 9, suit: "c" },
       { value: 14, suit: "s" },
@@ -77,7 +85,6 @@ class Deck {
   }
 
   count(value, shouldCount) {
-    console.log("COUNTING", value, shouldCount);
     if (!shouldCount) return;
     if (value <= 6) {
       this.tableService.count++;

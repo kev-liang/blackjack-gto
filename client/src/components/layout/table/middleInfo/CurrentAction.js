@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import React from "react";
 import ConstantsFE from "utils/constants/ConstantsFE";
+import Typography from "@mui/material/Typography";
 
 const CurrentAction = (props) => {
   const { tableState } = props;
@@ -26,7 +27,19 @@ const CurrentAction = (props) => {
     }
   };
 
-  return <div className="current-action-container">{msg}</div>;
+  return (
+    <div className="current-action-container">
+      <Typography
+        sx={{
+          "@media (max-width: 1200px)": {
+            fontSize: "12px"
+          }
+        }}
+      >
+        {msg}
+      </Typography>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
