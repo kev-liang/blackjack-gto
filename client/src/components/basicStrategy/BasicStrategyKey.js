@@ -12,13 +12,14 @@ import ColorConstants from "utils/constants/ColorConstants";
 const BasicStrategyKey = (props) => {
   const { table } = props;
   const [usedDecisions, setUsedDecisions] = useState([]);
+  const [isHard, setIsHard] = useState(false);
   const standHitDecision = [DecisionConstantsFE.HIT, DecisionConstantsFE.STAND];
   const isScreenLg = useMediaQuery("(min-width:1200px)");
 
   useEffect(() => {
     if (!table || table.turnId > 0) return;
     let player = TableUtils.findPlayerById(table.players, table.turnId);
-
+    setIsHard(false);
     if (player.isSoft) {
       setUsedDecisions([
         DecisionConstantsFE.DOUBLE,
@@ -36,6 +37,7 @@ const BasicStrategyKey = (props) => {
         DecisionConstantsFE.SURRENDER_HIT,
         DecisionConstantsFE.SURRENDER_STAND
       ]);
+      setIsHard(true);
     }
   }, [table]);
 
@@ -43,8 +45,7 @@ const BasicStrategyKey = (props) => {
     box: {
       backgroundColor: "rgba(0, 0, 0, 0.7)",
       color: "#fff",
-      px: 2,
-      py: isScreenLg ? 4 : 2,
+      p: 2,
       borderRadius: "20px"
     }
   };
@@ -52,7 +53,6 @@ const BasicStrategyKey = (props) => {
   // create the box with color and letter and the key message
   const getDecisionKey = (decision) => {
     let keyString = DecisionConstantsFE.KEY_MESSAGES[decision];
-    let splitString = keyString.split("\n");
     return (
       <Box
         key={decision}
@@ -69,30 +69,15 @@ const BasicStrategyKey = (props) => {
           color="#fff"
         ></ColoredBox>
         {/* For issues with longer lines, create a new element for the new line */}
-        {splitString.length === 1 ? (
-          <Typography
-            sx={{
-              display: "inline-block",
-              fontSize: "14px",
-              "@media (max-width: 1200px)": { fontSize: "12px" }
-            }}
-          >
-            {splitString[0]}
-          </Typography>
-        ) : (
-          <Typography
-            sx={{ "@media (max-width: 1200px)": { fontSize: "12px" } }}
-          >
-            {splitString[0]}
-          </Typography>
-        )}
-        {splitString.length === 2 && (
-          <Typography
-            sx={{ "@media (max-width: 1200px)": { fontSize: "12px" } }}
-          >
-            {DecisionConstantsFE.KEY_MESSAGES[decision].split("\n")[1]}
-          </Typography>
-        )}
+        <Typography
+          sx={{
+            display: "inline-block",
+            fontSize: "14px",
+            "@media (max-width: 1200px)": { fontSize: "12px" }
+          }}
+        >
+          {keyString}
+        </Typography>
       </Box>
     );
   };
@@ -107,6 +92,16 @@ const BasicStrategyKey = (props) => {
         {standHitDecision.map((decision) => getDecisionKey(decision))}
       </Box>
       <Box>{usedDecisions.map((decision) => getDecisionKey(decision))}</Box>
+      {isHard && (
+        <Typography
+          sx={{
+            fontSize: "14px",
+            "@media (max-width: 1200px)": { fontSize: "12px" }
+          }}
+        >
+          Hit values less than 9 and stand on values greater than 17
+        </Typography>
+      )}
     </Box>
   );
 };

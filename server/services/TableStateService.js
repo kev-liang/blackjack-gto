@@ -38,6 +38,8 @@ class TableStateService extends EventEmitter {
         if (!dealer.isPlaying) {
           this.tableState = Constants.T_STATE_END;
         }
+      default:
+        break;
     }
     this.determineDealingDealer();
   }

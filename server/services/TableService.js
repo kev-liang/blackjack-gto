@@ -132,6 +132,7 @@ class TableService {
     ) {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
+      result.dealer.getCardTotal();
     } else {
       result.dealer.shownCards = [result.dealer.cards[1]];
       result.dealer.getCardTotal([...result.dealer.shownCards]);

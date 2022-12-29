@@ -7,6 +7,7 @@ class KeyboardUtil {
     this.surrender = "F";
     this.toggleCount = "C";
     this.resetCount = "R";
+    this.toggleBasicStrategy = "T";
   }
 }
 

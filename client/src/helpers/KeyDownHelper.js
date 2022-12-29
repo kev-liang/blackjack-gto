@@ -6,6 +6,7 @@ import { trackEvent } from "analytics/analytics";
 import { store } from "store";
 import { setShowCountAction } from "actions/settingsActions";
 import SettingsService from "services/SettingsService";
+import { setShowBasicStrategyChartAction } from "actions/settingsActions";
 
 class KeyDownService {
   handleKeyDown = (e) => {
@@ -55,6 +56,13 @@ class KeyDownService {
         break;
       case KeyboardUtil.resetCount:
         SettingsService.resetCount();
+        break;
+      case KeyboardUtil.toggleBasicStrategy:
+        let showBasicStrategyChart =
+          store.getState().settings.showBasicStrategyChart;
+        store.dispatch(
+          setShowBasicStrategyChartAction(!showBasicStrategyChart)
+        );
         break;
       default:
         return;

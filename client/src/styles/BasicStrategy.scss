@@ -1,4 +1,5 @@
 @import "_vars.scss";
+@import "_common.scss";
 
 .basic-strategy-container {
   position: absolute;
@@ -7,6 +8,17 @@
   height: 100%;
   @media screen and (max-width: $screen-large) {
     overflow: scroll;
-    height: 65%;
+    height: 60%;
+  }
+}
+
+.basic-strategy-container:active {
+  z-index: 99;
+}
+
+.split-double-cell {
+  font-size: 12px !important;
+  @media screen and (max-width: $screen-large) {
+    font-size: 9px !important;
   }
 }

@@ -30,6 +30,11 @@ const MiddleInfo = (props) => {
           width="150px"
           height="30px"
           handleClick={SettingsService.resetCount}
+          sx={{
+            "@media (max-width: 1200px)": {
+              fontSize: "12px"
+            }
+          }}
         ></MainButton>
       </Box>
     </div>

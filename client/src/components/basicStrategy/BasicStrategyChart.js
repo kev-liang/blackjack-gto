@@ -1,4 +1,4 @@
-import "styles/_common.scss";
+import "styles/BasicStrategy.scss";
 import { connect } from "react-redux";
 import ColorConstants from "utils/constants/ColorConstants";
 import BasicStrategyHelper from "helpers/BasicStrategyHelper";
@@ -13,6 +13,10 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import SwipeVerticalIcon from "@mui/icons-material/SwipeVertical";
+import DecisionConstantsFE from "utils/constants/DecisionConstantsFE";
 
 function createData(playerHand, values) {
   return {
@@ -43,7 +47,7 @@ const tdStyle = {
 
 const BasicStrategyChart = (props) => {
   const { table, basicStrategyCharts } = props;
-  const [rows, setRow] = useState([]);
+  const [rows, setRows] = useState([]);
   const [dealerShownCards, setDealerShownCards] = useState([]);
   const [sideBarText, setSideBarText] = useState("");
   let handleChart;
@@ -91,7 +95,7 @@ const BasicStrategyChart = (props) => {
       }
       localRow.push(createData(handValue, [...Object.values(val)]));
     });
-    setRow(localRow.reverse());
+    setRows(localRow.reverse());
   };
 
   return (
@@ -115,6 +119,19 @@ const BasicStrategyChart = (props) => {
           >
             {sideBarText}
           </Typography>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "10%",
+              right: "20%",
+              transform: "rotate(180deg)",
+              "@media (min-width: 1200px)": { display: "none" }
+            }}
+          >
+            <KeyboardDoubleArrowUpIcon fontSize="small" />
+            <SwipeVerticalIcon fontSize="small" />
+            <KeyboardDoubleArrowDownIcon fontSize="small" />
+          </Box>
         </Box>
         <Box>
           <Box sx={{ color: "#fff" }}>
@@ -162,7 +179,13 @@ const BasicStrategyChart = (props) => {
                       }}
                       align="center"
                     >
-                      <div className="horizontal-center-absolute vertical-center-absolute">
+                      <div
+                        className={`horizontal-center-absolute vertical-center-absolute ${
+                          val === DecisionConstantsFE.SPLIT_DOUBLE
+                            ? "split-double-cell"
+                            : ""
+                        }`}
+                      >
                         {val}
                       </div>
                     </TableCell>
