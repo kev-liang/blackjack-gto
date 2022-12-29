@@ -58,7 +58,10 @@ const setResetDelayAction = (e) => {
   }
   trackEvent("Settings", "Reset Delay", "Reset Delay Input");
   store.dispatch(setSettingsResetDelayErrorAction(""));
-  let data = resetDelay === "" ? "" : parseFloat(resetDelay);
+  let data =
+    resetDelay === "" || resetDelay.endsWith(".")
+      ? resetDelay
+      : parseFloat(resetDelay);
   return {
     type: "SET_RESET_DELAY",
     data

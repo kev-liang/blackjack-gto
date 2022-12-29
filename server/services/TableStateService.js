@@ -1,7 +1,10 @@
 const Constants = require("../utils/Constants");
+const EventEmitter = require("events");
+const EventConstants = require("../utils/EventConstants");
 
-class TableStateService {
+class TableStateService extends EventEmitter {
   constructor() {
+    super();
     this.tableState = Constants.T_STATE_PLAYING;
     this.shouldDealDealer = true;
     this.resetDealerAnimation = false;
@@ -25,6 +28,7 @@ class TableStateService {
           ) {
             this.tableState = Constants.T_STATE_END;
           } else {
+            this.emit(EventConstants.DEALING_PLAYER_TO_DEALER);
             this.tableState = Constants.T_STATE_DEALER;
             this.resetDealerAnimation = true;
           }
@@ -34,6 +38,8 @@ class TableStateService {
         if (!dealer.isPlaying) {
           this.tableState = Constants.T_STATE_END;
         }
+      default:
+        break;
     }
     this.determineDealingDealer();
   }

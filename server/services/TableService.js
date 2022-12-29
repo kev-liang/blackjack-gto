@@ -2,6 +2,7 @@ const Deck = require("../models/Deck");
 const Player = require("../models/Player");
 const TableStateService = require("./TableStateService");
 const Constants = require("../utils/Constants");
+const EventConstants = require("../utils/EventConstants");
 const _ = require("lodash");
 const DecisionConstants = require("../utils/DecisionConstants");
 
@@ -17,6 +18,10 @@ class TableService {
     this.tableStateService = new TableStateService();
     this.resetDealerAnimations = false;
     this.initTable(numPlayers);
+
+    this.tableStateService.on(EventConstants.DEALING_PLAYER_TO_DEALER, () => {
+      this.deck.count(this.dealer.cards[0].value, true);
+    });
   }
 
   initTable(numPlayers) {
@@ -47,8 +52,8 @@ class TableService {
 
   resetDealer() {
     this.dealer.cards = [];
-    this.dealer.deal(1);
     this.dealer.deal(1, false);
+    this.dealer.deal(1);
     // show one card to determine correct basic strategy decision
     this.dealer.shownCards = [this.dealer.cards[0]];
     this.dealer.getCardTotal();
@@ -127,6 +132,7 @@ class TableService {
     ) {
       result.dealer.shownCards = result.dealer.cards;
       result.dealer.shouldShowAllCards = true;
+      result.dealer.getCardTotal();
     } else {
       result.dealer.shownCards = [result.dealer.cards[1]];
       result.dealer.getCardTotal([...result.dealer.shownCards]);
@@ -212,6 +218,7 @@ class TableService {
       }
     });
   }
+
   // WIP: in case need histories in order
   // mergeHistories(originalPlayer, splitPlayers) {
   //   let player = this.findPlayerById(originalPlayer.id);

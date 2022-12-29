@@ -10,7 +10,6 @@ const NumberBanner = (props) => {
   const [isTurn, setIsTurn] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [display, setDisplay] = React.useState(false);
-  const [positionStyles, setPositionStyles] = React.useState({});
   const [width, setWidth] = React.useState(0);
   React.useEffect(() => {
     if (!table || !player) return;
@@ -18,14 +17,11 @@ const NumberBanner = (props) => {
     setIsTurn(id === table.turnId);
 
     const handleStyling = () => {
-      let marginLeft = 2;
       let diff = 4; // due to 2px border
       if (id === ConstantsFE.DEALER_ID) {
         diff = 2; // looks like a pixel missing when 2 cards but good w other num cards for some reason
-        marginLeft = 1;
       }
       setWidth(`calc(100% - ${diff}px)`);
-      setPositionStyles({ margin: `45px 0 0 ${marginLeft}px` });
     };
     handleStyling();
   }, [table, player, id]);
@@ -66,12 +62,11 @@ const NumberBanner = (props) => {
   if (display && showHandTotal) {
     return (
       <div
-        className={`number-banner-container ${
+        className={`number-banner-container vertical-center-absolute ${
           isTurn ? "number-banner-active" : ""
         }`}
         style={{
-          width,
-          ...positionStyles
+          width
         }}
       >
         {value}

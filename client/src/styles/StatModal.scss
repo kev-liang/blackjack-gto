@@ -7,9 +7,12 @@
 .modal-header {
   background-color: $dark-grey;
   color: $light-grey;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px 0 0 0;
   padding: 16px;
   margin-top: -1px;
+  @media screen and (max-width: $screen-large) {
+    border-radius: 0;
+  }
 }
 
 .modal-body {
@@ -26,4 +29,8 @@
 
 .shortcut-space {
   font-weight: bold;
+}
+
+.chart-help-img {
+  border-radius: 20px;
 }
