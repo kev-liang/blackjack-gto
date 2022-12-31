@@ -10,8 +10,9 @@ import ListItem from "@mui/material/ListItem";
 import InfoModalChart from "components/layout/modal/InfoModalChart";
 import IconButton from "@mui/material/IconButton";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
-import coveredImg from "img/covered2.png";
-import uncoveredImg from "img/uncovered2.png";
+import coveredImg from "img/covered.png";
+import uncoveredImg from "img/uncovered.png";
+
 import { setInfoModalOpenAction } from "actions/applicationActions";
 import { bindActionCreators } from "redux";
 import "styles/StatModal.scss";
