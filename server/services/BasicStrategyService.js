@@ -25,6 +25,11 @@ class BasicStrategyService {
     const { cardTotal: playerValue } = player;
     let isPair = player.hasPair;
     let isSoft = player.isSoft;
+    console.log(
+      `Getting history for decisions. ${{ dealerValue }}, ${{
+        playerValue
+      }}, ${{ isPair }}, ${{ isSoft }}, ${{ decision }}`
+    );
     let newHistory = {
       dealerValue,
       playerValues: {
@@ -49,6 +54,7 @@ class BasicStrategyService {
       this.getHandStrategy(dealerValue, playerValue, isPair, isSoft) ||
       this.getSoftStrategy(dealerValue, playerValue, isSoft) ||
       this.getPairStrategy(dealerValue, playerValue, isPair);
+    console.log(`Got decision: ${decision}`);
     switch (decision) {
       case DecisionConstants.DOUBLE:
         return numCards === 2

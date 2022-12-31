@@ -16,6 +16,7 @@ class MongoDBConnection {
   }
 
   async addHistory(userId, history) {
+    console.log(`Saving history: ${history}. User: ${userId}`);
     let historyCollection = this.client.db(this.dbName).collection("users");
     const player = await historyCollection.findOne({ userId });
     history.updatedTimestamp = new Date().toISOString();
@@ -29,6 +30,7 @@ class MongoDBConnection {
   }
 
   createUser(userId) {
+    console.log(`Creating user: ${userId}`);
     let userCollection = this.client.db(this.dbName).collection("users");
     let user = new User(userId);
     userCollection.insertOne({ ...user });
