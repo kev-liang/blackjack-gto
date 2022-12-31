@@ -24,4 +24,10 @@ module.exports = (app, allTableService) => {
     console.log(`Resetting count for id: ${req.query.id}`);
     res.status(200).send(tableService.showTable());
   });
+
+  app.patch("/reset-count", (req, res) => {
+    let { tableService } = allTableService.tables[req.query.id];
+    tableService.count = 0;
+    res.status(200).send(tableService.showTable());
+  });
 };

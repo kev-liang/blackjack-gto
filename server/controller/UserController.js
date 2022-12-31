@@ -77,5 +77,4 @@ const userController = (app, allTableService) => {
     res.status(200).send(statistics);
   });
 };
-
 module.exports = { userController, verifyJWT };
