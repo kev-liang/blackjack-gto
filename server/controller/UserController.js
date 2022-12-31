@@ -67,6 +67,7 @@ const userController = (app, allTableService) => {
       return;
     }
     let { userId } = req.query;
+    console.log(`Getting history for ${{ userId }}`);
     let history = await MongoDBConnection.getHistory(userId);
     if (!history) {
       res.status(200).send({ mostMisplayedValues: {}, percentageCorrect: 0 });
@@ -76,4 +77,5 @@ const userController = (app, allTableService) => {
     res.status(200).send(statistics);
   });
 };
+
 module.exports = { userController, verifyJWT };

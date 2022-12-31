@@ -128,6 +128,7 @@ class ActionService {
       decision
     );
     this.tableService.lastDecision = newHistory;
+    console.log("Get decision:", newHistory);
     this.saveHistory(player, newHistory, isAuthenticated);
   }
 

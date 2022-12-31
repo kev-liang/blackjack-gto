@@ -9,6 +9,7 @@ class AllTableService {
   }
 
   addTable(id, numPlayers) {
+    console.log(`Adding ${numPlayers} to table id: ${id}`);
     let tableService = new TableService(numPlayers);
     let actionService = new ActionService(
       tableService,
