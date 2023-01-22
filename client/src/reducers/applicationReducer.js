@@ -1,11 +1,14 @@
 const applicationReducer = (
-  state = { isModalOpen: false, resetDelay: 2 },
+  state = { isModalOpen: false, resetDelay: 2, isTutorial: true },
   action
 ) => {
   switch (action.type) {
     case "TOGGLE_MODAL_OPEN":
       let isModalOpen = !state.isModalOpen;
       return { ...state, isModalOpen };
+    case "SET_IS_TUTORIAL":
+      console.log("SETTING TURORIAL", action.data);
+      return { ...state, isTutorial: action.data };
     case "SET_INFO_MODAL_OPEN":
       return { ...state, isInfoModalOpen: action.data };
     case "SET_SETTINGS_DRAWER":

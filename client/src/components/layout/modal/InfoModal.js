@@ -7,18 +7,22 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Button from "@mui/material/Button";
 import InfoModalChart from "components/layout/modal/InfoModalChart";
 import IconButton from "@mui/material/IconButton";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import coveredImg from "img/covered.png";
 import uncoveredImg from "img/uncovered.png";
 
-import { setInfoModalOpenAction } from "actions/applicationActions";
+import {
+  setInfoModalOpenAction,
+  setIsTutorialAction
+} from "actions/applicationActions";
 import { bindActionCreators } from "redux";
 import "styles/StatModal.scss";
 
 const InfoModal = (props) => {
-  const { isInfoModalOpen = false, setInfoModalOpen } = props;
+  const { isInfoModalOpen = false, setInfoModalOpen, setIsTutorial } = props;
 
   const style = {
     position: "absolute",
@@ -66,6 +70,9 @@ const InfoModal = (props) => {
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Button variant="contained" onClick={() => setIsTutorial(true)}>
+              Start Tutorial
+            </Button>
             <IconButton
               onClick={() => setInfoModalOpen(false)}
               sx={{ color: "inherit" }}
@@ -84,18 +91,19 @@ const InfoModal = (props) => {
             </Box>
             <Typography>
               This website currently uses the following settings
-              <List>
-                <ListItem> Hi-Lo system of counting cards</ListItem>
-                <ListItem>Dealer hits on soft 17</ListItem>
-                <ListItem>Deals with six decks</ListItem>
-                <ListItem>Double is allowed after split</ListItem>
-              </List>
             </Typography>
+
+            <List>
+              <ListItem> Hi-Lo system of counting cards</ListItem>
+              <ListItem>Dealer hits on soft 17</ListItem>
+              <ListItem>Deals with six decks</ListItem>
+              <ListItem>Double is allowed after split</ListItem>
+            </List>
             <Typography>When playing with a keyboard, press</Typography>
             <List>
               {Object.keys(shortcuts).map((shortcut) => (
                 <ListItem key={`shortcut-list-item-${shortcut}`}>
-                  <span className="shortcut">{shortcut}</span>{" "}
+                  <span className="shortcut">{shortcut}</span>
                   {shortcuts[shortcut]}
                 </ListItem>
               ))}
@@ -167,7 +175,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      setInfoModalOpen: setInfoModalOpenAction
+      setInfoModalOpen: setInfoModalOpenAction,
+      setIsTutorial: setIsTutorialAction
     },
     dispatch
   );

@@ -9,6 +9,13 @@ const toggleModalOpenAction = () => {
   };
 };
 
+const setIsTutorialAction = (isTutorial) => {
+  return {
+    type: "SET_IS_TUTORIAL",
+    data: isTutorial
+  };
+};
+
 const setInfoModalOpenAction = (infoModalOpen) => {
   return {
     type: "SET_INFO_MODAL_OPEN",
@@ -70,6 +77,7 @@ const setResetDelayAction = (e) => {
 
 export {
   toggleModalOpenAction,
+  setIsTutorialAction,
   setInfoModalOpenAction,
   setShowSettingsDrawerAction,
   setLoggedInAction,
