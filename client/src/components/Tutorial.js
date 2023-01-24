@@ -12,8 +12,7 @@ const tourOptions = {
     cancelIcon: {
       enabled: true
     }
-  },
-  useModalOverlay: true
+  }
 };
 
 const Tutorial = (props) => {
@@ -31,18 +30,13 @@ const Tutorial = (props) => {
       };
       return step;
     });
-    console.log("ZXC", localNewSteps);
     setNewSteps(localNewSteps);
   }, [steps]);
 
   useEffect(() => {
     console.log("NEW stuff", tour, isTutorial);
-    if (!isTutorial) return;
-    if (!tour) {
-      tour.show("welcome");
-    } else {
-      tour.start();
-    }
+    if (!tour || !isTutorial) return;
+    tour.start();
   }, [tour, isTutorial]);
 
   return (
