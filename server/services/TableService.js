@@ -58,6 +58,7 @@ class TableService {
     this.dealer.shownCards = [this.dealer.cards[0]];
     this.dealer.getCardTotal();
     this.dealer.isPlaying = true;
+    this.dealer.shouldShowAllCards = false;
   }
 
   resetPlayers() {

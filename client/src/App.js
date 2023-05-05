@@ -2,6 +2,7 @@ import "./App.css";
 import TableRenderer from "components/layout/table/TableRenderer";
 import RotateScreen from "components/RotateScreen";
 import GoogleLogin from "utils/GoogleLogin";
+import Tutorial from "components/Tutorial";
 
 import { useEffect, useState, useCallback } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -47,7 +48,9 @@ function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <TableRenderer shown={!showRotateMsg}></TableRenderer>
+        <Tutorial>
+          <TableRenderer shown={!showRotateMsg}></TableRenderer>
+        </Tutorial>
         <RotateScreen shown={showRotateMsg}></RotateScreen>
       </div>
     </ThemeProvider>

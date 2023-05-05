@@ -7,6 +7,8 @@ import { basicStrategyReducer } from "./basicStrategyReducer";
 import { applicationReducer } from "./applicationReducer";
 import { statisticsReducer } from "./statisticsReducer";
 import { validationReducer } from "./validationReducer";
+import { tutorialReducer } from "./tutorialReducer";
+
 const combinedReducers = combineReducers({
   table: tableReducer,
   settings: settingsReducer,
@@ -14,7 +16,8 @@ const combinedReducers = combineReducers({
   basicStrategy: basicStrategyReducer,
   application: applicationReducer,
   statistics: statisticsReducer,
-  validation: validationReducer
+  validation: validationReducer,
+  tutorial: tutorialReducer
 });
 
 export default combinedReducers;

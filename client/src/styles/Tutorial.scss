@@ -1,0 +1,59 @@
+@import "_vars.scss";
+
+.custom-shepherd-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  fill: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.shepherd-bottom-margin {
+  margin-bottom: 16px !important;
+}
+
+.shepherd-right-margin {
+  margin-right: 16px !important;
+}
+
+.shepherd-margin-left {
+  margin-left: 16px !important;
+}
+
+.shepherd-margin-top {
+  margin-top: 16px !important;
+}
+
+.shepherd-h1 {
+  margin: 16px 0;
+  line-height: 1em;
+}
+
+.shepherd-header {
+  position: absolute !important;
+  right: 0;
+}
+
+.tutorial-inline-svg {
+  margin-bottom: -4px;
+}
+
+.shepherd-button {
+  font-family: "Inter" !important;
+  background: $primary !important;
+}
+
+.shepherd-button.shepherd-button-secondary {
+  background: #f1f2f3 !important;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+#enjoy-description {
+  padding-bottom: 24px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: $primary;
+}

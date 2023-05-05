@@ -1,5 +1,5 @@
 const applicationReducer = (
-  state = { isModalOpen: false, resetDelay: 2 },
+  state = { isModalOpen: false, resetDelay: 2, isTutorial: true },
   action
 ) => {
   switch (action.type) {

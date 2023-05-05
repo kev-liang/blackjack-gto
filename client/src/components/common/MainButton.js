@@ -2,7 +2,15 @@ import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 
 const MainButton = (props) => {
-  const { label, handleClick, disabled, height = 50, width = 110, sx } = props;
+  const {
+    label,
+    classes = [],
+    handleClick,
+    disabled,
+    height = 50,
+    width = 110,
+    sx
+  } = props;
   const [buttonStyles, setButtonStyles] = useState();
 
   useEffect(() => {
@@ -27,7 +35,7 @@ const MainButton = (props) => {
       variant="contained"
       className={`card-action-button ${
         disabled ? "card-action-button-disabled" : ""
-      }`}
+      } ${classes.join(" ")}`}
       sx={{ ...buttonStyles, ...sx }}
     >
       {label}

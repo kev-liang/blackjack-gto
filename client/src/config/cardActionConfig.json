@@ -6,7 +6,8 @@
     },
     {
       "label": "Stand",
-      "handleFn": "handleStand"
+      "handleFn": "handleStand",
+      "enableDuringTutorial": true
     },
     {
       "label": "Split",

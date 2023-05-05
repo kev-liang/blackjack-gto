@@ -26,7 +26,9 @@ class ActionServiceFE {
     let state = store.getState();
     let id = state.table.id;
     let isLoggedIn = state.application.isLoggedIn;
-    let endpoint = `${this.url}/hit?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
+    let endpoint = `${
+      this.url
+    }/hit?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId, userId);
   }
@@ -35,7 +37,10 @@ class ActionServiceFE {
     let state = store.getState();
     let id = state.table.id;
     let isLoggedIn = state.application.isLoggedIn;
-    let endpoint = `${this.url}/stand?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
+    let showTutorial = state.tutorial.showTutorial;
+    let endpoint = `${
+      this.url
+    }/stand?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}&showTutorial=${showTutorial}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
@@ -44,7 +49,9 @@ class ActionServiceFE {
     let state = store.getState();
     let id = state.table.id;
     let isLoggedIn = state.application.isLoggedIn;
-    let endpoint = `${this.url}/split?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
+    let endpoint = `${
+      this.url
+    }/split?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
@@ -53,7 +60,9 @@ class ActionServiceFE {
     let state = store.getState();
     let id = state.table.id;
     let isLoggedIn = state.application.isLoggedIn;
-    let endpoint = `${this.url}/double?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
+    let endpoint = `${
+      this.url
+    }/double?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
@@ -62,7 +71,9 @@ class ActionServiceFE {
     let state = store.getState();
     let id = state.table.id;
     let isLoggedIn = state.application.isLoggedIn;
-    let endpoint = `${this.url}/surrender?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
+    let endpoint = `${
+      this.url
+    }/surrender?playerId=${playerId}&id=${id}&isLoggedIn=${!!isLoggedIn}`;
     ApiService.getAndUpdateTable(endpoint);
     this.getStatistics(playerId);
   }
@@ -108,7 +119,9 @@ class ActionServiceFE {
     let user = state.application.user;
     let isLoggedIn = state.application.isLoggedIn;
     if (playerId <= 0 && user) {
-      let decisionHistoryEndpoint = `${this.url}/getStatistics?userId=${user.sub}&isLoggedIn=${!!isLoggedIn}`;
+      let decisionHistoryEndpoint = `${this.url}/getStatistics?userId=${
+        user.sub
+      }&isLoggedIn=${!!isLoggedIn}`;
       ApiService.getStatistics(decisionHistoryEndpoint);
     }
   }

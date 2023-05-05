@@ -11,7 +11,8 @@ import { setShowBasicStrategyChartAction } from "actions/settingsActions";
 class KeyDownService {
   handleKeyDown = (e) => {
     let { isModalOpen, showDrawer } = store.getState().application;
-    if (isModalOpen || showDrawer) return;
+    let { showTutorial } = store.getState().tutorial;
+    if (isModalOpen || showDrawer || showTutorial) return;
     let letter = String.fromCharCode(e.keyCode);
     let turnId = store.getState().table.table.turnId;
     switch (letter) {
