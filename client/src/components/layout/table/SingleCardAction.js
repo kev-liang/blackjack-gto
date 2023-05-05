@@ -41,7 +41,6 @@ function SingleCardAction(props) {
 
   const handleClick = (handleFn) => {
     if (disabled) return;
-    console.log("HANDLING", handleFn);
     trackEvent("Actions", handleFn, "Button");
     switch (handleFn) {
       case "Split":

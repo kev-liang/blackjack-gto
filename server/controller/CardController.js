@@ -13,7 +13,7 @@ module.exports = (app, allTableService, verifyJWT) => {
   app.get("/deal", (req, res) => {
     let { tableService } = allTableService.tables[req.query.id];
     tableService.deal();
-    console.log("Deal:", id, ". User:", req.userId);
+    console.log("Dealing... User:", req.userId);
     res.status(200).send(tableService.showTable());
   });
 
@@ -21,7 +21,7 @@ module.exports = (app, allTableService, verifyJWT) => {
     let { tableService, actionService } = allTableService.tables[req.query.id];
     let playerId = req.query.playerId;
     actionService.hit(playerId, !!req.userId);
-    console.log("Hit:", id, ". User:", req.userId);
+    console.log("Hit:", playerId, ". User:", req.userId);
     res.status(200).send(tableService.showTable());
   });
 
@@ -29,7 +29,7 @@ module.exports = (app, allTableService, verifyJWT) => {
     let { tableService, actionService } = allTableService.tables[req.query.id];
     let playerId = req.query.playerId;
     actionService.stand(playerId, !!req.userId);
-    console.log("Stand:", id, ". User:", req.userId);
+    console.log("Stand:", playerId, ". User:", req.userId);
     res.status(200).send(tableService.showTable());
   });
 
@@ -37,7 +37,7 @@ module.exports = (app, allTableService, verifyJWT) => {
     let { tableService, actionService } = allTableService.tables[req.query.id];
     let playerId = req.query.playerId;
     actionService.split(playerId, !!req.userId);
-    console.log("Split:", id, ". User:", req.userId);
+    console.log("Split:", playerId, ". User:", req.userId);
     res.status(200).send(tableService.showTable());
   });
 
@@ -45,7 +45,7 @@ module.exports = (app, allTableService, verifyJWT) => {
     let { tableService, actionService } = allTableService.tables[req.query.id];
     let playerId = req.query.playerId;
     actionService.double(playerId, !!req.userId);
-    console.log("Double:", id, ". User:", req.userId);
+    console.log("Double:", playerId, ". User:", req.userId);
     res.status(200).send(tableService.showTable());
   });
 
@@ -53,7 +53,7 @@ module.exports = (app, allTableService, verifyJWT) => {
     let { tableService, actionService } = allTableService.tables[req.query.id];
     let playerId = req.query.playerId;
     actionService.surrender(playerId, !!req.userId);
-    console.log("Surrender:", id, ". User:", req.userId);
+    console.log("Surrender:", playerId, ". User:", req.userId);
     res.status(200).send(tableService.showTable());
   });
 

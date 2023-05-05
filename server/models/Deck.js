@@ -37,8 +37,6 @@ class Deck {
       this.deck[j] = temp;
       i--;
     }
-    this.deck[2] = { value: 3, suit: "h" };
-    this.deck[3] = { value: 3, suit: "h" };
   }
 
   deal(numCards, shouldCount = true) {
