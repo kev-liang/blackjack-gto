@@ -99,7 +99,7 @@ const BasicStrategyKey = (props) => {
             "@media (max-width: 1200px)": { fontSize: "12px" }
           }}
         >
-          Hit values less than 9 and stand on values greater than 17
+          Always hit values less than 9 and always stand on values greater than 17.
         </Typography>
       )}
     </Box>
