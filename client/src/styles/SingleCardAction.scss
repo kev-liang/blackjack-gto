@@ -19,3 +19,8 @@
   background-color: "#aaa" !important;
   pointer-events: "none" !important;
 }
+
+.disable-tutorial {
+  cursor: default;
+  pointer-events: none;
+}

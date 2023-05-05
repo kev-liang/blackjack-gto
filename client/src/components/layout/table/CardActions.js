@@ -12,6 +12,7 @@ function CardActions() {
           return (
             <SingleCardAction
               key={action.label}
+              enableDuringTutorial={action.enableDuringTutorial}
               action={action}
             ></SingleCardAction>
           );

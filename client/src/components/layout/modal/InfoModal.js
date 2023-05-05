@@ -14,15 +14,13 @@ import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import coveredImg from "img/covered.png";
 import uncoveredImg from "img/uncovered.png";
 
-import {
-  setInfoModalOpenAction,
-  setIsTutorialAction
-} from "actions/applicationActions";
+import { setInfoModalOpenAction } from "actions/applicationActions";
+import { setShowTutorialAction } from "actions/tutorialActions";
 import { bindActionCreators } from "redux";
 import "styles/StatModal.scss";
 
 const InfoModal = (props) => {
-  const { isInfoModalOpen = false, setInfoModalOpen, setIsTutorial } = props;
+  const { isInfoModalOpen = false, setInfoModalOpen, setShowTutorial } = props;
 
   const style = {
     position: "absolute",
@@ -33,6 +31,11 @@ const InfoModal = (props) => {
     borderRadius: "20px",
     height: "80vh",
     overflowY: "auto"
+  };
+
+  const handleStartTour = () => {
+    setShowTutorial(true);
+    setInfoModalOpen(false);
   };
 
   const shortcuts = {
@@ -70,8 +73,8 @@ const InfoModal = (props) => {
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Button variant="contained" onClick={() => setIsTutorial(true)}>
-              Start Tutorial
+            <Button variant="contained" onClick={handleStartTour}>
+              Start Tour
             </Button>
             <IconButton
               onClick={() => setInfoModalOpen(false)}
@@ -176,7 +179,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       setInfoModalOpen: setInfoModalOpenAction,
-      setIsTutorial: setIsTutorialAction
+      setShowTutorial: setShowTutorialAction
     },
     dispatch
   );

@@ -8,7 +8,10 @@ class TableStateHelper {
   }
 
   dealDealer(table) {
-    if (table.tableState === ConstantsFE.T_STATE_DEALER) {
+    if (
+      table.tableState === ConstantsFE.T_STATE_DEALER &&
+      !store.getState().tutorial.showTutorial
+    ) {
       setTimeout(() => {
         ActionServiceFE.dealDealer();
       }, store.getState().table?.dealingDelay);

@@ -4,6 +4,7 @@ import "styles/CorrectDecision.scss";
 import React from "react";
 import _ from "lodash";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 function CorrectDecision(props) {
   const { lastDecision, customLastDecision } = props;
@@ -29,28 +30,28 @@ function CorrectDecision(props) {
 
     if (playerDecision === correctDecision) {
       return (
-        <p>
+        <Typography>
           {"Correct "}
           <span className="correct-decision">{correctDecisionString}</span>
           {playerAndDealerValues}
-        </p>
+        </Typography>
       );
     } else {
       return (
-        <p>
+        <Typography>
           {"You chose "}
           <span className="incorrect-decision">{playerDecisionString}</span>
           {" instead of "}
           <span className="correct-decision">{correctDecisionString}</span>
           {playerAndDealerValues}
-        </p>
+        </Typography>
       );
     }
   };
 
   return (
     <div className="decision-container">
-      <Typography
+      <Box
         sx={{
           "@media (max-width: 1200px)": {
             fontSize: "12px"
@@ -58,7 +59,7 @@ function CorrectDecision(props) {
         }}
       >
         {decisionText}
-      </Typography>
+      </Box>
     </div>
   );
 }

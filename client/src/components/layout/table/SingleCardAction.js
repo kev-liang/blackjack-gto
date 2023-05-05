@@ -12,7 +12,17 @@ import MainButton from "components/common/MainButton";
 import Tooltip from "@mui/material/Tooltip";
 
 function SingleCardAction(props) {
-  const { table, players, turnId, tableState, action } = props;
+  const {
+    table,
+    players,
+    turnId,
+    tableState,
+    action,
+    showTutorial,
+    enableDuringTutorial,
+    tutorialIndex,
+    tour
+  } = props;
   const { label, handleFn, msgReplacement } = action;
   const [disabled, setDisabled] = React.useState(true);
   const [tooltip, setTooltip] = React.useState("");
@@ -41,7 +51,6 @@ function SingleCardAction(props) {
 
   const handleClick = (handleFn) => {
     if (disabled) return;
-    console.log("HANDLING", handleFn);
     trackEvent("Actions", handleFn, "Button");
     switch (handleFn) {
       case "Split":
@@ -70,7 +79,14 @@ function SingleCardAction(props) {
   };
 
   const handleStand = () => {
-    ActionServiceFE.stand(turnId);
+    if (showTutorial) {
+      if (tutorialIndex === 0) {
+        tour.next();
+        ActionServiceFE.stand(turnId);
+      }
+    } else {
+      ActionServiceFE.stand(turnId);
+    }
   };
 
   const handleDouble = () => {
@@ -128,6 +144,9 @@ function SingleCardAction(props) {
           <MainButton
             label={label}
             handleClick={handleClick}
+            classes={[
+              showTutorial && !enableDuringTutorial ? "disable-tutorial" : ""
+            ]}
             disabled={disabled}
           ></MainButton>
         </span>
@@ -150,7 +169,10 @@ const mapStateToProps = (state) => {
     players: state.table?.table?.players,
     turnId: state.table?.table?.turnId,
     tableState: state.table?.table?.tableState,
-    table: state.table?.table
+    table: state.table?.table,
+    showTutorial: state.tutorial.showTutorial,
+    tutorialIndex: state.tutorial.tutorialIndex,
+    tour: state.tutorial.tour
   };
 };
 

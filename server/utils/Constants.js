@@ -12,6 +12,7 @@ const T_STATE_DEALER_BLACKJACK = "dealerBlackjack";
 const T_STATE_DEALER = "dealer";
 const T_STATE_DEALER_STAND = "dealerStand";
 const T_STATE_END = "end";
+const T_STATE_PAUSE = "pause";
 
 const DEALER_ID = -1;
 const USER_ID = 0;
@@ -30,6 +31,7 @@ module.exports = {
   T_STATE_PLAYING,
   T_STATE_DEALER_BLACKJACK,
   T_STATE_END,
+  T_STATE_PAUSE,
   DEALER_ID,
   USER_ID,
   BLACKJACK,

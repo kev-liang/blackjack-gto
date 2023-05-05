@@ -6,9 +6,6 @@ const applicationReducer = (
     case "TOGGLE_MODAL_OPEN":
       let isModalOpen = !state.isModalOpen;
       return { ...state, isModalOpen };
-    case "SET_IS_TUTORIAL":
-      console.log("SETTING TURORIAL", action.data);
-      return { ...state, isTutorial: action.data };
     case "SET_INFO_MODAL_OPEN":
       return { ...state, isInfoModalOpen: action.data };
     case "SET_SETTINGS_DRAWER":

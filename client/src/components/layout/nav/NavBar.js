@@ -77,6 +77,7 @@ function NavBar(props) {
               size="large"
               edge="start"
               color="inherit"
+              className="toggle-basic-strategy-chart"
               aria-label="basic-strategy-chart"
               onClick={handleShowTableClick}
             >
@@ -95,18 +96,20 @@ function NavBar(props) {
           </Tooltip>
 
           <Box sx={{ flexGrow: 1 }}></Box>
-          <MobileMenu
-            handleInfoModalClick={handleInfoModalClick}
-            handleStatisticsModalClick={handleStatisticsModalClick}
-            handleSettingsClick={handleSettingsClick}
-          ></MobileMenu>
-          <DesktopMenu
-            handleInfoModalClick={handleInfoModalClick}
-            handleStatisticsModalClick={handleStatisticsModalClick}
-            handleSettingsClick={handleSettingsClick}
-          ></DesktopMenu>
-          <LoggedIn></LoggedIn>
-          {!user && <div id="google-sign-in"></div>}
+          <Box className="nav-top-right-container" sx={{ display: "flex" }}>
+            <MobileMenu
+              handleInfoModalClick={handleInfoModalClick}
+              handleStatisticsModalClick={handleStatisticsModalClick}
+              handleSettingsClick={handleSettingsClick}
+            ></MobileMenu>
+            <DesktopMenu
+              handleInfoModalClick={handleInfoModalClick}
+              handleStatisticsModalClick={handleStatisticsModalClick}
+              handleSettingsClick={handleSettingsClick}
+            ></DesktopMenu>
+            <LoggedIn></LoggedIn>
+            {!user && <div id="google-sign-in"></div>}
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
