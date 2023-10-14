@@ -1,4 +1,5 @@
 const Constants = require("../utils/Constants");
+const CardHelpers = require("../helpers/CardHelpers");
 
 class Player {
   constructor(id, deck) {
@@ -20,7 +21,7 @@ class Player {
   deal(numCards, shouldCount = true) {
     this.cards = this.cards.concat(this.deck.deal(numCards, shouldCount));
     this.isSoft =
-      this.cards.length === 2 && !!this.cards.find((card) => card.value == 14);
+      !!this.cards.find((card) => card.value == 14) && this.getCardTotal();
     this.hasPair =
       this.cards.length === 2 && this.cards[0].value === this.cards[1].value;
     this.handleDealtBlackjack(shouldCount);
@@ -28,8 +29,8 @@ class Player {
 
   handleDealtBlackjack(shouldCount) {
     if (this.cards.length !== 2) return;
-    let numOfAce = this.getNumOfAce(this.cards);
-    let total = this.calcCardTotal(numOfAce, this.cards);
+    let numOfAce = CardHelpers.getNumOfAce(this.cards);
+    let total = CardHelpers.calcCardTotal(numOfAce, this.cards);
     if (total !== 21) return;
     this.deck.resetBlackjack();
     this.cards = [];
@@ -58,35 +59,9 @@ class Player {
 
   getCardTotal(cardsArg = []) {
     let cards = cardsArg.length ? cardsArg : this.cards;
-    let numOfAce = this.getNumOfAce(cards);
-    this.cardTotal = this.calcCardTotal(numOfAce, cards);
+    let numOfAce = CardHelpers.getNumOfAce(cards);
+    this.cardTotal = CardHelpers.calcCardTotal(numOfAce, cards);
     this.getDisplayTotal(numOfAce, this.cardTotal);
-  }
-
-  calcCardTotal(numOfAce, cards) {
-    let sum = cards.reduce((sum, { value }) => {
-      if (value === 14) {
-        sum += 11;
-      } else if (value >= 10) {
-        sum += 10;
-      } else {
-        sum += value;
-      }
-      return sum;
-    }, 0);
-    // handling ace equaling 1 or 11
-
-    let numOfAceCount = numOfAce;
-    while (numOfAceCount && sum > Constants.BLACKJACK) {
-      sum -= 10;
-      numOfAceCount--;
-    }
-    return sum;
-  }
-
-  getNumOfAce(cards) {
-    let cardsWithoutAce = cards.filter((card) => card.value !== 14);
-    return cards.length - cardsWithoutAce.length;
   }
 
   getDisplayTotal(numOfAce, sum) {

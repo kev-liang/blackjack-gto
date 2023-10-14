@@ -45,6 +45,8 @@ class Deck {
       let card = this.deck[this.currCard];
       this.currCard++;
       cards.push(card);
+      // throwing errors to check (card.value undefined card)
+      // A 9 showing as AA (20 or 10 and soft)
       this.count(card.value, shouldCount);
       if (this.currCard === this.deck.length) {
         this.shuffle();
