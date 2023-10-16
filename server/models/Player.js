@@ -1,4 +1,5 @@
 const Constants = require("../utils/Constants");
+const CardHelpers = require("../utils/helpers/CardHelpers");
 
 class Player {
   constructor(id, deck) {
@@ -19,8 +20,9 @@ class Player {
 
   deal(numCards, shouldCount = true) {
     this.cards = this.cards.concat(this.deck.deal(numCards, shouldCount));
+    this.getCardTotal();
     this.isSoft =
-      this.cards.length === 2 && !!this.cards.find((card) => card.value == 14);
+      CardHelpers.getNumOfAce(this.cards) > 0 && this.cardTotal <= 20;
     this.hasPair =
       this.cards.length === 2 && this.cards[0].value === this.cards[1].value;
     this.handleDealtBlackjack(shouldCount);
@@ -28,8 +30,7 @@ class Player {
 
   handleDealtBlackjack(shouldCount) {
     if (this.cards.length !== 2) return;
-    let numOfAce = this.getNumOfAce(this.cards);
-    let total = this.calcCardTotal(numOfAce, this.cards);
+    let total = CardHelpers.calcCardTotal(this.cards);
     if (total !== 21) return;
     this.deck.resetBlackjack();
     this.cards = [];
@@ -56,45 +57,36 @@ class Player {
     this.getCardTotal();
   }
 
-  getCardTotal(cardsArg = []) {
-    let cards = cardsArg.length ? cardsArg : this.cards;
-    let numOfAce = this.getNumOfAce(cards);
-    this.cardTotal = this.calcCardTotal(numOfAce, cards);
+  getCardTotal() {
+    this.cardTotal = CardHelpers.calcCardTotal(this.cards);
+    let numOfAce = CardHelpers.getNumOfAce(this.cards);
     this.getDisplayTotal(numOfAce, this.cardTotal);
-  }
-
-  calcCardTotal(numOfAce, cards) {
-    let sum = cards.reduce((sum, { value }) => {
-      if (value === 14) {
-        sum += 11;
-      } else if (value >= 10) {
-        sum += 10;
-      } else {
-        sum += value;
-      }
-      return sum;
-    }, 0);
-    // handling ace equaling 1 or 11
-
-    let numOfAceCount = numOfAce;
-    while (numOfAceCount && sum > Constants.BLACKJACK) {
-      sum -= 10;
-      numOfAceCount--;
-    }
-    return sum;
-  }
-
-  getNumOfAce(cards) {
-    let cardsWithoutAce = cards.filter((card) => card.value !== 14);
-    return cards.length - cardsWithoutAce.length;
   }
 
   getDisplayTotal(numOfAce, sum) {
     if (this.id === Constants.DEALER_ID && !this.shouldShowAllCards) {
       this.displayTotal = sum === 11 ? "A" : `${sum}`;
     } else {
-      this.displayTotal =
-        numOfAce && sum !== 21 ? `${sum} or ${sum - 10}` : `${sum}`;
+      let sumWithAceEquals1 = this.cards.reduce((sum, { value }) => {
+        if (value === 14) {
+          sum += 1;
+        } else if (value >= 10) {
+          sum += 10;
+        } else {
+          sum += value;
+        }
+        return sum;
+      }, 0);
+
+      if (numOfAce === 0) this.displayTotal = sum;
+      else {
+        let sumWithAceEquals11 = sumWithAceEquals1 + 10;
+        if (sumWithAceEquals11 < 21) {
+          this.displayTotal = `${sumWithAceEquals11} or ${sumWithAceEquals1}`;
+        } else {
+          this.displayTotal = sumWithAceEquals1;
+        }
+      }
     }
   }
 }
