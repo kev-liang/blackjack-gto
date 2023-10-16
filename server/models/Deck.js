@@ -41,6 +41,7 @@ class Deck {
 
   deal(numCards, shouldCount = true) {
     let cards = [];
+    this.dealTest();
     for (let i = 0; i < numCards; i++) {
       let card = this.deck[this.currCard];
       this.currCard++;
@@ -50,6 +51,7 @@ class Deck {
       this.count(card.value, shouldCount);
       if (this.currCard === this.deck.length) {
         this.shuffle();
+        this.currCard = 0;
       }
     }
     return cards;
@@ -60,28 +62,22 @@ class Deck {
     this.shuffle(this.currCard);
   }
 
-  dealTest(numCards, shouldCount = true) {
-    this.deck = [
-      { value: 14, suit: "h" },
-      { value: 10, suit: "c" },
-      { value: 3, suit: "h" },
-      { value: 9, suit: "c" },
-      { value: 14, suit: "s" },
-      { value: 14, suit: "h" },
-      { value: 10, suit: "c" },
-      { value: 14, suit: "s" },
-      { value: 14, suit: "h" },
-      { value: 14, suit: "c" },
-      { value: 14, suit: "s" }
-    ];
-    let cards = [];
-    for (let i = 0; i < numCards; i++) {
-      let card = this.deck[this.currCard];
-      this.currCard++;
-      cards.push(card);
-      this.count(card.value, shouldCount);
+  dealTest() {
+    if (process.env.NODE_ENV !== "production") {
+      this.deck = [
+        { value: 4, suit: "h" },
+        { value: 10, suit: "c" },
+        { value: 3, suit: "h" },
+        { value: 2, suit: "c" },
+        { value: 14, suit: "s" },
+        { value: 14, suit: "h" },
+        { value: 10, suit: "c" },
+        { value: 14, suit: "s" },
+        { value: 14, suit: "h" },
+        { value: 14, suit: "c" },
+        { value: 14, suit: "s" }
+      ];
     }
-    return cards;
   }
 
   count(value, shouldCount) {

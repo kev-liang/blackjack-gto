@@ -1,6 +1,7 @@
 const Constants = require("../Constants");
 
-const calcCardTotal = (numOfAce, cards) => {
+const calcCardTotal = (cards) => {
+  let numOfAce = getNumOfAce(cards);
   let sum = cards.reduce((sum, { value }) => {
     if (value === 14) {
       sum += 11;
