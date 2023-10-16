@@ -16,13 +16,13 @@ function CorrectDecision(props) {
   }, [lastDecision, customLastDecision]);
 
   const getDecisionText = (lastDecision) => {
-    let { correctDecision } = lastDecision;
-    let playerDecision = lastDecision.playerValues.decision;
+    let { correctDecision, playerValues } = lastDecision;
+    let playerDecision = playerValues.decision;
     let correctDecisionString = DecisionConstantsFE.STRING_MAP[correctDecision];
     let playerDecisionString = DecisionConstantsFE.STRING_MAP[playerDecision];
 
     let playerAndDealerValues = ` with a ${
-      lastDecision.isSoft ? "soft" : "hard"
+      playerValues.isSoft ? "soft" : "hard"
     } ${lastDecision.playerValues.playerValue} against the dealer's ${
       lastDecision.dealerValue === 14 ? "A" : lastDecision.dealerValue
     }.`;

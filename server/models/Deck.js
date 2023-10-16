@@ -67,8 +67,8 @@ class Deck {
       this.deck = [
         { value: 4, suit: "h" },
         { value: 10, suit: "c" },
-        { value: 3, suit: "h" },
-        { value: 2, suit: "c" },
+        { value: 14, suit: "h" },
+        { value: 14, suit: "c" },
         { value: 14, suit: "s" },
         { value: 14, suit: "h" },
         { value: 10, suit: "c" },

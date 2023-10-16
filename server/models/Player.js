@@ -20,9 +20,10 @@ class Player {
 
   deal(numCards, shouldCount = true) {
     this.cards = this.cards.concat(this.deck.deal(numCards, shouldCount));
-    this.getCardTotal();
     this.isSoft =
-      CardHelpers.getNumOfAce(this.cards) > 0 && this.cardTotal <= 20;
+      CardHelpers.getNumOfAce(this.cards) > 0 &&
+      CardHelpers.getCardTotal(this.cards, 1) + 10 < Constants.BLACKJACK;
+    this.getCardTotal();
     this.hasPair =
       this.cards.length === 2 && this.cards[0].value === this.cards[1].value;
     this.handleDealtBlackjack(shouldCount);
@@ -30,7 +31,7 @@ class Player {
 
   handleDealtBlackjack(shouldCount) {
     if (this.cards.length !== 2) return;
-    let total = CardHelpers.calcCardTotal(this.cards);
+    let total = CardHelpers.getMaxCardTotal(this.cards);
     if (total !== 21) return;
     this.deck.resetBlackjack();
     this.cards = [];
@@ -58,7 +59,7 @@ class Player {
   }
 
   getCardTotal() {
-    this.cardTotal = CardHelpers.calcCardTotal(this.cards);
+    this.cardTotal = CardHelpers.getMaxCardTotal(this.cards);
     let numOfAce = CardHelpers.getNumOfAce(this.cards);
     this.getDisplayTotal(numOfAce, this.cardTotal);
   }
@@ -67,21 +68,12 @@ class Player {
     if (this.id === Constants.DEALER_ID && !this.shouldShowAllCards) {
       this.displayTotal = sum === 11 ? "A" : `${sum}`;
     } else {
-      let sumWithAceEquals1 = this.cards.reduce((sum, { value }) => {
-        if (value === 14) {
-          sum += 1;
-        } else if (value >= 10) {
-          sum += 10;
-        } else {
-          sum += value;
-        }
-        return sum;
-      }, 0);
+      let sumWithAceEquals1 = CardHelpers.getCardTotal(this.cards, 1);
 
       if (numOfAce === 0) this.displayTotal = sum;
       else {
         let sumWithAceEquals11 = sumWithAceEquals1 + 10;
-        if (sumWithAceEquals11 < 21) {
+        if (sumWithAceEquals11 < Constants.BLACKJACK) {
           this.displayTotal = `${sumWithAceEquals11} or ${sumWithAceEquals1}`;
         } else {
           this.displayTotal = sumWithAceEquals1;
