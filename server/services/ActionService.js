@@ -53,7 +53,7 @@ class ActionService {
   }
 
   hasPlayerAce(player) {
-    return player.cards.find((card) => card.value === 14);
+    return player.cards.find((card) => card.value === Constants.ACE_VALUE);
   }
 
   stand(playerId, isAuthenticated) {
@@ -115,8 +115,8 @@ class ActionService {
   getHistory(player, dealerValue, decision, isAuthenticated) {
     // jack, queen, king = 10
     let newDealerValue;
-    if (dealerValue === 14) {
-      newDealerValue = 14;
+    if (dealerValue === Constants.ACE_VALUE) {
+      newDealerValue = Constants.ACE_VALUE;
     } else if (dealerValue >= 10) {
       newDealerValue = 10;
     } else {

@@ -16,6 +16,7 @@ const T_STATE_END = "end";
 const DEALER_ID = -1;
 const USER_ID = 0;
 const BLACKJACK = 21;
+const ACE_VALUE = 14;
 const DEFAULT_NUM_DECK = 6;
 
 module.exports = {
@@ -33,5 +34,6 @@ module.exports = {
   DEALER_ID,
   USER_ID,
   BLACKJACK,
+  ACE_VALUE,
   DEFAULT_NUM_DECK
 };
