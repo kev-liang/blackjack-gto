@@ -23,7 +23,6 @@ class Player {
     this.isSoft =
       CardHelpers.getNumOfAce(this.cards) > 0 &&
       CardHelpers.getCardTotal(this.cards, 1) + 10 < Constants.BLACKJACK;
-    this.getCardTotal();
     this.hasPair =
       this.cards.length === 2 && this.cards[0].value === this.cards[1].value;
     this.handleDealtBlackjack(shouldCount);
@@ -66,7 +65,8 @@ class Player {
 
   getDisplayTotal(numOfAce, sum) {
     if (this.id === Constants.DEALER_ID && !this.shouldShowAllCards) {
-      this.displayTotal = sum === 11 ? "A" : `${sum}`;
+      let shownCard = this.cards[1].value;
+      this.displayTotal = shownCard === 14 ? "A" : `${shownCard}`;
     } else {
       let sumWithAceEquals1 = CardHelpers.getCardTotal(this.cards, 1);
 
