@@ -20,7 +20,7 @@ class TableService {
     this.initTable(numPlayers);
 
     this.tableStateService.on(EventConstants.DEALING_PLAYER_TO_DEALER, () => {
-      this.deck.count(this.dealer.cards[0].value, true);
+      this.deck.count(this.dealer.cards[1].value, true);
     });
   }
 
@@ -55,7 +55,7 @@ class TableService {
     this.dealer.deal(1, false);
     this.dealer.deal(1);
     // show one card to determine correct basic strategy decision
-    this.dealer.shownCards = [this.dealer.cards[0]];
+    this.dealer.shownCards = [this.dealer.cards[1]];
     this.dealer.getCardTotal();
     this.dealer.isPlaying = true;
   }
